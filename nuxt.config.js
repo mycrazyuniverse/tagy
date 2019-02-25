@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const cheerio = require('cheerio')
 
 module.exports = {
   mode: 'universal',
@@ -29,7 +30,7 @@ module.exports = {
     ],
     script: [
       {
-        src: 'tagcity/coupon.js'
+        src: '/coupon.js'
       }, {
         src: 'https://i.icomoon.io/public/temp/836c5c69b3/TagCity/svgxuse.js'
       }
@@ -86,14 +87,15 @@ module.exports = {
 
   hooks: {
     // This hook is called before rendering the html to the browser 'generate:page':
-    // page => { const doc = cheerio.load(page.html); doc(`body script`).remove();
-    // doc(`body`).append('<script type="text/javascript"
-    // src="../client/client.js"></script>'); page.html = doc.html(); }
+    page() {
+      const doc = cheerio.load(page.html);
+      doc(`body script`).remove();
+      doc(`body`).append('<script type="text/javascript src = "https://mycrazyuniverse.github.io/tagcity/s' +
+          'tatic/coupon.js" > </script>');
+      page.html = doc.html();
+    }
   },
 
-  /*
-   ** Build configuration
-   */
   build: {
     /*
      ** You can extend webpack config here
