@@ -30,7 +30,7 @@ module.exports = {
     ],
     script: [
       {
-        src: '/coupon.js'
+        src: '/static/coupon.js'
       }, {
         src: 'https://i.icomoon.io/public/temp/836c5c69b3/TagCity/svgxuse.js'
       }
