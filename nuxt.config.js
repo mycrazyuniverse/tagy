@@ -6,32 +6,28 @@ module.exports = {
 
   head: {
     title: pkg.name,
-    meta: [
+    meta: [{
+      charset: 'utf-8'
+    }, {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1'
+    }, {
+      hid: 'description',
+      name: 'description',
+      content: pkg.description
+    }],
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }, {
+      rel: 'stylesheet',
+      href: 'https://i.icomoon.io/public/temp/836c5c69b3/TagCity/style-svg.css'
+    }],
+    script: [{
+        src: './coupon.js'
+      },
       {
-        charset: 'utf-8'
-      }, {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
-      }, {
-        hid: 'description',
-        name: 'description',
-        content: pkg.description
-      }
-    ],
-    link: [
-      {
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: '/favicon.ico'
-      }, {
-        rel: 'stylesheet',
-        href: 'https://i.icomoon.io/public/temp/836c5c69b3/TagCity/style-svg.css'
-      }
-    ],
-    script: [
-      {
-        src: '/tagcity/coupon.js'
-      }, {
         src: 'https://i.icomoon.io/public/temp/836c5c69b3/TagCity/svgxuse.js'
       }
     ]
@@ -63,19 +59,17 @@ module.exports = {
   modules: [
     [
       'nuxt-i18n', {
-        locales: [
-          {
-            name: 'Nederlands',
-            code: 'nl',
-            iso: 'nl-BE',
-            file: 'nl-be.js'
-          }, {
-            name: 'Français',
-            code: 'fr',
-            iso: 'fr-BE',
-            file: 'fr-be.js'
-          }
-        ],
+        locales: [{
+          name: 'Nederlands',
+          code: 'nl',
+          iso: 'nl-BE',
+          file: 'nl-be.js'
+        }, {
+          name: 'Français',
+          code: 'fr',
+          iso: 'fr-BE',
+          file: 'fr-be.js'
+        }],
         lazy: false,
         defaultLocale: 'nl'
       }
@@ -90,8 +84,7 @@ module.exports = {
     page() {
       const doc = cheerio.load(page.html);
       doc(`body script`).remove();
-      doc(`body`).append('<script type="text/javascript src = "https://mycrazyuniverse.github.io/tagcity/s' +
-          'tatic/coupon.js" > </script>');
+      doc(`body`).append('<script type="text/javascript src = "../client/client.js" > </script>');
       page.html = doc.html();
     }
   },
