@@ -25,7 +25,6 @@ document
     var decodeUrl = h + p + 1 + c + m + f + q + p + 'm' + i + g + z + e + r + i + a + e + k + g;
 
     var mobilemenuoverlay = document.querySelector('.mobile-menu-overlay');
-    var popup_id = getUrlParameter('popup');
 
           src: 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js'
 
@@ -35,6 +34,8 @@ document
         console.log(decrypted);
 
     */
+
+    var popup_id = getUrlParameter('popup');
 
     if (popup_id) {
 
