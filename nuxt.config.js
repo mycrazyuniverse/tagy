@@ -20,9 +20,6 @@ module.exports = {
       rel: 'icon',
       type: 'image/x-icon',
       href: '/favicon.ico'
-    }, {
-      rel: 'stylesheet',
-      href: 'https://i.icomoon.io/public/temp/836c5c69b3/TagCity/style-svg.css'
     }],
     script: [{
       src: './coupon.js'
