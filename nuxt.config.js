@@ -78,10 +78,9 @@ module.exports = {
 
   hooks: {
     // This hook is called before rendering the html to the browser 'generate:page':
-    page() {
+    'generate:page': page => {
       const doc = cheerio.load(page.html);
-      doc(`body script`).remove();
-      doc(`body`).append('<script type="text/javascript src = "../client/client.js" > </script>');
+      doc('body script').remove();
       page.html = doc.html();
     }
   },
