@@ -4,7 +4,7 @@
       <form>
         <div class="optin-container">
           <div class="optin-logo">
-            <img :src="logo" id="webshop-logo" class="webshop-logo">
+            <img :src="logo" class="optin-logo-img">
             <img
               src="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/optin.png"
               class="envloppe"
@@ -42,14 +42,14 @@ export default {
   props: {
     logo: {
       type: String,
-      default: ''
+      default: ""
     },
     webshop: {
       type: String,
-      default: ''
+      default: ""
     }
   }
-}
+};
 </script>
 
 <style>

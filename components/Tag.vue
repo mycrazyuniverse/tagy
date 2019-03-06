@@ -49,8 +49,7 @@ export default {
   },
   props: {
     id: {
-      type: Number,
-      default: 1
+      type: Number
     },
     status: {
       type: String,
@@ -81,8 +80,8 @@ export default {
       default: ""
     },
     views: {
-      type: Number,
-      default: 0
+      type: String,
+      default: ""
     },
     url: {
       type: String,

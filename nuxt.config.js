@@ -25,12 +25,8 @@ module.exports = {
       href: 'https://i.icomoon.io/public/temp/836c5c69b3/TagCity/style-svg.css'
     }],
     script: [{
-        src: './coupon.js'
-      },
-      {
-        src: 'https://i.icomoon.io/public/temp/836c5c69b3/TagCity/svgxuse.js'
-      }
-    ]
+      src: './coupon.js'
+    }, ]
   },
   env: {
     apiUrl: 'https://dev-tagcity.pantheonsite.io'
@@ -73,7 +69,8 @@ module.exports = {
         lazy: false,
         defaultLocale: 'nl'
       }
-    ]
+    ],
+    '@nuxtjs/svg-sprite'
   ],
   render: {
     resourceHints: false

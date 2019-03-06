@@ -1,13 +1,11 @@
 <template>
   <aside class="widget user">
-    <p class="verfied text-center">
-      <strong>Alle {{ webshop }} kortingen zijn geverifieerd door</strong>
-    </p>
-    <div class="user text-center">
+    <div class="text-center">
       <br>
       <img
         src="https://tagcity.be/app/themes/tagcity/assets/img/Benjamin.jpg"
         width="100"
+        height="100"
         class="author-avatar circle"
       >
       <div class="name">{{ author }}</div>

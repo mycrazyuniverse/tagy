@@ -13,8 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var logo = tag.dataset.logo;
     var code = tag.dataset.code;
 
-    console.log(tag);
-
     popup.querySelector('.pop-code').addEventListener('click', (ev) => {
       const elm = ev.target.select();
 
@@ -33,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
     target.addEventListener('click', (ev) => {
       addClass(popup, 'hide');
       addClass(popup, 'popup-hidden');
-
 
 
     }, false);

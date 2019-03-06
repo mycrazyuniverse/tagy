@@ -5,21 +5,13 @@
       <img src="../assets/images/masterpiece-8.png">
     </div>
     <div class="claim_to_fame float-left text-center">
-      <svg class="icon icon-star">
-        <use xlink:href="#icon-star"></use>
-      </svg>
-      <svg class="icon icon-star">
-        <use xlink:href="#icon-star"></use>
-      </svg>
-      <svg class="icon icon-star">
-        <use xlink:href="#icon-star"></use>
-      </svg>
-      <svg class="icon icon-star">
-        <use xlink:href="#icon-star"></use>
-      </svg>
-      <svg class="icon icon-star">
-        <use xlink:href="#icon-star"></use>
-      </svg>
+      <div class="stars">
+        <svg-icon name="star" class="star"/>
+        <svg-icon name="star" class="star"/>
+        <svg-icon name="star" class="star"/>
+        <svg-icon name="star" class="star"/>
+        <svg-icon name="star" class="star"/>
+      </div>
       <h3>{{title}}</h3>
       <div class="collapse" :id="'details' + id">
         <p>{{ details }}</p>
@@ -80,6 +72,10 @@ export default {
     padding-top: 5px;
   }
 
+  .stars {
+    display: inline-block;
+  }
+
   .claim_to_fame {
     color: #fff;
     width: 50%;
@@ -90,9 +86,13 @@ export default {
       color: #fff;
     }
 
-    .icon-star {
-      color: #fbae17;
-      font-size: 25px;
+    .star {
+      fill: #fbae17;
+      float: left;
+      width: 25px;
+      height: 25px;
+      padding-left: 2px;
+      padding-right: 2px;
     }
 
     h3 {

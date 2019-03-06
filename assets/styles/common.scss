@@ -19,8 +19,37 @@ body {
 }
 
 .widget {
+  display: inline-block;
   padding-left: 15px;
   padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #95aec5;
+
+  li {
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+
+  ol {
+    list-style: decimal inside none;
+
+
+  }
+
+  ul {
+    list-style: inside;
+  }
+
+  h3 {
+    padding-bottom: 10px;
+    font-weight: bold;
+  }
+
+  h4 {
+    padding-bottom: 5px;
+    font-weight: bold;
+    font-size: 13px;
+  }
 }
 
 .navigation {
@@ -47,7 +76,7 @@ body {
 }
 
 .down_arrow {
-  border-color: #909090 transparent;
+  border-color: rgb(207, 207, 207) transparent;
   border-style: solid;
   border-width: 5px 4px 0 4px;
   width: 0;
@@ -174,7 +203,7 @@ strong {
   .optin-container {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3f4c6b+0,3f4c6b+100;Blue+Grey+Flat */
     background: #3f4c6b;
-    //background-image: url("../images/opting-bg20.jpg");
+    //background-image: url("./images/opting-bg20.jpg");
     background-position: bottom center;
     background-size: cover;
   }
@@ -184,7 +213,7 @@ strong {
     display: inline-block;
     top: 20px;
 
-    .webshop-logo {
+    .optin-logo-img {
       width: 58px;
       left: 21px;
       position: absolute;
@@ -215,48 +244,20 @@ input {
   width: 100%;
   padding: 10px;
   -webkit-box-sizing: border-box;
-  /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;
-  /* Firefox, other Gecko */
   box-sizing: border-box;
   font-size: 15px;
 }
 
-
-.shop-bar {
-  padding-top: 30px;
-  padding-bottom: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
-  line-height: 21px;
-  //background-size: cover;
-  //background-position: bottom right;
-  //background-image: url("../images/exlcusieve_coupon_mirror.png");
-
-  .webshop-logo {
-    float: left;
-    margin-left: 5px;
-    margin-right: 15px;
-    border-radius: 46px;
-    background-color: #ffffff;
-    padding: 10px;
-    width: 41px;
-    padding-bottom: 10Px;
-    text-align: center;
-  }
-
-  h1 {
-    font-size: 19px;
-    padding-bottom: 10px;
-    color: #173a68;
-  }
-
-  h2 {
-    font-weight: 100;
-    font-size: 14px;
-    color: #105971;
-  }
+.webshop-logo {
+  float: left;
+  border-radius: 46px;
+  background-color: #ffffff;
+  padding: 10px;
+  text-align: center;
 }
+
+
 
 .block {
   padding-left: 15px;

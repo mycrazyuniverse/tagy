@@ -5,8 +5,28 @@
         <nav>
           <div class="close pop-close"></div>
           <ul class="menu-items">
-            <li>
-              <a class="menu-item">Homepagina</a>
+            <li v-for="(navitem, key) of items" :key="key">
+              <a
+                class="menu-item"
+                data-toggle="collapse"
+                :data-target="'#menu_dropdown_category_' + navitem.ID"
+                data-text="Collapse"
+              >
+                {{ navitem.title }}
+                <span
+                  v-if="navitem.wpse_children != 0"
+                  class="down_arrow float-right"
+                ></span>
+              </a>
+              <ul
+                v-if="navitem.wpse_children != 0"
+                :id="'menu_dropdown_category_' + navitem.ID"
+                class="collapse dropdown_menu"
+              >
+                <li v-for="(item, key) of navitem.wpse_children">
+                  <a class="menu-item">{{ item.title }}</a>
+                </li>
+              </ul>
             </li>
             <li>
               <a
@@ -16,16 +36,32 @@
                 data-text="Collapse"
               >
                 Categorieën
-                <svg class="icon icon-arrow_drop_down float-right">
-                  <use xlink:href="#icon-arrow_drop_down"></use>
-                </svg>
+                <span class="down_arrow float-right"></span>
               </a>
               <ul id="menu_dropdown_category_1" class="collapse dropdown_menu">
                 <li>
-                  <a class="menu-item">Mode</a>
+                  <a class="menu-item">Bloemen en geschenken</a>
                 </li>
                 <li>
-                  <a class="menu-item">Overige</a>
+                  <a class="menu-item">Bedrukken en fotografie</a>
+                </li>
+                <li>
+                  <a class="menu-item">Gezondheid en verzorging</a>
+                </li>
+                <li>
+                  <a class="menu-item">Vakantie en reizen</a>
+                </li>
+                <li>
+                  <a class="menu-item">Mode en accessoires</a>
+                </li>
+                <li>
+                  <a class="menu-item">Elektronica</a>
+                </li>
+                <li>
+                  <a class="menu-item">Eten en drinken</a>
+                </li>
+                <li>
+                  <a class="menu-item">Dating</a>
                 </li>
               </ul>
             </li>
@@ -37,9 +73,7 @@
                 class="menu-item"
               >
                 Webshops
-                <svg class="icon icon-arrow_drop_down float-right">
-                  <use xlink:href="#icon-arrow_drop_down"></use>
-                </svg>
+                <span class="down_arrow float-right"></span>
               </a>
               <ul id="menu_dropdown_webhops_1" class="collapse dropdown_menu">
                 <li>
@@ -55,7 +89,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["items"],
+  computed: {
+    availableLocales() {
+      return "dsmlldmml";
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -66,6 +107,13 @@ export default {};
   -o-transform: translateX(75%);
   transform: translateX(75%);
   position: fixed;
+}
+
+.menu-item {
+  .down_arrow {
+    margin-top: 7px;
+    margin-left: 7px;
+  }
 }
 
 .mobile-menu-overlay {
@@ -98,7 +146,7 @@ export default {};
 .dropdown_menu {
   a {
     width: 100%;
-    color: #cfcfcf;
+    color: #043a6b;
   }
 }
 
@@ -152,7 +200,6 @@ nav {
 }
 
 #nav-container {
-  background-color: #034e89;
   display: inline-block;
   top: 0px !important;
   width: 75%;
@@ -168,7 +215,7 @@ nav {
 
   #nav-container {
     left: 0% !important;
-    background-color: #034e89;
+    background-color: rgba(3, 78, 137, 0.25);
     display: inline-block;
     width: 100% !important;
     position: relative;
@@ -192,6 +239,10 @@ nav {
       left: 0px;
       padding-left: 15px;
       padding-right: 15px;
+
+      li {
+        width: 200px;
+      }
     }
   }
 }

@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div id="content">
-      <ShopBar :title="shop.title" :subtitle="shop.subtitle"></ShopBar>
       <section class="tags">
         <tag
           v-for="data in tags"
@@ -38,7 +37,7 @@
       ></Optin>
       <section class="hall_of_fame">
         <HallOfFame
-          id="4593"
+          :id="4593"
           discountvalue="20%"
           discountlabel="Korting"
           title="Beste Farmaline kortingscode: 20% korting"
@@ -57,8 +56,39 @@
         webshop="Collishop"
       ></UserBio>
       <aside class="widget">
-        <h3 class="bold">Alles over Collishop promotiecode</h3>
+        <h3>Alles over Collishop promotiecode</h3>
         <h4>Welke kortingen zijn beschikbaar?</h4>
+        <p>Vaak voorkomende ColliShop promotiecodes zijn:</p>
+        <ul>
+          <li>10%, 15% of 20% korting op geselecteerde artikelen of een specifiek assortiment</li>
+          <li>25% korting op speelgoed, zoals LEGO DUPLO of buitenspeelgoed</li>
+          <li>Korting op kinderkamers, tuinmeubelen en koffers</li>
+          <li>promotiecodes voor korting op het slaapassortiment</li>
+          <li>
+            Enkele keren per jaar geeft ColliShop 5% of €7,50 korting
+            op het hele assortiment en af en toe krijgt u met een code een geschenkje bij uw bestelling.
+          </li>
+        </ul>
+      </aside>
+      <aside class="widget related_shop_logo shop-logo">
+        <h3>Webshops zoals Collishop</h3>
+        <WebshopLogo
+          v-for="index in 10"
+          :key="index"
+          logo="https://tagcity.be/app/uploads/2015/08/albert-heijn-logo.png"
+          url="/shop/albert-heijn"
+        ></WebshopLogo>
+      </aside>
+      <aside class="widget">
+        <h3>Dit moet je weten over Collishop</h3>
+        <ol>
+          <li>Op de salepagina van Bonprix.be vind je altijd artikelen die scherp zijn afgeprijsd.</li>
+          <li>Door middel van het aanmelden voor de nieuwsbrief mis je geen enkele aanbieding of kortingscode meer.</li>
+          <li>Er zijn regelmatig acties op Bonprix.be waarbij je iets kunt winnen of korting ontvangt.</li>
+          <li>Door gebruik te maken van het gratis maatadvies van Bonprix, voorkom je miskopen. Bestel je voor 22:00 uur, dan ontvang je de artikelen de volgende dag in huis</li>
+          <li>Door fan te worden van Bonprix op Facebook, weet je als eerste alle acties, aanbiedingen en nieuwtjes.</li>
+          <li>Je kunt met de handige & gratis app heel gemakkelijk woonaccessoires en kleding aanschaffen via je mobiel.</li>
+        </ol>
       </aside>
     </div>
     <div id="popup" class="popup hide">
@@ -81,6 +111,7 @@ import UserBio from "~/components/UserBio.vue";
 import Discountbox from "~/components/Discountbox.vue";
 import HallOfFame from "~/components/HallOfFame.vue";
 import ShopBar from "~/components/ShopBar.vue";
+import WebshopLogo from "~/components/WebshopLogo.vue";
 
 export default {
   async asyncData({ app, route }) {
@@ -105,7 +136,7 @@ export default {
       },
       tags: [
         {
-          id: "100",
+          id: 100,
           title: "Exclusief: 7% korting op jouw bestelling bij BookSpot",
           label: "Korting",
           logo:
@@ -117,7 +148,7 @@ export default {
           details: ""
         },
         {
-          id: "110",
+          id: 110,
           title: "Exclusief: 10% korting op de volledige website",
           label: "Korting",
           logo:
@@ -155,7 +186,8 @@ export default {
     UserBio,
     Discountbox,
     HallOfFame,
-    ShopBar
+    ShopBar,
+    WebshopLogo
   },
   mounted() {}
 };
@@ -214,6 +246,8 @@ export default {
 }
 
 .sidebar {
+  top: -105px;
+  position: relative;
   width: 100%;
   float: right;
   font-size: 12px;
@@ -241,5 +275,11 @@ export default {
 
 .popup-hidden {
   height: 0px;
+}
+
+.related_shop_logo {
+  .webshop-logo {
+    margin: 5px;
+  }
 }
 </style>
