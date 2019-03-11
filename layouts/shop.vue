@@ -5,6 +5,7 @@
         <tag
           v-for="data in tags"
           :key="data.id"
+          :id="data.id"
           :title="data.title"
           :details="data.details"
           :url="data.url"

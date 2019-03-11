@@ -6,20 +6,27 @@
         <a id="openmenu" class="float-right">☰</a>
         <div class="search">
           <form action="/zoek">
-            <input
-              name="q"
-              type="text"
-              maxlength="75"
-              placeholder="Zoek op winkel"
-              spellcheck="false"
-              autocomplete="off"
-              class="searchfield"
-            >
+              <input
+                name="q"
+                type="search"
+                maxlength="75"
+                placeholder="Zoek webshop of soort product je naar op zoek bent bij die webshop bv. Pizza"
+                spellcheck="false"
+                autocomplete="off"
+                class="searchfield"
+              >
           </form>
           <div class="searchresults hide">
-            <ul>
-              <li v-for="index in 10" :key="index">
-                <a>webshop 1</a>
+              <div class="searchresults-title">{{ search.webshops.title }}</div>
+            <ul class="">
+              <li v-for="(target, index) in search.webshops.results" :key="index" class="searchresult">
+                  <a href="/webshop" class="searchresult_link">
+                      <img src="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" height="40" class="float-left searchresult_thumb" />
+                      <span class="searchresult_text">
+                        <strong>{{ target.name }}</strong>
+                        <br /> {{ target.count }} acties
+                      </span>
+                  </a>
               </li>
             </ul>
           </div>
@@ -30,7 +37,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+    props: ["search"],
+    mounted() {
+      console.log('search', this.search)
+    }
+};
 </script>
 
 <style lang="scss">
@@ -41,22 +53,21 @@ export default {};
 
   .tagcitylogo {
     padding-right: 5px;
-    padding-left: 5px;
-    padding-top: 5px;
+    padding-left: 11px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     width: 42px;
   }
 
   .container {
     padding-top: 10px;
     padding-bottom: 10px;
-    height: 75px - 20px;
+    //height: 75px - 20px;
   }
 
   .search {
     //width: calc(100% - 55px);
-    width: calc(100% - 110px);
-    float: right;
-    margin-right: 20px;
+    width: calc(100% - 80px);
     float: right;
   }
 
@@ -67,11 +78,24 @@ export default {};
     background-color: rgba($color: #fff, $alpha: 0.5);
   }
 
+  .searchfield:focus{
+    background-color: #fff;
+  }
+
   #openmenu {
     font-size: 20px;
     padding-right: 20px;
-    padding-top: 10px;
+    padding-left: 20px;
+    padding-top: 14px;
   }
+}
+
+.searchresult{
+    border-top: 1px solid #e3e6e8;
+
+    .searchresult_link{
+      padding: 15px;
+    }
 }
 
 .searchresults {
@@ -83,17 +107,46 @@ export default {};
   margin-top: 15px;
   color: #043a6b;
   border-radius: 15px;
+  overflow: hidden;
 
-  a {
+
+  .searchresults-title{
+    background-color: #e7edf0;
+    padding: 10px 15px;
+  }
+
+  .searchresult_thumb {
+    padding-right: 15px;
+  }
+
+  .searchresult_text {
+    line-height: 20px;
+  }
+
+  .searchresult_link {
     display: inline-block;
-    padding: 15px;
+    width: 100%;
+    color: #173a68;
+    text-decoration: none;  
   }
 }
 
 @media only screen and (max-width: 1180px) {
   .shop-bar {
-    padding-top: 0px !important;
-    padding-bottom: 10px !important;
+    padding-top: 15px !important;
+    padding-bottom: 20px !important;
+  }
+  
+  .searchresults{
+    border-radius: 0px;
+  }
+
+  .topbar{
+    background-color: #00ace8;
+  }
+
+  .topbar .search{
+    width: calc(100% - 120px);
   }
 
   .hide-mobile {

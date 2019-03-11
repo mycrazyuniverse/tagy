@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="tag-button float-right" v-if="buttontext">
-      <button>{{ buttontext }}</button>
+      <button>{{ buttontext }} <span class="arrow arrow-right float-right"></span></button>
     </div>
   </article>
 </template>
@@ -97,11 +97,10 @@ export default {
 
 <style lang="scss">
 .tag {
-  margin-bottom: 15px;
-  background-color: #fff;
   position: relative;
   cursor: pointer;
   display: block;
+  overflow: hidden;
 
   .tag-button {
     display: none;
@@ -180,8 +179,41 @@ export default {
   }
 }
 
+.tag-normal{
+    background-color: #fff; 
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.tag-search .tag-info :after {
+    content: "▶";
+    display: block;
+    position: absolute;
+    color: #fff;
+    background-color: #00ace8;
+    width: 19px;
+    right: 14px;
+    text-align: center;
+    font-size: 9px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    top: 48px;
+    top: calc(50% - 11px);
+    border-radius: 50%;
+}
+
+.tag-search{
+  background-color: #f9fafb;
+  border-top: 1px solid #ebebf5;
+
+  .tag-info{
+    padding-bottom: 25px;
+    padding-top: 25px;
+  }
+}
+
 .tag-exclusive {
-  background-image: url("../assets/images/exlcusieve_coupon.png");
+  //background-image: url("../assets/images/exlcusieve_coupon.png");
   background-size: cover;
   background-position: right bottom;
   background-repeat: no-repeat;
@@ -206,12 +238,14 @@ export default {
   overflow: hidden;
 }
 
-.tag-info {
-  width: 320px;
-  width: calc(100% - 140px);
-}
+
 
 @media only screen and (max-width: 1180px) {
+
+  .tag{
+    border-radius: 0px;
+  }
+
   .tag-link::after {
     content: "▶";
     display: block;
@@ -231,7 +265,7 @@ export default {
 }
 
 @media only screen and (min-width: 1180px) {
-  .tag-info {
+  .tag-normal .tag-info {
     width: 320px;
     width: calc(100% - 140px) !important;
     padding-top: 40px !important;
@@ -239,8 +273,11 @@ export default {
     padding-left: 15px !important;
   }
 
-  .discount-box {
-    padding-left: 20px;
+  .tag-normal{ 
+
+    .discount-box {
+      padding-left: 20px;
+    }
   }
 
   .tag-content {
@@ -249,12 +286,7 @@ export default {
     }
   }
 
-  .tag {
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .tag-item {
+   .tag-normal .tag-item {
     width: 75% !important;
   }
 

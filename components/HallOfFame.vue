@@ -1,5 +1,5 @@
 <template>
-  <article class="tag wall_of_fame">
+  <article class="tag tag-normal wall_of_fame">
     <div class="masterpiece float-left">
       <Discountbox :value="discountvalue" :label="discountlabel"></Discountbox>
       <img src="../assets/images/masterpiece-8.png">

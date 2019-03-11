@@ -10,12 +10,15 @@
                 class="menu-item"
                 data-toggle="collapse"
                 :data-target="'#menu_dropdown_category_' + navitem.ID"
-                data-text="Collapse"
               >
-                {{ navitem.title }}
+                <i class="icon" v-html="navitem.icon"></i>
+                <b data-toggle="collapse"
+                :data-target="'#menu_dropdown_category_' + navitem.ID">{{ navitem.title }}</b>
                 <span
                   v-if="navitem.wpse_children != 0"
-                  class="down_arrow float-right"
+                  data-toggle="collapse"
+                  :data-target="'#menu_dropdown_category_' + navitem.ID"
+                  class="arrow arrow-down float-right"
                 ></span>
               </a>
               <ul
@@ -23,61 +26,10 @@
                 :id="'menu_dropdown_category_' + navitem.ID"
                 class="collapse dropdown_menu"
               >
-                <li v-for="(item, key) of navitem.wpse_children">
-                  <a class="menu-item">{{ item.title }}</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="menu-item"
-                data-toggle="collapse"
-                data-target="#menu_dropdown_category_1"
-                data-text="Collapse"
-              >
-                Categorieën
-                <span class="down_arrow float-right"></span>
-              </a>
-              <ul id="menu_dropdown_category_1" class="collapse dropdown_menu">
-                <li>
-                  <a class="menu-item">Bloemen en geschenken</a>
-                </li>
-                <li>
-                  <a class="menu-item">Bedrukken en fotografie</a>
-                </li>
-                <li>
-                  <a class="menu-item">Gezondheid en verzorging</a>
-                </li>
-                <li>
-                  <a class="menu-item">Vakantie en reizen</a>
-                </li>
-                <li>
-                  <a class="menu-item">Mode en accessoires</a>
-                </li>
-                <li>
-                  <a class="menu-item">Elektronica</a>
-                </li>
-                <li>
-                  <a class="menu-item">Eten en drinken</a>
-                </li>
-                <li>
-                  <a class="menu-item">Dating</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a
-                data-toggle="collapse"
-                data-target="#menu_dropdown_webhops_1"
-                data-text="Collapse"
-                class="menu-item"
-              >
-                Webshops
-                <span class="down_arrow float-right"></span>
-              </a>
-              <ul id="menu_dropdown_webhops_1" class="collapse dropdown_menu">
-                <li>
-                  <a class="menu-item">123D.nl</a>
+                <li v-for="(item, key) of navitem.wpse_children" :class=dropdown(item.classes)>
+                  <a class="dropmenu-item">
+                    <i class="icon" v-html="item.icon"></i>
+                    {{ item.title }}</a>
                 </li>
               </ul>
             </li>
@@ -90,11 +42,16 @@
 
 <script>
 export default {
-  props: ["items"],
-  computed: {
-    availableLocales() {
-      return "dsmlldmml";
+  props: ["items", "search"],
+  methods:{
+    dropdown: function (classes) {
+      var classesstring = classes.join(classes);
+
+      return classesstring;
     }
+  },
+  mounted: function(){
+    console.log('nav', this.items);
   }
 };
 </script>
@@ -109,11 +66,18 @@ export default {
   position: fixed;
 }
 
-.menu-item {
-  .down_arrow {
-    margin-top: 7px;
-    margin-left: 7px;
-  }
+.nav-icon {
+    width: 30px;
+    height: 20px;
+    float: left;
+    fill: yellow;
+    padding-left: 10px;
+}
+
+.special-item {
+    width: 100% !important;
+    text-align: center;
+    font-weight: bold;
 }
 
 .mobile-menu-overlay {
@@ -132,6 +96,12 @@ export default {
 .menu-items {
   padding-left: 15px;
   padding-right: 15px;
+
+  .show{
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
 }
 
 .app,
@@ -151,7 +121,7 @@ export default {
 }
 
 .dropdown {
-  .down_arrow {
+  .arrow-down {
     margin-left: -2px;
     top: 10px;
     right: 10px;
@@ -176,6 +146,14 @@ export default {
 nav {
   color: #fff;
 
+  .icon svg {
+    width: 20px;
+    height: 20px;
+    fill: red;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
   .close {
     z-index: 99;
     position: relative;
@@ -187,11 +165,19 @@ nav {
   }
 
   .menu-item {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     width: 100%;
     position: relative;
     display: block;
+    border-bottom: 1px dashed #7b8aa1;
+  }
+
+  .dropmenu-item{
+    position: relative;
+    display: block;
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
 }
 
@@ -202,10 +188,57 @@ nav {
 #nav-container {
   display: inline-block;
   top: 0px !important;
+  bottom: 0px;
   width: 75%;
-  height: 100%;
+  //height: 100%;
   position: absolute;
-  overflow: scroll;
+
+
+
+}
+
+@media only screen and (max-width: 1180px) {
+
+  #nav-container {
+    background-color: #01213e;
+    height: 100vh;
+    overflow: scroll;
+
+    .menu-items {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    .special-item {
+      text-align: left !important;
+    }
+
+    .menu-item{
+
+      .arrow-down {
+        margin-top: 7px;
+        margin-left: 7px;
+        margin-right: 15px;
+      }
+
+    }
+
+    .menu-item-text {
+    padding-left: 10px;
+    }
+
+    .dropdown_menu a {
+      color: #949db0;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    
+
+      #navigation{
+         height: 100%;
+      }
+  }
+
 }
 
 @media only screen and (min-width: 1180px) {
@@ -230,6 +263,11 @@ nav {
       display: none;
     }
 
+    .arrow-down{
+      margin-top: 5px;
+      margin-left: 5px;
+    }
+
     .dropdown_menu {
       //display: none;
       position: absolute;
@@ -241,9 +279,34 @@ nav {
       padding-right: 15px;
 
       li {
-        width: 200px;
+        width: 220px;
       }
     }
   }
+
+  .bar {
+  background-image: url("../assets/images/cloud.svg");
+  background-color: #05abe0; /* Old browsers */
+  background-color: -moz-linear-gradient(
+    top,
+    #05abe0 0%,
+    #53cbf1 60%,
+    #87e0fd 100%
+  ); /* FF3.6-15 */
+  background-color: -webkit-linear-gradient(
+    top,
+    #05abe0 0%,
+    #53cbf1 60%,
+    #87e0fd 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background-color: linear-gradient(
+    to bottom,
+    #05abe0 0%,
+    #53cbf1 60%,
+    #87e0fd 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05abe0', endColorstr='#87e0fd',GradientType=0 ); /* IE6-9 */
+  margin-bottom: 20px;
+}
 }
 </style>

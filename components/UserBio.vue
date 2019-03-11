@@ -8,6 +8,7 @@
         height="100"
         class="author-avatar circle"
       >
+      <div>Collishop deals zijn geverifieerd door:</div>
       <div class="name">{{ author }}</div>
       <div class="title">Hoofdredacteur</div>
     </div>

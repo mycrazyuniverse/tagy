@@ -1,6 +1,6 @@
 <template>
   <section class="optin">
-    <article class="tag tag-newsletter">
+    <article class="tag tag-normal tag-newsletter">
       <form>
         <div class="optin-container">
           <div class="optin-logo">
