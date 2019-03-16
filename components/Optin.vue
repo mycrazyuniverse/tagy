@@ -14,10 +14,9 @@
         </div>
         <div class="optin-text">
           <template v-if="webshop">
-            <h2>Mis nooit meer een nieuwe kortingscode van Collishop</h2>
+            <h2>{{ title }}</h2>
             <p>
-              We sturen je enkel nieuwe kortingscodes en promoties van
-              Collishop. Niet te missen dus!
+              {{ subtitle }}
             </p>
           </template>
           <template v-else>
@@ -47,7 +46,15 @@ export default {
     webshop: {
       type: String,
       default: ""
-    }
+    },
+    title: {
+      type: String,
+      default: ""
+    },
+    subtitle: {
+      type: String,
+      default: ""
+    },
   }
 };
 </script>

@@ -1,36 +1,13 @@
 document
   .addEventListener("DOMContentLoaded", function () {
 
-    /*
-    http: //www.awin1.com/cread.php?awinmid=8527&awinaffid=330303&clickref=
+    var langcode = document.documentElement.lang;
+    var lang = langcode.replace('-BE', '');
+    var apiUrl = 'https://dev-tagcity.pantheonsite.io/';
 
-    var decrypted = CryptoJS.AES.decrypt(encrypted, myPassword);
-
-    var p = 'awin';
-    var z = '8527';
-    var a = '330303';
-    var h = 'https://www.';
-    var c = '.com/';
-    var i = 'id';
-    var g = '=';
-    var e = '&';
-    var q = '?';
-    var r = 'aff';
-    var k = 'clickref';
-    var m = 'cread';
-    var f = '.php';
-
-    var decodeUrl = h + p + 1 + c + m + f + q + p + 'm' + i + g + z + e + r + i + a + e + k + g;
-
-
-          src: 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js'
-
-    
-        var code = 'U2FsdGVkX181yfV6xsAO9Ouujk2ZJnEEkDIwe9t4pqGl64roiy+pXBR/XmST79vU';
-        var decrypted = CryptoJS.AES.decrypt(code, 'myP');
-        console.log(decrypted);
-
-    */
+    if (lang != 'nl'){
+      apiUrl = 'https://dev-tagcity.pantheonsite.io/' + lang + '/';
+    }
 
     var popup_id = getUrlParameter('popup');
     var mobilemenuoverlay = document.querySelector('.mobile-menu-overlay');
@@ -121,8 +98,13 @@ document
       .querySelectorAll('.searchfield')[0]
       .addEventListener('input', (ev) => {
 
+
         var request = new XMLHttpRequest();
-        request.open('GET', 'https://dev-tagcity.pantheonsite.io/api/webshop/' + ev.currentTarget.value, true);
+        ;
+
+        var requestUrl = apiUrl + 'api/tagcity/v3/search/' + ev.currentTarget.value;
+
+        request.open('GET', requestUrl, true);
 
         request.onload = function () {
           if (request.status >= 200 && request.status < 400) {
@@ -130,14 +112,16 @@ document
             var data = JSON.parse(request.responseText);
             var results = '';
 
-            if (data.search.webshops.title){
+            if (data.search.webshops.title) {
               results += '<div class="searchresults-title">' + data.search.webshops.title + '</div>';
             }
+
             results += '<ul>';
             data.search.webshops.results.forEach(target => {
 
               results += '<li class="searchresult">';
               results += '<a href="'
+              results += target.link;
               results += '" class="searchresult_link">';
               results += '<img src="';
               results += 'http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png';
@@ -150,9 +134,11 @@ document
               results += '</span>';
               results += '</a>';
 
-              if(target.tags){
+              console.log(target);
 
-                target.tags.forEach(tags => {
+              if(data.search.webshops.tags){
+
+                data.search.webshops.tags.forEach(tags => {
 
                 results += '<ul class="tag-results">';
                 results += '<li class="search-tag">';
@@ -192,7 +178,7 @@ document
 
                if (target.tags) {
 
-                 target.tags.forEach(tags => {
+                  data.search.categories.tags.forEach(tags => {
 
                    results += '<ul class="tag-results">';
                    results += '<li class="search-tag">';

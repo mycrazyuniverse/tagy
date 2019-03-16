@@ -3,20 +3,19 @@
     <div class="text-center">
       <br>
       <img
-        src="https://tagcity.be/app/themes/tagcity/assets/img/Benjamin.jpg"
+        :src="avatar"
         width="100"
         height="100"
         class="author-avatar circle"
       >
-      <div>Collishop deals zijn geverifieerd door:</div>
-      <div class="name">{{ author }}</div>
-      <div class="title">Hoofdredacteur</div>
+      <div class="name">{{ name }}</div>
+      <div class="title">{{ role }}</div>
     </div>
     <div class="description">
       <p>{{ bio }}</p>
     </div>
     <div class="visit-shop">
-      <a href rel="nofollow" target="_blank" onclick>Ga naar www.mediamarkt.be ></a>
+      <a href rel="nofollow" target="_blank" onclick>{{ calltoaction }} ></a>
     </div>
   </aside>
 </template>
@@ -24,13 +23,25 @@
 <script>
 export default {
   props: {
-    description: {
+    bio: {
       type: String,
       default: ""
     },
-    author: {
+    calltoaction: {
+      type: String,
+      default: ""
+    },
+    name: {
       type: String,
       default: "Benjamin"
+    },
+    role: {
+      type: String,
+      default: "redacteur"
+    },
+    avatar: {
+      type: String,
+      default: ""
     },
     webshop: {
       type: String,
@@ -42,7 +53,7 @@ export default {
     }
   },
   computed: {
-    bio() {
+    dbio() {
       var bio = this.description;
 
       bio = bio.replace(/%%author%%/g, this.author);
@@ -51,6 +62,9 @@ export default {
 
       return bio;
     }
+  },
+   mounted() {
+     console.log(this.avatar);
   }
 };
 </script>
@@ -59,4 +73,5 @@ export default {
 .webshop-img img {
   padding: 20px;
 }
+
 </style>

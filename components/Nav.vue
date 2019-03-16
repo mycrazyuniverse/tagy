@@ -10,10 +10,32 @@
                 class="menu-item"
                 data-toggle="collapse"
                 :data-target="'#menu_dropdown_category_' + navitem.ID"
+                :href="navitem.url"
+                v-if="navitem.wpse_children == 0"
               >
                 <i class="icon" v-html="navitem.icon"></i>
-                <b data-toggle="collapse"
-                :data-target="'#menu_dropdown_category_' + navitem.ID">{{ navitem.title }}</b>
+                <b
+                  data-toggle="collapse"
+                  :data-target="'#menu_dropdown_category_' + navitem.ID"
+                >{{ navitem.title }}</b>
+                <span
+                  v-if="navitem.wpse_children != 0"
+                  data-toggle="collapse"
+                  :data-target="'#menu_dropdown_category_' + navitem.ID"
+                  class="arrow arrow-down float-right"
+                ></span>
+              </a>
+              <a
+                class="menu-item"
+                data-toggle="collapse"
+                :data-target="'#menu_dropdown_category_' + navitem.ID"
+                v-else
+              >
+                <i class="icon" v-html="navitem.icon"></i>
+                <b
+                  data-toggle="collapse"
+                  :data-target="'#menu_dropdown_category_' + navitem.ID"
+                >{{ navitem.title }}</b>
                 <span
                   v-if="navitem.wpse_children != 0"
                   data-toggle="collapse"
@@ -26,10 +48,11 @@
                 :id="'menu_dropdown_category_' + navitem.ID"
                 class="collapse dropdown_menu"
               >
-                <li v-for="(item, key) of navitem.wpse_children" :class=dropdown(item.classes)>
-                  <a class="dropmenu-item">
-                    <i class="icon" v-html="item.icon"></i>
-                    {{ item.title }}</a>
+                <li v-for="(item, key) of navitem.wpse_children" :class="dropdown(item.classes)">
+                  <a class="dropmenu-item" :href="item.url">
+                    <i class="icon" v-html="item.icon" v-if="item.icon"></i>
+                    {{ item.title }}
+                  </a>
                 </li>
               </ul>
             </li>
@@ -43,15 +66,15 @@
 <script>
 export default {
   props: ["items", "search"],
-  methods:{
-    dropdown: function (classes) {
+  methods: {
+    dropdown: function(classes) {
       var classesstring = classes.join(classes);
 
       return classesstring;
     }
   },
-  mounted: function(){
-    console.log('nav', this.items);
+  mounted: function() {
+    console.log("nav", this.items);
   }
 };
 </script>
@@ -67,17 +90,17 @@ export default {
 }
 
 .nav-icon {
-    width: 30px;
-    height: 20px;
-    float: left;
-    fill: yellow;
-    padding-left: 10px;
+  width: 30px;
+  height: 20px;
+  float: left;
+  fill: yellow;
+  padding-left: 10px;
 }
 
 .special-item {
-    width: 100% !important;
-    text-align: center;
-    font-weight: bold;
+  width: 100% !important;
+  text-align: center;
+  font-weight: bold;
 }
 
 .mobile-menu-overlay {
@@ -94,14 +117,10 @@ export default {
 }
 
 .menu-items {
-  padding-left: 15px;
-  padding-right: 15px;
-
-  .show{
+  .show {
     padding-top: 15px;
     padding-bottom: 15px;
   }
-
 }
 
 .app,
@@ -149,9 +168,9 @@ nav {
   .icon svg {
     width: 20px;
     height: 20px;
-    fill: red;
+    fill: #fff;
     padding-right: 10px;
-    padding-left: 10px;
+    padding-left: 0px;
   }
 
   .close {
@@ -165,15 +184,28 @@ nav {
   }
 
   .menu-item {
-    padding-top: 20px;
+    padding-top: 15px;
     padding-bottom: 20px;
+    padding-left: 10px;
     width: 100%;
     position: relative;
     display: block;
     border-bottom: 1px dashed #7b8aa1;
+    color: #fff;
+    text-decoration: none;
+
+    b {
+      height: 20px;
+    }
+
+    .icon {
+      position: relative;
+      left: 2px;
+      top: 3px;
+    }
   }
 
-  .dropmenu-item{
+  .dropmenu-item {
     position: relative;
     display: block;
     padding-top: 15px;
@@ -192,13 +224,9 @@ nav {
   width: 75%;
   //height: 100%;
   position: absolute;
-
-
-
 }
 
 @media only screen and (max-width: 1180px) {
-
   #nav-container {
     background-color: #01213e;
     height: 100vh;
@@ -213,18 +241,16 @@ nav {
       text-align: left !important;
     }
 
-    .menu-item{
-
+    .menu-item {
       .arrow-down {
         margin-top: 7px;
         margin-left: 7px;
         margin-right: 15px;
       }
-
     }
 
     .menu-item-text {
-    padding-left: 10px;
+      padding-left: 10px;
     }
 
     .dropdown_menu a {
@@ -232,13 +258,11 @@ nav {
       padding-left: 15px;
       padding-right: 15px;
     }
-    
 
-      #navigation{
-         height: 100%;
-      }
+    #navigation {
+      height: 100%;
+    }
   }
-
 }
 
 @media only screen and (min-width: 1180px) {
@@ -256,16 +280,18 @@ nav {
 
     nav li {
       width: auto;
-      padding-right: 15px;
+      padding-right: 7px;
+      padding-left: 7px;
     }
 
     .close {
       display: none;
     }
 
-    .arrow-down{
-      margin-top: 5px;
-      margin-left: 5px;
+    .arrow-down {
+      margin-top: 12px;
+      margin-left: 9px;
+      top: 10px;
     }
 
     .dropdown_menu {
@@ -285,28 +311,28 @@ nav {
   }
 
   .bar {
-  background-image: url("../assets/images/cloud.svg");
-  background-color: #05abe0; /* Old browsers */
-  background-color: -moz-linear-gradient(
-    top,
-    #05abe0 0%,
-    #53cbf1 60%,
-    #87e0fd 100%
-  ); /* FF3.6-15 */
-  background-color: -webkit-linear-gradient(
-    top,
-    #05abe0 0%,
-    #53cbf1 60%,
-    #87e0fd 100%
-  ); /* Chrome10-25,Safari5.1-6 */
-  background-color: linear-gradient(
-    to bottom,
-    #05abe0 0%,
-    #53cbf1 60%,
-    #87e0fd 100%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05abe0', endColorstr='#87e0fd',GradientType=0 ); /* IE6-9 */
-  margin-bottom: 20px;
-}
+    background-image: url("../assets/images/cloud.svg");
+    background-color: #05abe0; /* Old browsers */
+    background-color: -moz-linear-gradient(
+      top,
+      #05abe0 0%,
+      #53cbf1 60%,
+      #87e0fd 100%
+    ); /* FF3.6-15 */
+    background-color: -webkit-linear-gradient(
+      top,
+      #05abe0 0%,
+      #53cbf1 60%,
+      #87e0fd 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background-color: linear-gradient(
+      to bottom,
+      #05abe0 0%,
+      #53cbf1 60%,
+      #87e0fd 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05abe0', endColorstr='#87e0fd',GradientType=0 ); /* IE6-9 */
+    margin-bottom: 20px;
+  }
 }
 </style>

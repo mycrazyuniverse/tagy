@@ -22,7 +22,7 @@ module.exports = {
       href: '/favicon.ico'
     }],
     script: [{
-      src: './coupon.js'
+      src: '/coupon.js'
     }, ]
   },
   env: {

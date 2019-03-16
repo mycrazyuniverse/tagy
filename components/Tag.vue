@@ -217,7 +217,7 @@ export default {
   background-size: cover;
   background-position: right bottom;
   background-repeat: no-repeat;
-  //background-color: #29abe2;
+  background-color: #29abe2;
 
   h3 a {
     color: #fff !important;

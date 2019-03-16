@@ -17,10 +17,10 @@
               >
           </form>
           <div class="searchresults hide">
-              <div class="searchresults-title">{{ search.webshops.title }}</div>
-            <ul class="">
+            <div class="searchresults-title"></div>
+            <ul class="" v-if="search">
               <li v-for="(target, index) in search.webshops.results" :key="index" class="searchresult">
-                  <a href="/webshop" class="searchresult_link">
+                  <a class="searchresult_link" :href="target.link">
                       <img src="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" height="40" class="float-left searchresult_thumb" />
                       <span class="searchresult_text">
                         <strong>{{ target.name }}</strong>
@@ -40,7 +40,6 @@
 export default {
     props: ["search"],
     mounted() {
-      console.log('search', this.search)
     }
 };
 </script>

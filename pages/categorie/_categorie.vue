@@ -5,7 +5,7 @@
       <Nav :items="nav"></Nav>
     </div>
     <div class="container">
-      <p>dit is de homepage</p>
+      <p>dit word de categoriepagina's</p>
     </div>
   </div>
 </template>
