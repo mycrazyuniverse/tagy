@@ -2,20 +2,15 @@
   <aside class="widget user">
     <div class="text-center">
       <br>
-      <img
-        :src="avatar"
-        width="100"
-        height="100"
-        class="author-avatar circle"
-      >
+      <img :src="avatar" width="100" height="100" class="author-avatar circle">
       <div class="name">{{ name }}</div>
       <div class="title">{{ role }}</div>
     </div>
     <div class="description">
       <p>{{ bio }}</p>
-    </div>
-    <div class="visit-shop">
-      <a href rel="nofollow" target="_blank" onclick>{{ calltoaction }} ></a>
+      <div class="visit-shop">
+        <a href rel="nofollow" target="_blank" onclick>{{ calltoaction }} ></a>
+      </div>
     </div>
   </aside>
 </template>
@@ -63,8 +58,8 @@ export default {
       return bio;
     }
   },
-   mounted() {
-     console.log(this.avatar);
+  mounted() {
+    console.log(this.avatar);
   }
 };
 </script>
@@ -73,5 +68,4 @@ export default {
 .webshop-img img {
   padding: 20px;
 }
-
 </style>

@@ -6,6 +6,7 @@
       <ShopBar
         :title="shopbar.title"
         subtitle="Gebruik onderstaande promoties geldig in België en bespaar op je aankopen"
+        :logo="shopbar.thumb"
       ></ShopBar>
     </div>
     <div class="container">
@@ -40,10 +41,10 @@
         <aside class="widget">
           <h3>{{ description.title }}</h3>
           <h4>{{ description.subtitle }}</h4>
-          <div v-html="description.content"></div>
+          <div v-html="description.content" class="text"></div>
         </aside>
         <aside class="widget related_shop_logo shop-logo">
-          <h3>Webshops zoals Collishop</h3>
+          <h3>{{ related.title }}</h3>
           <WebshopLogo
             v-for="index in 10"
             :key="index"
@@ -51,28 +52,17 @@
             url="/shop/albert-heijn"
           ></WebshopLogo>
         </aside>
-        <aside class="widget">
-          <h3>Dit moet je weten over Collishop</h3>
-          <ol>
-            <li>Op de salepagina van Bonprix.be vind je altijd artikelen die scherp zijn afgeprijsd.</li>
-            <li>Door middel van het aanmelden voor de nieuwsbrief mis je geen enkele aanbieding of kortingscode meer.</li>
-            <li>Er zijn regelmatig acties op Bonprix.be waarbij je iets kunt winnen of korting ontvangt.</li>
-            <li>Door gebruik te maken van het gratis maatadvies van Bonprix, voorkom je miskopen. Bestel je voor 22:00 uur, dan ontvang je de artikelen de volgende dag in huis</li>
-            <li>Door fan te worden van Bonprix op Facebook, weet je als eerste alle acties, aanbiedingen en nieuwtjes.</li>
-            <li>Je kunt met de handige & gratis app heel gemakkelijk woonaccessoires en kleding aanschaffen via je mobiel.</li>
-          </ol>
+        <aside class="widget" v-if="must_know.content">
+          <div class="text">
+            <h3>{{ must_know.title }}</h3>
+            <div v-html="must_know.content"></div>
+          </div>
         </aside>
-        <aside class="widget">
-          <h3>Nieuws of nuttige links over Collishop</h3>
+        <aside class="widget" v-if="useful_link.content">
+          <h3>{{useful_link.title}}</h3>
           <ul>
-            <li>
-              <a href="https://www.facebook.com">Collishop op Facebook</a>
-            </li>
-            <li>
-              <a href="https://www.nieuwsblad.be">Collishop artikel in Het Nieuwsblad</a>
-            </li>
-            <li>
-              <a href="https://www.youtube.com">Collishop op Youtube</a>
+            <li v-for="item in useful_link.content">
+              <a :href="item.link">{{ item.text }}</a>
             </li>
           </ul>
         </aside>
@@ -128,7 +118,10 @@ export default {
       authorbio: data.authorbio,
       optin: data.optin,
       meta: data.meta,
-      description: data.description
+      description: data.description,
+      related: data.related,
+      must_know: data.must_know,
+      useful_link: data.useful_link
     };
   },
   head() {
