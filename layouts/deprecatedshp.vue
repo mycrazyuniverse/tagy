@@ -57,19 +57,21 @@
         webshop="Collishop"
       ></UserBio>
       <aside class="widget">
-        <h3>Alles over Collishop promotiecode</h3>
-        <h4>Welke kortingen zijn beschikbaar?</h4>
-        <p>Vaak voorkomende ColliShop promotiecodes zijn:</p>
-        <ul>
-          <li>10%, 15% of 20% korting op geselecteerde artikelen of een specifiek assortiment</li>
-          <li>25% korting op speelgoed, zoals LEGO DUPLO of buitenspeelgoed</li>
-          <li>Korting op kinderkamers, tuinmeubelen en koffers</li>
-          <li>promotiecodes voor korting op het slaapassortiment</li>
-          <li>
-            Enkele keren per jaar geeft ColliShop 5% of €7,50 korting
-            op het hele assortiment en af en toe krijgt u met een code een geschenkje bij uw bestelling.
-          </li>
-        </ul>
+        <div class="description">
+          <h3>Alles over Collishop promotiecode</h3>
+          <h4>Welke kortingen zijn beschikbaar?</h4>
+          <p>Vaak voorkomende ColliShop promotiecodes zijn:</p>
+          <ul>
+            <li>10%, 15% of 20% korting op geselecteerde artikelen of een specifiek assortiment</li>
+            <li>25% korting op speelgoed, zoals LEGO DUPLO of buitenspeelgoed</li>
+            <li>Korting op kinderkamers, tuinmeubelen en koffers</li>
+            <li>promotiecodes voor korting op het slaapassortiment</li>
+            <li>
+              Enkele keren per jaar geeft ColliShop 5% of €7,50 korting
+              op het hele assortiment en af en toe krijgt u met een code een geschenkje bij uw bestelling.
+            </li>
+          </ul>
+        </div>
       </aside>
       <aside class="widget related_shop_logo shop-logo">
         <h3>Webshops zoals Collishop</h3>
@@ -193,4 +195,3 @@ export default {
   mounted() {}
 };
 </script>
-

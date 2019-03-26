@@ -78,7 +78,7 @@ export default {
 
   .claim_to_fame {
     color: #fff;
-    width: 50%;
+    width: 46%;
     position: relative;
     z-index: 100;
 

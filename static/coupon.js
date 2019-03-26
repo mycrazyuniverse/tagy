@@ -5,7 +5,7 @@ document
     var lang = langcode.replace('-BE', '');
     var apiUrl = 'https://dev-tagcity.pantheonsite.io/';
 
-    if (lang != 'nl'){
+    if (lang != 'nl') {
       apiUrl = 'https://dev-tagcity.pantheonsite.io/' + lang + '/';
     }
 
@@ -20,13 +20,12 @@ document
 
       var tag = document.querySelectorAll('#tag' + popup_id)[0];
 
-      if(tag){
+      if (tag) {
         var title = tag.querySelector('.tag-title').textContent;
         var logo = tag.dataset.logo;
         var code = tag.dataset.code;
       }
 
-      console.log(tag);
 
       popup
         .querySelector('.pop-code')
@@ -98,9 +97,9 @@ document
       .querySelectorAll('.searchfield')[0]
       .addEventListener('input', (ev) => {
 
+        document.querySelectorAll('.tagcitylogo')[0].src = "https://media.tagcity.be/2019/03/search.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
 
-        var request = new XMLHttpRequest();
-        ;
+        var request = new XMLHttpRequest();;
 
         var requestUrl = apiUrl + 'api/tagcity/v3/search/' + ev.currentTarget.value;
 
@@ -123,33 +122,33 @@ document
               results += '<a href="'
               results += target.link;
               results += '" class="searchresult_link">';
+              results += '<span class="logo">';
               results += '<img src="';
-              results += 'http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png';
+              results += target.logo;
               results += '" height="40" class="float-left searchresult_thumb" />';
+              results += '<span>';
               results += '<span class="searchresult_text"><strong>';
               results += target.name;
               results += '</strong><br />';
               results += target.count;
-              results += ' acties' 
+              results += ' acties'
               results += '</span>';
               results += '</a>';
 
-              console.log(target);
-
-              if(data.search.webshops.tags){
+              if (data.search.webshops.tags) {
 
                 data.search.webshops.tags.forEach(tags => {
 
-                results += '<ul class="tag-results">';
-                results += '<li class="search-tag">';
-                results += '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-"><div class="tag-item"><div class="float-left"><div class="discount-box text-center"><span class="discount text-lg">-20%</span> <span class=" label uppercase">Korting</span></div></div> <div class="tag-info float-right"><div class="tag-content"><h3 class="tag-title"><a href="?popup=110">Exclusief: 10% korting op de volledige website</a></h3><div id="details110" class="tag-desc">Toegevoegd 1 maart 2019<div></div></div></div></div></div></article>';
-                results += '</li>';
-                results += '</ul>';
+                  results += '<ul class="tag-results">';
+                  results += '<li class="search-tag">';
+                  results += '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-"><div class="tag-item"><div class="float-left"><div class="discount-box text-center"><span class="discount text-lg">-20%</span> <span class=" label uppercase">Korting</span></div></div> <div class="tag-info float-right"><div class="tag-content"><h3 class="tag-title"><a href="?popup=110">Exclusief: 10% korting op de volledige website</a></h3><div id="details110" class="tag-desc">Toegevoegd 1 maart 2019<div></div></div></div></div></div></article>';
+                  results += '</li>';
+                  results += '</ul>';
 
                 });
 
               }
-           
+
               results += '</li>';
 
             });
@@ -162,37 +161,37 @@ document
 
             data.search.categories.results.forEach(target => {
 
-               results += '<li class="searchresult">';
-               results += '<a href="'
-               results += '" class="searchresult_link">';
-               results += '<img src="';
-               results += 'http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png';
-               results += '" height="40" class="float-left searchresult_thumb" />';
-               results += '<span class="searchresult_text"><strong>';
-               results += target.name;
-               results += '</strong><br />';
-               results += target.count;
-               results += ' acties'
-               results += '</span>';
-               results += '</a>';
+              results += '<li class="searchresult">';
+              results += '<a href="'
+              results += '" class="searchresult_link">';
+              results += '<img src="';
+              results += target.logo;
+              results += '" height="40" class="float-left searchresult_thumb" />';
+              results += '<span class="searchresult_text"><strong>';
+              results += target.name;
+              results += '</strong><br />';
+              results += target.count;
+              results += ' acties'
+              results += '</span>';
+              results += '</a>';
 
-               if (target.tags) {
+              if (target.tags) {
 
-                  data.search.categories.tags.forEach(tags => {
+                data.search.categories.tags.forEach(tags => {
 
-                   results += '<ul class="tag-results">';
-                   results += '<li class="search-tag">';
-                   results += '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-"><div class="tag-item"><div class="float-left"><div class="discount-box text-center"><span class="discount text-lg">-20%</span> <span class=" label uppercase">Korting</span></div></div> <div class="tag-info float-right"><div class="tag-content"><h3 class="tag-title"><a href="?popup=110">Exclusief: 10% korting op de volledige website</a></h3><div id="details110" class="tag-desc">Toegevoegd 1 maart 2019<div></div></div></div></div></div></article>';
-                   results += '</li>';
-                   results += '</ul>';
+                  results += '<ul class="tag-results">';
+                  results += '<li class="search-tag">';
+                  results += '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-"><div class="tag-item"><div class="float-left"><div class="discount-box text-center"><span class="discount text-lg">-20%</span> <span class=" label uppercase">Korting</span></div></div> <div class="tag-info float-right"><div class="tag-content"><h3 class="tag-title"><a href="?popup=110">Exclusief: 10% korting op de volledige website</a></h3><div id="details110" class="tag-desc">Toegevoegd 1 maart 2019<div></div></div></div></div></div></article>';
+                  results += '</li>';
+                  results += '</ul>';
 
-                 });
+                });
 
-               }
+              }
 
-               results += '</li>';
+              results += '</li>';
 
-             });
+            });
 
             results += '</ul>';
 
@@ -215,6 +214,9 @@ document
     document
       .querySelectorAll('.searchfield')[0]
       .addEventListener('focus', (ev) => {
+
+        document.querySelectorAll('.tagcitylogo')[0].src = "https://media.tagcity.be/2019/03/search.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
+
         removeClass(searchresults, 'hide');
         removeClass(mobilemenuoverlay, 'hide');
 
@@ -224,7 +226,9 @@ document
       .querySelectorAll('.searchfield')[0]
       .addEventListener('blur', (ev) => {
 
-        myVar = setTimeout(function(){
+        document.querySelectorAll('.tagcitylogo')[0].src = "https://media.tagcity.be/2019/03/tagcity.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
+
+        myVar = setTimeout(function () {
           addClass(searchresults, 'hide');
           addClass(mobilemenuoverlay, 'hide');
         }, 300);
@@ -283,9 +287,6 @@ document
 
     window.addEventListener('click', (ev) => {
       const elm = ev.target;
-
-      console.log(elm);
-
 
       if (triggers.includes(elm)) {
         const selector = elm.getAttribute('data-target');

@@ -1,8 +1,8 @@
 <template>
   <div class="shop-bar">
     <div class="container">
-      <div class="shop-logo">
-        <img :src="logo" id="webshop-logo" width="41" class="webshop-logo">
+      <div class="shop-logo webshop-logo">
+        <img :src="logo" id="webshop-logo" width="42" height="42" class>
       </div>
       <div class="inner">
         <h1>{{ title }}</h1>

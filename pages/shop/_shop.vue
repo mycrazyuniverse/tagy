@@ -12,19 +12,9 @@
     <div class="container">
       <div id="content">
         <section class="tags"></section>
-        <section class="hall_of_fame">
-          <HallOfFame
-            :id="4593"
-            discountvalue="20%"
-            discountlabel="Korting"
-            title="Beste Farmaline kortingscode: 20% korting"
-            details="Een van de meest populairste codes die wij voor u hadden was goed voor 20% korting. 
-          Deze code was geldig op een specifieke producten (zoals Natural Energy). 
-          Deze code kan vaker voorkomen en elke keer kan een ander product belicht worden."
-          ></HallOfFame>
-        </section>
+        <section class="hall_of_fame"></section>
         <Optin
-          logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png"
+          :logo="shopbar.thumb"
           webshop="Collishop"
           :title="optin.title"
           :subtitle="optin.subtitle"
@@ -36,20 +26,23 @@
           :role="authorbio.role"
           :avatar="authorbio.avatar"
           :bio="authorbio.bio"
+          :url="authorbio.url"
           :calltoaction="authorbio.calltoaction"
         ></UserBio>
-        <aside class="widget">
-          <h3>{{ description.title }}</h3>
-          <h4>{{ description.subtitle }}</h4>
-          <div v-html="description.content" class="text"></div>
+        <aside class="widget" v-if="description.content">
+          <div class="description">
+            <h3>{{ description.title }}</h3>
+            <div v-html="description.content" class="text"></div>
+          </div>
         </aside>
-        <aside class="widget related_shop_logo shop-logo">
+        <aside class="widget related_shop_logo shop-logo" v-if="related.content.length > 0">
           <h3>{{ related.title }}</h3>
           <WebshopLogo
-            v-for="index in 10"
+            v-for="(item, index) in related.content"
             :key="index"
-            logo="https://tagcity.be/app/uploads/2015/08/albert-heijn-logo.png"
-            url="/shop/albert-heijn"
+            :logo="item.logo"
+            :url="item.link"
+            :title="item.name"
           ></WebshopLogo>
         </aside>
         <aside class="widget" v-if="must_know.content">
@@ -148,9 +141,7 @@ export default {
     HallOfFame,
     WebshopLogo
   },
-  mounted() {
-    console.log(this.meta.title);
-  }
+  mounted() {}
 };
 </script>
 
@@ -211,7 +202,6 @@ export default {
   width: 100%;
   float: right;
   font-size: 12px;
-  color: #173a68;
   line-height: 1.5;
 
   .name {
@@ -222,6 +212,7 @@ export default {
   .description {
     padding-bottom: 15px;
     padding-top: 15px;
+    padding-left: 15px;
   }
 }
 
@@ -246,6 +237,24 @@ export default {
 @media only screen and (min-width: 1180px) {
   .sidebar {
     top: -100px;
+  }
+}
+
+@media only screen and (max-width: 1180px) {
+  .sidebar {
+    .widget {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+
+    .description {
+      padding-right: 10px;
+      padding-left: 10px;
+
+      .text {
+        display: none;
+      }
+    }
   }
 }
 </style>

@@ -9,7 +9,11 @@
     <div class="description">
       <p>{{ bio }}</p>
       <div class="visit-shop">
-        <a href rel="nofollow" target="_blank" onclick>{{ calltoaction }} ></a>
+        <a
+          :href="'https://dev-tagcity.pantheonsite.io' + url"
+          rel="nofollow"
+          target="_blank"
+        >{{ calltoaction }} ></a>
       </div>
     </div>
   </aside>
@@ -23,6 +27,10 @@ export default {
       default: ""
     },
     calltoaction: {
+      type: String,
+      default: ""
+    },
+    url: {
       type: String,
       default: ""
     },

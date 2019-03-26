@@ -73,9 +73,7 @@ export default {
       return classesstring;
     }
   },
-  mounted: function() {
-    console.log("nav", this.items);
-  }
+  mounted: function() {}
 };
 </script>
 
@@ -186,7 +184,6 @@ nav {
   .menu-item {
     padding-top: 15px;
     padding-bottom: 20px;
-    padding-left: 10px;
     width: 100%;
     position: relative;
     display: block;
@@ -202,6 +199,7 @@ nav {
       position: relative;
       left: 2px;
       top: 3px;
+      margin-left: 10px;
     }
   }
 
@@ -228,9 +226,14 @@ nav {
 
 @media only screen and (max-width: 1180px) {
   #nav-container {
-    background-color: #01213e;
+    background-color: #1b194a;
+    background-image: url("../assets/images/navigation_bg.png");
     height: 100vh;
     overflow: scroll;
+    background-position: bottom right;
+    background-attachment: scroll;
+    background-size: contain;
+    background-repeat: no-repeat;
 
     .menu-items {
       padding-left: 0px;
@@ -247,10 +250,6 @@ nav {
         margin-left: 7px;
         margin-right: 15px;
       }
-    }
-
-    .menu-item-text {
-      padding-left: 10px;
     }
 
     .dropdown_menu a {

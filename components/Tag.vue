@@ -35,7 +35,10 @@
       </div>
     </div>
     <div class="tag-button float-right" v-if="buttontext">
-      <button>{{ buttontext }} <span class="arrow arrow-right float-right"></span></button>
+      <button>
+        {{ buttontext }}
+        <span class="arrow arrow-right float-right"></span>
+      </button>
     </div>
   </article>
 </template>
@@ -179,34 +182,34 @@ export default {
   }
 }
 
-.tag-normal{
-    background-color: #fff; 
-    margin-bottom: 10px;
-    border-radius: 15px;
+.tag-normal {
+  background-color: #fff;
+  margin-bottom: 15px;
+  border-radius: 15px;
 }
 
 .tag-search .tag-info :after {
-    content: "▶";
-    display: block;
-    position: absolute;
-    color: #fff;
-    background-color: #00ace8;
-    width: 19px;
-    right: 14px;
-    text-align: center;
-    font-size: 9px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    top: 48px;
-    top: calc(50% - 11px);
-    border-radius: 50%;
+  content: "▶";
+  display: block;
+  position: absolute;
+  color: #fff;
+  background-color: #00ace8;
+  width: 19px;
+  right: 14px;
+  text-align: center;
+  font-size: 9px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  top: 48px;
+  top: calc(50% - 11px);
+  border-radius: 50%;
 }
 
-.tag-search{
+.tag-search {
   background-color: #f9fafb;
   border-top: 1px solid #ebebf5;
 
-  .tag-info{
+  .tag-info {
     padding-bottom: 25px;
     padding-top: 25px;
   }
@@ -238,11 +241,8 @@ export default {
   overflow: hidden;
 }
 
-
-
 @media only screen and (max-width: 1180px) {
-
-  .tag{
+  .tag {
     border-radius: 0px;
   }
 
@@ -273,8 +273,7 @@ export default {
     padding-left: 15px !important;
   }
 
-  .tag-normal{ 
-
+  .tag-normal {
     .discount-box {
       padding-left: 20px;
     }
@@ -286,7 +285,7 @@ export default {
     }
   }
 
-   .tag-normal .tag-item {
+  .tag-normal .tag-item {
     width: 75% !important;
   }
 
@@ -296,7 +295,8 @@ export default {
 
   .wall_of_fame .claim_to_fame {
     left: 45px;
-    width: 60% !important;
+    width: 68% !important;
+    line-height: 1.4;
 
     .collapse {
       overflow: visible;

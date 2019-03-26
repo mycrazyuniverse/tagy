@@ -1,6 +1,7 @@
 <template>
-  <a :href="url">
+  <a :href="url" :title="title" class="tooltip">
     <img :src="logo" class="webshop-logo" width="40">
+    <span class="tooltiptext">{{ title }}</span>
   </a>
 </template>
 
@@ -18,6 +19,10 @@ export default {
     width: {
       type: Number,
       default: 40
+    },
+    title: {
+      type: String,
+      default: ""
     }
   }
 };

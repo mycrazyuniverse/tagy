@@ -1,0 +1,149 @@
+<template>
+  <div>
+    <div class="bar">
+      <TopBar :search="search"></TopBar>
+      <Nav :items="nav"></Nav>
+    </div>
+    <div class="container">
+      <ul class="fasttraveltothaalphabet uppercase">
+        <li v-for="(item, index) in az" :key="index">
+          <a :href="makeHashUrl(index)">{{index}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="container">
+      <div class="letter" v-for="(item, index) in az" :key="index" :id="index">
+        <h3 class="firstletter uppercase text-center">{{index}}</h3>
+        <ul>
+          <li v-for="sub in item" :key="sub.id">
+            <a :href="sub.link">
+              <span class="shopname">{{sub.name}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import TopBar from "~/components/TopBar.vue";
+import Nav from "~/components/Nav.vue";
+import axios from "axios";
+
+export default {
+  async asyncData({ app, route }) {
+    var requestRoute = "/api/tagcity/v3/azwebshops";
+
+    if (app.i18n.locale != "nl") {
+      var url = process.env.apiUrl + "/" + app.i18n.locale + requestRoute;
+    } else {
+      var url = process.env.apiUrl + requestRoute;
+    }
+
+    let { data } = await axios.get(url, {
+      params: {}
+    });
+
+    return {
+      nav: data.nav,
+      search: data.search,
+      az: data.az
+    };
+  },
+  computed: {
+    availableLocales() {
+      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
+    },
+    currentLocal() {
+      return this.$i18n.locale;
+    }
+  },
+  methods: {
+    makeHashUrl(az) {
+      return "#" + az;
+    }
+  },
+  props: {},
+  components: {
+    Nav,
+    TopBar
+  },
+  mounted() {}
+};
+</script>
+
+
+<style lang="scss">
+.firstletter {
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #95aec5;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.fasttraveltothaalphabet {
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+  li {
+    float: left;
+    padding: 10px 6px;
+    background-color: #ffffff;
+    margin-right: 20px;
+    border-radius: 20px;
+    min-width: 25px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .fasttraveltothaalphabet {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .letter {
+    padding-left: 15px;
+    padding-right: 15px;
+    ul {
+      -webkit-column-count: 1 !important;
+      -moz-column-count: 1 !important;
+      -ms-column-count: 1 !important;
+      -o-column-count: 1 !important;
+      column-count: 1 !important;
+    }
+  }
+}
+
+.letter {
+  padding-bottom: 40px;
+
+  ul {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    -ms-column-count: 3;
+    -o-column-count: 3;
+    column-count: 3;
+  }
+
+  .shopname {
+    display: inline-block;
+    padding-left: 15px;
+  }
+
+  li {
+    padding: 10px;
+    width: 100%;
+    display: inline-block;
+  }
+}
+</style>
