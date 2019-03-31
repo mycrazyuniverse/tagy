@@ -1,5 +1,5 @@
 <template>
-  <div class="shop-bar">
+  <div class="shop-bar bigbar">
     <div class="container">
       <div class="shop-logo webshop-logo">
         <img :src="logo" id="webshop-logo" width="42" height="42" class>
@@ -35,11 +35,9 @@ export default {
 
 <style lang="scss">
 .shop-bar {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  line-height: 21px;
   padding-left: 10px;
   padding-right: 10px;
-  line-height: 21px;
 
   .inner {
     padding-left: 15px;

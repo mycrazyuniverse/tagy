@@ -35,6 +35,18 @@
             <div v-html="description.content" class="text"></div>
           </div>
         </aside>
+        <aside class="widget">
+          <div class="description">
+            <ul>
+              <li v-for="(item, index) in blog" :key="index" class="related-article">
+                <a :href="'/gids/' + item.post_name">
+                  <h4>{{ item.post_title }}</h4>
+                </a>
+                <p>{{ item.short_desc }}</p>
+              </li>
+            </ul>
+          </div>
+        </aside>
         <aside class="widget related_shop_logo shop-logo" v-if="related.content.length > 0">
           <h3>{{ related.title }}</h3>
           <WebshopLogo
@@ -114,7 +126,8 @@ export default {
       description: data.description,
       related: data.related,
       must_know: data.must_know,
-      useful_link: data.useful_link
+      useful_link: data.useful_link,
+      blog: data.blog
     };
   },
   head() {
@@ -232,6 +245,10 @@ export default {
   .webshop-logo {
     margin: 5px;
   }
+}
+
+.related-article {
+  list-style: none;
 }
 
 @media only screen and (min-width: 1180px) {

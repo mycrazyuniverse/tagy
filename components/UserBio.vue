@@ -66,9 +66,7 @@ export default {
       return bio;
     }
   },
-  mounted() {
-    console.log(this.avatar);
-  }
+  mounted() {}
 };
 </script>
 
