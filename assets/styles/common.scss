@@ -11,6 +11,15 @@ body {
   overflow: hidden;
 }
 
+.date {
+  float: left;
+
+  .day {
+    font-size: 50px;
+    font-weight: 900;
+  }
+}
+
 .bigbar {
   padding-top: 30px;
   padding-bottom: 30px;

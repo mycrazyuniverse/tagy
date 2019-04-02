@@ -47,7 +47,7 @@
             </ul>
           </div>
         </aside>
-        <aside class="widget related_shop_logo shop-logo" v-if="related.content.length > 0">
+        <aside class="widget related_shop_logo shop-logo" v-if="related.content != ''">
           <h3>{{ related.title }}</h3>
           <WebshopLogo
             v-for="(item, index) in related.content"
@@ -138,7 +138,7 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: "My custom description"
+          content: this.meta.desc
         }
       ]
     };

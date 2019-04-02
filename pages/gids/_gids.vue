@@ -5,7 +5,11 @@
       <Nav :items="nav"></Nav>
       <div class="container">
         <div class="blog-title bigbar">
-          <h1>{{ post.post_title }}</h1>
+          <div class="date">
+            <span class="day">12</span>
+            <span class="month">feb</span>
+          </div>
+          <h1>{{ content.post_title }}</h1>
           <ul>
             <li>Geschreven door Benjamin</li>
           </ul>
@@ -13,7 +17,7 @@
       </div>
     </div>
     <div class="container">
-      <div v-html="post.post_content" class="content"></div>
+      <div v-html="content.post_content" class="content"></div>
     </div>
   </div>
 </template>
@@ -41,18 +45,19 @@ export default {
       nav: data.nav,
       search: data.search,
       blog: data.blog,
-      post: data.post
+      content: data.content,
+      meta: data.meta
     };
   },
   head() {
     return {
-      title: "this.meta.title",
+      title: this.meta.title,
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         {
           hid: "description",
           name: "description",
-          content: "My custom description"
+          content: this.meta.desc
         }
       ]
     };
