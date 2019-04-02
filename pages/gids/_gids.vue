@@ -7,7 +7,7 @@
         <div class="blog-title bigbar">
           <div class="date">
             <span class="day">12</span>
-            <span class="month">feb</span>
+            <p class="month">feb</p>
           </div>
           <h1>{{ content.post_title }}</h1>
           <ul>
