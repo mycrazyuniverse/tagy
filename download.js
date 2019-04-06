@@ -14,4 +14,4 @@ var download = function (url, dest, cb) {
   });
 };
 
-download('https://dev-tagcity.pantheonsite.io/api/tagcity/v3/sitemap', 'routes.json');
+download('http://dev-tagcity.pantheonsite.io/api/tagcity/v3/sitemap', 'routes.json');

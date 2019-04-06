@@ -1,56 +1,31 @@
 document
   .addEventListener("DOMContentLoaded", function () {
 
+    var langcode = document.documentElement.lang;
+    var lang = langcode.replace('-BE', '');
+    var apiUrl = 'https://dev-tagcity.pantheonsite.io/';
 
-
-    /*
-    http: //www.awin1.com/cread.php?awinmid=8527&awinaffid=330303&clickref=
-
-    var decrypted = CryptoJS.AES.decrypt(encrypted, myPassword);
-
-    var p = 'awin';
-    var z = '8527';
-    var a = '330303';
-    var h = 'https://www.';
-    var c = '.com/';
-    var i = 'id';
-    var g = '=';
-    var e = '&';
-    var q = '?';
-    var r = 'aff';
-    var k = 'clickref';
-    var m = 'cread';
-    var f = '.php';
-
-    var decodeUrl = h + p + 1 + c + m + f + q + p + 'm' + i + g + z + e + r + i + a + e + k + g;
-
-    var mobilemenuoverlay = document.querySelector('.mobile-menu-overlay');
-
-          src: 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js'
-
-    
-        var code = 'U2FsdGVkX181yfV6xsAO9Ouujk2ZJnEEkDIwe9t4pqGl64roiy+pXBR/XmST79vU';
-        var decrypted = CryptoJS.AES.decrypt(code, 'myP');
-        console.log(decrypted);
-
-    */
+    if (lang != 'nl') {
+      apiUrl = 'https://dev-tagcity.pantheonsite.io/' + lang + '/';
+    }
 
     var popup_id = getUrlParameter('popup');
+    var mobilemenuoverlay = document.querySelector('.mobile-menu-overlay');
+    var popup = document.querySelectorAll(".popup")[0];
 
     if (popup_id) {
 
-      var popup = document.querySelectorAll(".popup")[0];
       removeClass(popup, 'hide')
       removeClass(popup, 'popup-hidden')
 
       var tag = document.querySelectorAll('#tag' + popup_id)[0];
-      var title = tag
-        .querySelector('.tag-title')
-        .textContent;
-      var logo = tag.dataset.logo;
-      var code = tag.dataset.code;
 
-      console.log(tag);
+      if (tag) {
+        var title = tag.querySelector('.tag-title').textContent;
+        var logo = tag.dataset.logo;
+        var code = tag.dataset.code;
+      }
+
 
       popup
         .querySelector('.pop-code')
@@ -75,17 +50,24 @@ document
 
 
 
-    var menuitems = Array.from(document.querySelectorAll(".menu-item"));
+    var menuitems = Array.from(document.querySelectorAll(".menu-items"));
 
     menuitems.forEach(target => {
 
       target.addEventListener('click', (ev) => {
-        console.log(menuitems);
 
         var dropdown_menu = Array.from(document.querySelectorAll(".dropdown_menu"));
 
         dropdown_menu.forEach(items => {
-          removeClass(items, 'show');
+
+          /*removeClass(items, 'show');
+
+          if(hasClass(items, 'show')){
+            addClass(items, 'show');
+          }else{
+            removeClass(items, 'show');
+          }*/
+
         });
 
       }, false);
@@ -113,16 +95,144 @@ document
 
     document
       .querySelectorAll('.searchfield')[0]
+      .addEventListener('input', (ev) => {
+
+        document.querySelectorAll('.tagcitylogo')[0].src = "https://media.tagcity.be/2019/03/search.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
+
+        var request = new XMLHttpRequest();;
+
+        var requestUrl = apiUrl + 'api/tagcity/v3/search/' + ev.currentTarget.value;
+
+        request.open('GET', requestUrl, true);
+
+        request.onload = function () {
+          if (request.status >= 200 && request.status < 400) {
+            // Success!
+            var data = JSON.parse(request.responseText);
+            var results = '';
+
+            if (data.search.webshops.title) {
+              results += '<div class="searchresults-title">' + data.search.webshops.title + '</div>';
+            }
+
+            results += '<ul>';
+            data.search.webshops.results.forEach(target => {
+
+              results += '<li class="searchresult">';
+              results += '<a href="'
+              results += target.link;
+              results += '" class="searchresult_link">';
+              results += '<span class="logo">';
+              results += '<img src="';
+              results += target.logo;
+              results += '" height="40" class="float-left searchresult_thumb" />';
+              results += '<span>';
+              results += '<span class="searchresult_text"><strong>';
+              results += target.name;
+              results += '</strong><br />';
+              results += target.count;
+              results += ' acties'
+              results += '</span>';
+              results += '</a>';
+
+              if (data.search.webshops.tags) {
+
+                data.search.webshops.tags.forEach(tags => {
+
+                  results += '<ul class="tag-results">';
+                  results += '<li class="search-tag">';
+                  results += '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-"><div class="tag-item"><div class="float-left"><div class="discount-box text-center"><span class="discount text-lg">-20%</span> <span class=" label uppercase">Korting</span></div></div> <div class="tag-info float-right"><div class="tag-content"><h3 class="tag-title"><a href="?popup=110">Exclusief: 10% korting op de volledige website</a></h3><div id="details110" class="tag-desc">Toegevoegd 1 maart 2019<div></div></div></div></div></div></article>';
+                  results += '</li>';
+                  results += '</ul>';
+
+                });
+
+              }
+
+              results += '</li>';
+
+            });
+
+            if (data.search.categories.title) {
+              results += '<div class="searchresults-title">' + data.search.categories.title + '</div>';
+            }
+
+            results += '<ul>';
+
+            data.search.categories.results.forEach(target => {
+
+              results += '<li class="searchresult">';
+              results += '<a href="'
+              results += '" class="searchresult_link">';
+              results += '<img src="';
+              results += target.logo;
+              results += '" height="40" class="float-left searchresult_thumb" />';
+              results += '<span class="searchresult_text"><strong>';
+              results += target.name;
+              results += '</strong><br />';
+              results += target.count;
+              results += ' acties'
+              results += '</span>';
+              results += '</a>';
+
+              if (target.tags) {
+
+                data.search.categories.tags.forEach(tags => {
+
+                  results += '<ul class="tag-results">';
+                  results += '<li class="search-tag">';
+                  results += '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-"><div class="tag-item"><div class="float-left"><div class="discount-box text-center"><span class="discount text-lg">-20%</span> <span class=" label uppercase">Korting</span></div></div> <div class="tag-info float-right"><div class="tag-content"><h3 class="tag-title"><a href="?popup=110">Exclusief: 10% korting op de volledige website</a></h3><div id="details110" class="tag-desc">Toegevoegd 1 maart 2019<div></div></div></div></div></div></article>';
+                  results += '</li>';
+                  results += '</ul>';
+
+                });
+
+              }
+
+              results += '</li>';
+
+            });
+
+            results += '</ul>';
+
+            searchresults.innerHTML = results;
+
+          } else {
+            // We reached our target server, but it returned an error
+
+          }
+        };
+
+        request.onerror = function () {
+          // There was a connection error of some sort
+        };
+
+        request.send();
+
+      }, false);
+
+    document
+      .querySelectorAll('.searchfield')[0]
       .addEventListener('focus', (ev) => {
+
+        document.querySelectorAll('.tagcitylogo')[0].src = "https://media.tagcity.be/2019/03/search.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
+
         removeClass(searchresults, 'hide');
         removeClass(mobilemenuoverlay, 'hide');
+
       }, false);
 
     document
       .querySelectorAll('.searchfield')[0]
       .addEventListener('blur', (ev) => {
-        addClass(searchresults, 'hide');
-        addClass(mobilemenuoverlay, 'hide');
+
+        document.querySelectorAll('.tagcitylogo')[0].src = "https://media.tagcity.be/2019/03/tagcity.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
+
+        myVar = setTimeout(function () {
+          addClass(searchresults, 'hide');
+          addClass(mobilemenuoverlay, 'hide');
+        }, 300);
+
       }, false);
 
 
@@ -178,15 +288,16 @@ document
     window.addEventListener('click', (ev) => {
       const elm = ev.target;
 
-      if (!hasClass(elm, 'open_collapse')) {
-        addClass(elm, 'open_collapse');
-      } else {
-        removeClass(elm, 'open_collapse');
-      }
-
       if (triggers.includes(elm)) {
         const selector = elm.getAttribute('data-target');
         collapse(selector, 'toggle');
+
+
+        if (!hasClass(elm, 'open_collapse')) {
+          addClass(elm, 'open_collapse');
+        } else {
+          removeClass(elm, 'open_collapse');
+        }
 
       }
     }, false);
