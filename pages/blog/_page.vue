@@ -6,7 +6,7 @@
     </div>
     <div class="container">
       <ul class="list-style-none blogposts">
-        <li v-for="(item, index) in posts" :key="index" class>
+        <li v-for="(item, index) in posts" :key="index">
           <MiniPost
             :slug="item.post_name"
             :title="item.post_title"
