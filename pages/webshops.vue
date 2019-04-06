@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="bar">
-      <TopBar :search="search"></TopBar>
-      <Nav :items="nav"></Nav>
+      <TopBar :search="common.search"></TopBar>
+      <Nav :items="common.nav"></Nav>
     </div>
     <div class="container">
       <ul class="fasttraveltothaalphabet uppercase">
@@ -33,7 +33,7 @@ import axios from "axios";
 
 export default {
   async asyncData({ app, route }) {
-    var requestRoute = "/api/tagcity/v3/azwebshops";
+    var requestRoute = "/" + process.env.apiSlug + "/tagcity/v3/azwebshops";
 
     if (app.i18n.locale != "nl") {
       var url = process.env.apiUrl + "/" + app.i18n.locale + requestRoute;
@@ -46,8 +46,7 @@ export default {
     });
 
     return {
-      nav: data.nav,
-      search: data.search,
+      common: data.common,
       az: data.az
     };
   },

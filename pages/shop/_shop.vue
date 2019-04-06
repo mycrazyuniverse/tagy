@@ -1,13 +1,9 @@
 <template>
   <div class="shop">
     <div class="bar">
-      <TopBar :search="search"></TopBar>
-      <Nav :items="nav"></Nav>
-      <ShopBar
-        :title="shopbar.title"
-        subtitle="Gebruik onderstaande promoties geldig in België en bespaar op je aankopen"
-        :logo="shopbar.thumb"
-      ></ShopBar>
+      <TopBar :search="common.search"></TopBar>
+      <Nav :items="common.nav"></Nav>
+      <ShopBar :title="shopbar.title" :subtitle="shopbar.subtitle" :logo="shopbar.thumb"></ShopBar>
     </div>
     <div class="container">
       <div id="content">
@@ -20,15 +16,17 @@
           :subtitle="optin.subtitle"
         ></Optin>
       </div>
-      <div class="sidebar">
-        <UserBio
-          :name="authorbio.name"
-          :role="authorbio.role"
-          :avatar="authorbio.avatar"
-          :bio="authorbio.bio"
-          :url="authorbio.url"
-          :calltoaction="authorbio.calltoaction"
-        ></UserBio>
+      <div class="sidebar sidebar-fusion">
+        <aside class="widget">
+          <AuthorBio
+            :name="authorbio.name"
+            :role="authorbio.role"
+            :avatar="authorbio.avatar"
+            :bio="authorbio.bio"
+            :url="authorbio.url"
+            :calltoaction="authorbio.calltoaction"
+          ></AuthorBio>
+        </aside>
         <aside class="widget" v-if="description.content">
           <div class="description">
             <h3>{{ description.title }}</h3>
@@ -36,16 +34,19 @@
           </div>
         </aside>
         <aside class="widget">
-          <div class="description">
-            <ul>
-              <li v-for="(item, index) in blog" :key="index" class="related-article">
-                <a :href="'/gids/' + item.post_name">
-                  <h4>{{ item.post_title }}</h4>
-                </a>
-                <p>{{ item.short_desc }}</p>
-              </li>
-            </ul>
-          </div>
+          <ul class="list-style-none">
+            <MiniPost
+              v-for="(item, index) in blog"
+              class="mininamopost"
+              type="nano"
+              :key="index"
+              :slug="item.post_name"
+              :title="item.post_title"
+              :content="item.short_desc"
+              :thumbnail="item.nano"
+              :friendly_date="item.friendly_date"
+            ></MiniPost>
+          </ul>
         </aside>
         <aside class="widget related_shop_logo shop-logo" v-if="related.content != ''">
           <h3>{{ related.title }}</h3>
@@ -65,7 +66,7 @@
         </aside>
         <aside class="widget" v-if="useful_link.content">
           <h3>{{useful_link.title}}</h3>
-          <ul>
+          <ul class="list-style-none">
             <li v-for="item in useful_link.content">
               <a :href="item.link">{{ item.text }}</a>
             </li>
@@ -89,19 +90,19 @@
 <script>
 import Tag from "~/components/Tag.vue";
 import Optin from "~/components/Optin.vue";
-import UserBio from "~/components/UserBio.vue";
+import AuthorBio from "~/components/AuthorBio.vue";
 import Discountbox from "~/components/Discountbox.vue";
 import HallOfFame from "~/components/HallOfFame.vue";
 import WebshopLogo from "~/components/WebshopLogo.vue";
 import TopBar from "~/components/TopBar.vue";
 import ShopBar from "~/components/ShopBar.vue";
 import Nav from "~/components/Nav.vue";
+import MiniPost from "~/components/MiniPost.vue";
+
 import axios from "axios";
 
 export default {
   async asyncData({ app, route }) {
-    console.log(route.params.shop);
-
     var requestRoute = "/api/tagcity/v3/webshop/" + route.params.shop;
 
     if (app.i18n.locale != "nl") {
@@ -115,8 +116,7 @@ export default {
     });
 
     return {
-      nav: data.nav,
-      search: data.search,
+      common: data.common,
       term: data.term,
       tags: data.tags,
       shopbar: data.shopbar,
@@ -149,10 +149,11 @@ export default {
     TopBar,
     Tag,
     Optin,
-    UserBio,
+    AuthorBio,
     Discountbox,
     HallOfFame,
-    WebshopLogo
+    WebshopLogo,
+    MiniPost
   },
   mounted() {}
 };
@@ -210,25 +211,6 @@ export default {
   }
 }
 
-.sidebar {
-  position: relative;
-  width: 100%;
-  float: right;
-  font-size: 12px;
-  line-height: 1.5;
-
-  .name {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .description {
-    padding-bottom: 15px;
-    padding-top: 15px;
-    padding-left: 15px;
-  }
-}
-
 .visit-shop {
   /* background-color: #fff; */
   text-align: center;
@@ -239,22 +221,6 @@ export default {
 
 .popup-hidden {
   height: 0px;
-}
-
-.related_shop_logo {
-  .webshop-logo {
-    margin: 5px;
-  }
-}
-
-.related-article {
-  list-style: none;
-}
-
-@media only screen and (min-width: 1180px) {
-  .sidebar {
-    top: -100px;
-  }
 }
 
 @media only screen and (max-width: 1180px) {

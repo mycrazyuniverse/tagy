@@ -11,18 +11,59 @@ body {
   overflow: hidden;
 }
 
+.sidebar {
+  position: relative;
+  width: 100%;
+  float: right;
+  font-size: 12px;
+  line-height: 1.5;
+
+  .description {
+    padding-bottom: 15px;
+    padding-top: 15px;
+    padding-left: 15px;
+  }
+}
+
+
+
 .date {
   float: left;
+  padding-right: 25px;
+  text-align: center;
 
   .day {
     font-size: 50px;
     font-weight: 900;
   }
+
+  .month {
+    top: -10px;
+    position: relative;
+    padding-top: 0px !important;
+    text-align: center;
+    font-size: 15px;
+    background-color: #fff;
+    padding-bottom: 0px !important;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 30px;
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+
 }
 
 .bigbar {
   padding-top: 30px;
   padding-bottom: 30px;
+}
+
+.list-style-none {
+
+  li {
+    list-style: none;
+  }
 }
 
 .collapse {
@@ -37,11 +78,30 @@ body {
   }
 }
 
+.bubble {
+  float: left;
+  background-color: #fff;
+  padding: 0px 15px;
+  margin-right: 10px;
+  border-radius: 30px;
+}
+
+.dashed,
+.widget {
+  border-bottom: 1px dashed #95aec5;
+}
+
+.related_shop_logo {
+  .webshop-logo {
+    margin: 5px;
+  }
+}
+
+
 .widget {
   display: inline-block;
   padding-top: 15px;
   padding-bottom: 15px;
-  border-bottom: 1px dashed #95aec5;
   width: 100%;
 
   .text {
@@ -356,4 +416,20 @@ $tooltip_w: 100px;
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+@media only screen and (min-width: 1180px) {
+  #content {
+    width: 80%;
+    float: left;
+  }
+
+  .sidebar {
+    width: 20% !important;
+  }
+
+  .sidebar-fusion {
+    top: -85px;
+  }
+
 }

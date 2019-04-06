@@ -308,14 +308,5 @@ export default {
       display: none;
     }
   }
-
-  #content {
-    width: 80%;
-    float: left;
-  }
-
-  .sidebar {
-    width: 20% !important;
-  }
 }
 </style>

@@ -26,7 +26,8 @@ module.exports = {
     }, ]
   },
   env: {
-    apiUrl: 'https://dev-tagcity.pantheonsite.io'
+    apiUrl: 'https://dev-tagcity.pantheonsite.io',
+    apiSlug: 'api'
   },
 
   /*

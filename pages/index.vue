@@ -1,8 +1,8 @@
 <template>
   <div class="index">
     <div class="bar">
-      <TopBar :search="search"></TopBar>
-      <Nav :items="nav"></Nav>
+      <TopBar :search="common.search"></TopBar>
+      <Nav :items="common.nav"></Nav>
     </div>
     <div class="container">
       <p>dit is de homepage</p>
@@ -20,7 +20,7 @@ import axios from "axios";
 
 export default {
   async asyncData({ app, route }) {
-    var requestRoute = "/api/tagcity/v3/home";
+    var requestRoute = "/" + process.env.apiSlug + "/tagcity/v3/home";
 
     if (app.i18n.locale != "nl") {
       var url = process.env.apiUrl + "/" + app.i18n.locale + requestRoute;
@@ -33,8 +33,7 @@ export default {
     });
 
     return {
-      nav: data.nav,
-      search: data.search
+      common: data.common
     };
   },
   computed: {

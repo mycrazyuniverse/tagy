@@ -1,14 +1,14 @@
 <template>
-  <aside class="widget user">
+  <div class="author authorbio">
     <div class="text-center">
-      <br>
       <img :src="avatar" width="100" height="100" class="author-avatar circle">
+      <div class="credit_for" v-if="credit_for">{{ credit_for }}</div>
       <div class="name">{{ name }}</div>
       <div class="title">{{ role }}</div>
     </div>
-    <div class="description">
+    <div class="description" v-if="bio">
       <p>{{ bio }}</p>
-      <div class="visit-shop">
+      <div class="visit-shop" v-if="url">
         <a
           :href="'https://dev-tagcity.pantheonsite.io' + url"
           rel="nofollow"
@@ -16,7 +16,7 @@
         >{{ calltoaction }} ></a>
       </div>
     </div>
-  </aside>
+  </div>
 </template>
 
 <script>
@@ -53,6 +53,10 @@ export default {
     last_updated: {
       type: String,
       default: ""
+    },
+    credit_for: {
+      type: String,
+      default: ""
     }
   },
   computed: {
@@ -70,8 +74,16 @@ export default {
 };
 </script>
 
-<style>
-.webshop-img img {
-  padding: 20px;
+<style lang="scss">
+.authorbio {
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.8;
+  }
+
+  .webshop-img img {
+    padding: 20px;
+  }
 }
 </style>

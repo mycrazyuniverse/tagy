@@ -1,26 +1,75 @@
 <template>
   <div class="index">
     <div class="bar">
-      <TopBar :search="search"></TopBar>
-      <Nav :items="nav"></Nav>
+      <TopBar :search="common.search"></TopBar>
+      <Nav :items="common.nav"></Nav>
+      <ShopBar :title="shopbar.title" :subtitle="shopbar.subtitle" :logo="shopbar.thumb"></ShopBar>
     </div>
+    <div class="container"></div>
     <div class="container">
-      <p>dit word de categoriepagina's</p>
+      <div id="content">
+        <p>dit word de categoriepagina's</p>
+      </div>
+      <div class="sidebar sidebar-fusion">
+        <aside class="widget">
+          <AuthorBio
+            :name="authorbio.name"
+            :role="authorbio.role"
+            :avatar="authorbio.avatar"
+            :bio="authorbio.bio"
+          ></AuthorBio>
+        </aside>
+        <aside class="widget" v-if="description.content">
+          <div class="description">
+            <h3>{{ description.title }}</h3>
+            <div v-html="description.content" class="text"></div>
+          </div>
+        </aside>
+        <aside class="widget">
+          <ul class="list-style-none">
+            <MiniPost
+              v-for="(item, index) in blog"
+              class="mininamopost"
+              type="nano"
+              :key="index"
+              :slug="item.post_name"
+              :title="item.post_title"
+              :content="item.short_desc"
+              :thumbnail="item.nano"
+              :friendly_date="item.friendly_date"
+            ></MiniPost>
+          </ul>
+        </aside>
+      </div>
+      <div id="popup" class="popup hide">
+        <div class="popup-content rounded">
+          <div class="close pop-close"></div>
+          <img class="pop-logo" width="58">
+          <h1 class="pop-title"></h1>
+          <input class="pop-code" type="text" value="geen code nodig" readonly>
+          <a class="btn uppercase">Ga naar de website</a>
+        </div>
+        <div class="overlay pop-close"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import TopBar from "~/components/TopBar.vue";
-import Nav from "~/components/Nav.vue";
 import Tag from "~/components/Tag.vue";
 import Optin from "~/components/Optin.vue";
+import AuthorBio from "~/components/AuthorBio.vue";
+import WebshopLogo from "~/components/WebshopLogo.vue";
+import TopBar from "~/components/TopBar.vue";
+import ShopBar from "~/components/ShopBar.vue";
+import Nav from "~/components/Nav.vue";
+import MiniPost from "~/components/MiniPost.vue";
 
 import axios from "axios";
 
 export default {
   async asyncData({ app, route }) {
-    var requestRoute = "/api/tagcity/v3/home";
+    var requestRoute = "/api/tagcity/v3/category/" + route.params.categorie;
 
     if (app.i18n.locale != "nl") {
       var url = process.env.apiUrl + "/" + app.i18n.locale + requestRoute;
@@ -33,8 +82,18 @@ export default {
     });
 
     return {
-      nav: data.nav,
-      search: data.search
+      common: data.common,
+      term: data.term,
+      tags: data.tags,
+      shopbar: data.shopbar,
+      authorbio: data.authorbio,
+      optin: data.optin,
+      meta: data.meta,
+      description: data.description,
+      related: data.related,
+      must_know: data.must_know,
+      useful_link: data.useful_link,
+      blog: data.blog
     };
   },
   computed: {
@@ -48,7 +107,13 @@ export default {
   props: {},
   components: {
     Nav,
-    TopBar
+    ShopBar,
+    TopBar,
+    Tag,
+    Optin,
+    AuthorBio,
+    WebshopLogo,
+    MiniPost
   },
   mounted() {}
 };
