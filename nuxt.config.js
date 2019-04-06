@@ -1,5 +1,6 @@
 const pkg = require('./package')
 const cheerio = require('cheerio')
+var routes = require('./routes.json');
 
 module.exports = {
   mode: 'universal',
@@ -72,6 +73,10 @@ module.exports = {
   ],
   render: {
     resourceHints: false
+  },
+
+  generate: {
+    routes: routes
   },
 
   hooks: {
