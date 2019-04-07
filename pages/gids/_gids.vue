@@ -56,7 +56,7 @@
         </aside>
         <aside class="widget">
           <div>
-            <ul class="list-style-none">
+            <ul class="list-style-none" v-if="related">
               <MiniPost
                 v-for="(item, index) in related"
                 class="mininamopost"
@@ -104,9 +104,14 @@ export default {
       var url = process.env.apiUrl + requestRoute;
     }
 
-    let { data } = await axios.get(url, {
-      params: {}
-    });
+    let { data } = await axios
+      .get(url, {
+        params: {}
+      })
+      .then(response => {
+        return response;
+      })
+      .catch(error => {});
 
     return {
       nav: data.nav,

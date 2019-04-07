@@ -27,7 +27,7 @@ module.exports = {
     }, ]
   },
   env: {
-    apiUrl: 'https://dev-tagcity.pantheonsite.io',
+    apiUrl: 'http://dev-tagcity.pantheonsite.io',
     apiSlug: 'api'
   },
 
@@ -76,7 +76,8 @@ module.exports = {
   },
 
   generate: {
-    routes: routes
+    routes: routes,
+    interval: 200,
   },
 
   hooks: {
