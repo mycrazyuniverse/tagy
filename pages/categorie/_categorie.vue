@@ -40,6 +40,16 @@
             ></MiniPost>
           </ul>
         </aside>
+        <aside class="widget related_shop_logo shop-logo" v-if="related.content != ''">
+          <h3>{{ related.title }}</h3>
+          <WebshopLogo
+            v-for="(item, index) in related.content"
+            :key="index"
+            :logo="item.logo"
+            :url="item.link"
+            :title="item.name"
+          ></WebshopLogo>
+        </aside>
       </div>
       <div id="popup" class="popup hide">
         <div class="popup-content rounded">

@@ -163,6 +163,7 @@ document
 
               results += '<li class="searchresult">';
               results += '<a href="'
+              results += target.link;
               results += '" class="searchresult_link">';
               results += '<img src="';
               results += target.logo;
