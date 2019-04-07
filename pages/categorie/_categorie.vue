@@ -5,10 +5,9 @@
       <Nav :items="common.nav"></Nav>
       <ShopBar :title="shopbar.title" :subtitle="shopbar.subtitle" :logo="shopbar.thumb"></ShopBar>
     </div>
-    <div class="container"></div>
     <div class="container">
       <div id="content">
-        <p>dit word de categoriepagina's</p>
+        <p>dit word de categoriepagina</p>
       </div>
       <div class="sidebar sidebar-fusion">
         <aside class="widget">
