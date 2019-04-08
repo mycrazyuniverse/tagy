@@ -1,6 +1,6 @@
 <template>
-  <ul class="breadcrumb">
-    <li v-for="(item, index) in list">
+  <ul class="breadcrumbs">
+    <li v-for="(item, index) in list" class="breadcrumb float-left">
       <a href="#">Home</a>
     </li>
   </ul>
@@ -18,4 +18,8 @@ export default {
 </script>
 
 <style>
+.breadcrumbs {
+  width: 100%;
+  display: inline-block;
+}
 </style>

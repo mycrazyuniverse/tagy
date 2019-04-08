@@ -7,6 +7,7 @@
     </div>
     <div class="container">
       <div id="content">
+        <Breadcrumbs :list="breadcrumbs"></Breadcrumbs>
         <section class="tags"></section>
         <section class="hall_of_fame"></section>
         <Optin :logo="shopbar.thumb" :title="optin.title" :subtitle="optin.subtitle"></Optin>
