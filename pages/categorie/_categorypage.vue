@@ -10,24 +10,38 @@
         <p>dit word de categoriepagina</p>
       </div>
       <div class="sidebar sidebar-fusion">
-        <aside class="widget">
+        <SidebarItem
+          id="authorbio"
+          :display="true"
+          :title="authorbio.title"
+          titleclass="m-only-toggle m-padding"
+        >
           <AuthorBio
             :name="authorbio.name"
             :role="authorbio.role"
             :avatar="authorbio.avatar"
             :bio="authorbio.bio"
+            class="m-padding"
           ></AuthorBio>
-        </aside>
-        <aside class="widget" v-if="description.content">
-          <div class="description">
-            <h3>{{ description.title }}</h3>
-            <div v-html="description.content" class="text"></div>
-          </div>
-        </aside>
-        <aside class="widget">
-          <ul class="list-style-none">
+        </SidebarItem>
+        <SidebarItem
+          id="about"
+          :display="description.content"
+          :title="description.title"
+          titleclass="padding"
+        >
+          <div v-html="description.content" class="text description"></div>
+        </SidebarItem>
+
+        <SidebarItem
+          id="posts"
+          :display="blog.content"
+          :title="blog.title"
+          titleclass="m-only-toggle m-padding"
+        >
+          <ul class="list-style-none m-toggle padding">
             <MiniPost
-              v-for="(item, index) in blog"
+              v-for="(item, index) in blog.content"
               class="mininamopost"
               type="nano"
               :key="index"
@@ -38,17 +52,24 @@
               :friendly_date="item.friendly_date"
             ></MiniPost>
           </ul>
-        </aside>
-        <aside class="widget related_shop_logo shop-logo" v-if="related.content != ''">
-          <h3>{{ related.title }}</h3>
-          <WebshopLogo
-            v-for="(item, index) in related.content"
-            :key="index"
-            :logo="item.logo"
-            :url="item.link"
-            :title="item.name"
-          ></WebshopLogo>
-        </aside>
+        </SidebarItem>
+
+        <SidebarItem
+          id="related_shops"
+          class="related_shop_logo"
+          :display="related.content"
+          :title="related.title"
+        >
+          <div class="padding text-center">
+            <WebshopLogo
+              v-for="(item, index) in related.content"
+              :key="index"
+              :logo="item.logo"
+              :url="item.link"
+              :title="item.name"
+            ></WebshopLogo>
+          </div>
+        </SidebarItem>
       </div>
       <div id="popup" class="popup hide">
         <div class="popup-content rounded">
@@ -73,12 +94,13 @@ import TopBar from "~/components/TopBar.vue";
 import ShopBar from "~/components/ShopBar.vue";
 import Nav from "~/components/Nav.vue";
 import MiniPost from "~/components/MiniPost.vue";
+import SidebarItem from "~/components/SidebarItem.vue";
 
 import axios from "axios";
 
 export default {
   async asyncData({ app, route }) {
-    var requestRoute = "/api/tagcity/v3/category/" + route.params.categorie;
+    var requestRoute = "/api/tagcity/v3/category/" + route.params.categorypage;
 
     if (app.i18n.locale != "nl") {
       var url = process.env.apiUrl + "/" + app.i18n.locale + requestRoute;
@@ -122,7 +144,8 @@ export default {
     Optin,
     AuthorBio,
     WebshopLogo,
-    MiniPost
+    MiniPost,
+    SidebarItem
   },
   mounted() {}
 };

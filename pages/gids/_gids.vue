@@ -31,56 +31,65 @@
         <aside class="share"></aside>
       </section>
       <div class="sidebar sidebar-fusion">
-        <aside class="widget">
+        <SidebarItem
+          id="authorbio"
+          :display="true"
+          :title="content.authorbio.title"
+          titleclass="m-only-toggle m-padding"
+        >
           <AuthorBio
             :name="content.authorbio.name"
             :role="content.authorbio.role"
             :avatar="content.authorbio.avatar"
             :credit_for="content.authorbio.credit_for_writing"
+            class="m-padding"
           ></AuthorBio>
-        </aside>
-        <aside class="widget">
-          <a
-            href="https://www.plopsa.be/kabouter/?tt=3059_1517659_211001_&amp;r="
-            target="_blank"
-            rel="nofollow"
-            class="adverlink"
-          >
-            <img
-              data-src="https://tagcity.be/app/uploads/2018/12/7becf9777748067e6a0c82ad8eaf37c21d9214.jpg"
-              width="100%"
-              class="loaded"
-              src="https://tagcity.be/app/uploads/2018/12/7becf9777748067e6a0c82ad8eaf37c21d9214.jpg"
-            >
-          </a>
-        </aside>
-        <aside class="widget">
-          <div>
-            <ul class="list-style-none" v-if="related">
-              <MiniPost
-                v-for="(item, index) in related"
-                class="mininamopost"
-                type="nano"
-                :key="index"
-                :slug="item.post_name"
-                :title="item.post_title"
-                :content="item.short_desc"
-                :thumbnail="item.nano"
-                :friendly_date="item.friendly_date"
-              ></MiniPost>
-            </ul>
+        </SidebarItem>
+
+        <SidebarItem
+          class="m-toggle m-toggle-on"
+          title="Advertentie"
+          :display="true"
+          titleclass="m-padding m-only-toggle"
+        >
+          <Ad
+            image="https://tagcity.be/app/uploads/2018/12/7becf9777748067e6a0c82ad8eaf37c21d9214.jpg"
+            url="https://www.plopsa.be/kabouter/?tt=3059_1517659_211001_&amp;r="
+          ></Ad>
+        </SidebarItem>
+
+        <SidebarItem id="posts" :display="blog.content" :title="blog.title" titleclass="m-padding">
+          <ul class="list-style-none m-toggle">
+            <MiniPost
+              v-for="(item, index) in blog.content"
+              class="mininamopost"
+              type="nano"
+              :key="index"
+              :slug="item.post_name"
+              :title="item.post_title"
+              :content="item.short_desc"
+              :thumbnail="item.nano"
+              :friendly_date="item.friendly_date"
+            ></MiniPost>
+          </ul>
+        </SidebarItem>
+
+        <SidebarItem
+          id="related_shops"
+          class="related_shop_logo"
+          :display="related.content"
+          :title="related.title"
+        >
+          <div class="padding">
+            <WebshopLogo
+              v-for="(item, index) in related.content"
+              :key="index"
+              :logo="item.logo"
+              :url="item.link"
+              :title="item.name"
+            ></WebshopLogo>
           </div>
-        </aside>
-        <aside class="widget related_shop_logo shop-logo" v-if="related_shops.content != ''">
-          <h3>{{ related_shops.title }}</h3>
-          <WebshopLogo
-            v-for="(item, index) in related_shops.content"
-            :key="index"
-            :logo="item.logo"
-            :url="item.link"
-            :title="item.name"
-          ></WebshopLogo>
-        </aside>
+        </SidebarItem>
       </div>
     </div>
   </div>
@@ -90,9 +99,12 @@
 import TopBar from "~/components/TopBar.vue";
 import Nav from "~/components/Nav.vue";
 import MiniPost from "~/components/MiniPost.vue";
-import axios from "axios";
 import AuthorBio from "~/components/AuthorBio.vue";
 import WebshopLogo from "~/components/WebshopLogo.vue";
+import SidebarItem from "~/components/SidebarItem.vue";
+import Ad from "~/components/Ad.vue";
+
+import axios from "axios";
 
 export default {
   async asyncData({ app, route }) {
@@ -119,8 +131,8 @@ export default {
       blog: data.blog,
       content: data.content,
       meta: data.meta,
-      related: data.related,
-      related_shops: data.related_shops
+      blog: data.blog,
+      related: data.related
     };
   },
   head() {
@@ -151,7 +163,9 @@ export default {
     TopBar,
     MiniPost,
     AuthorBio,
-    WebshopLogo
+    WebshopLogo,
+    SidebarItem,
+    Ad
   },
   mounted() {}
 };

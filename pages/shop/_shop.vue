@@ -9,15 +9,15 @@
       <div id="content">
         <section class="tags"></section>
         <section class="hall_of_fame"></section>
-        <Optin
-          :logo="shopbar.thumb"
-          webshop="Collishop"
-          :title="optin.title"
-          :subtitle="optin.subtitle"
-        ></Optin>
+        <Optin :logo="shopbar.thumb" :title="optin.title" :subtitle="optin.subtitle"></Optin>
       </div>
       <div class="sidebar sidebar-fusion">
-        <aside class="widget">
+        <SidebarItem
+          id="authorbio"
+          :display="true"
+          :title="authorbio.title"
+          titleclass="m-only-toggle m-padding"
+        >
           <AuthorBio
             :name="authorbio.name"
             :role="authorbio.role"
@@ -25,18 +25,28 @@
             :bio="authorbio.bio"
             :url="authorbio.url"
             :calltoaction="authorbio.calltoaction"
+            class="m-padding"
           ></AuthorBio>
-        </aside>
-        <aside class="widget" v-if="description.content">
-          <div class="description">
-            <h3>{{ description.title }}</h3>
-            <div v-html="description.content" class="text"></div>
-          </div>
-        </aside>
-        <aside class="widget">
-          <ul class="list-style-none">
+        </SidebarItem>
+
+        <SidebarItem
+          id="about"
+          :display="description.content"
+          :title="description.title"
+          titleclass="padding"
+        >
+          <div v-html="description.content" class="text description"></div>
+        </SidebarItem>
+
+        <SidebarItem
+          id="posts"
+          :display="blog.content"
+          :title="blog.title"
+          titleclass="m-only-toggle m-padding"
+        >
+          <ul class="list-style-none m-toggle padding">
             <MiniPost
-              v-for="(item, index) in blog"
+              v-for="(item, index) in blog.content"
               class="mininamopost"
               type="nano"
               :key="index"
@@ -47,31 +57,46 @@
               :friendly_date="item.friendly_date"
             ></MiniPost>
           </ul>
-        </aside>
-        <aside class="widget related_shop_logo shop-logo" v-if="related.content != ''">
-          <h3>{{ related.title }}</h3>
-          <WebshopLogo
-            v-for="(item, index) in related.content"
-            :key="index"
-            :logo="item.logo"
-            :url="item.link"
-            :title="item.name"
-          ></WebshopLogo>
-        </aside>
-        <aside class="widget" v-if="must_know.content">
-          <div class="text">
-            <h3>{{ must_know.title }}</h3>
-            <div v-html="must_know.content"></div>
+        </SidebarItem>
+
+        <SidebarItem
+          id="related_shops"
+          class="related_shop_logo"
+          :display="related.content"
+          :title="related.title"
+        >
+          <div class="padding">
+            <WebshopLogo
+              v-for="(item, index) in related.content"
+              :key="index"
+              :logo="item.logo"
+              :url="item.link"
+              :title="item.name"
+            ></WebshopLogo>
           </div>
-        </aside>
-        <aside class="widget" v-if="useful_link.content">
-          <h3>{{useful_link.title}}</h3>
+        </SidebarItem>
+
+        <SidebarItem
+          id="must_know"
+          class="related_shop_logo"
+          :display="must_know.content"
+          :title="must_know.title"
+        >
+          <div v-html="must_know.content"></div>
+        </SidebarItem>
+
+        <SidebarItem
+          id="useful_links"
+          class="related_shop_logo"
+          :display="useful_link.content"
+          :title="useful_link.title"
+        >
           <ul class="list-style-none">
             <li v-for="item in useful_link.content">
               <a :href="item.link">{{ item.text }}</a>
             </li>
           </ul>
-        </aside>
+        </SidebarItem>
       </div>
       <div id="popup" class="popup hide">
         <div class="popup-content rounded">
@@ -98,6 +123,7 @@ import TopBar from "~/components/TopBar.vue";
 import ShopBar from "~/components/ShopBar.vue";
 import Nav from "~/components/Nav.vue";
 import MiniPost from "~/components/MiniPost.vue";
+import SidebarItem from "~/components/SidebarItem.vue";
 
 import axios from "axios";
 
@@ -153,7 +179,8 @@ export default {
     Discountbox,
     HallOfFame,
     WebshopLogo,
-    MiniPost
+    MiniPost,
+    SidebarItem
   },
   mounted() {}
 };
@@ -221,23 +248,5 @@ export default {
 
 .popup-hidden {
   height: 0px;
-}
-
-@media only screen and (max-width: 1180px) {
-  .sidebar {
-    .widget {
-      padding-top: 0px;
-      padding-bottom: 0px;
-    }
-
-    .description {
-      padding-right: 10px;
-      padding-left: 10px;
-
-      .text {
-        display: none;
-      }
-    }
-  }
 }
 </style>

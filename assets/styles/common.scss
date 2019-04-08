@@ -93,7 +93,7 @@ body {
 
 .related_shop_logo {
   .webshop-logo {
-    margin: 5px;
+    margin: 3px;
   }
 }
 
@@ -435,6 +435,8 @@ $tooltip_w: 100px;
 }
 
 
+
+
 .menuopen {
   -webkit-transform: translateX(75%);
   -moz-transform: translateX(75%);
@@ -580,6 +582,10 @@ nav {
   position: absolute;
 }
 
+.padding {
+  padding: 15px;
+}
+
 @media only screen and (max-width: 1180px) {
   #nav-container {
     background-color: #1b194a;
@@ -618,11 +624,67 @@ nav {
       height: 100%;
     }
   }
+
+  .sidebar {
+    .widget {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  }
+
+  .m-toggle-switch {
+    cursor: pointer;
+  }
+
+  .m-padding {
+    padding: 15px;
+  }
+
+  .m-toggle .m-toggle-container {
+    display: none;
+  }
+
+  .m-toggle-on .m-toggle-container {
+    display: block;
+  }
+
+  .m-toggle-title {
+    background-color: #fff;
+    position: relative;
+  }
+
+  $arrowsize: 5px;
+
+  .m-toggle-on {
+
+    .m-toggle-title:after {
+      border-top: $arrowsize solid transparent;
+    }
+
+  }
+
+  .m-toggle-title:after {
+    content: "";
+    border-left: $arrowsize solid transparent;
+    border-right: $arrowsize solid transparent;
+    border-bottom: $arrowsize solid transparent;
+    border-top: $arrowsize solid #6a819e;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+  }
+
+
 }
 
 @media only screen and (min-width: 1180px) {
   #openmenu {
     display: none !important;
+  }
+
+  .m-only-toggle {
+    display: none;
   }
 
   #nav-container {

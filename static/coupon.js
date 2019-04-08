@@ -238,6 +238,22 @@ document
 
 
 
+
+    var toggleswitches = document
+      .querySelectorAll('.m-toggle-switch');
+
+    Array.prototype.forEach.call(toggleswitches, function (el, i) {
+
+      el.addEventListener('click', (ev) => {
+
+        var toggleNode = ev.target.parentNode;
+
+        addClass(toggleNode, 'm-toggle-on');
+
+      }, false);
+
+    });
+
     document
       .querySelectorAll('#openmenu')[0]
       .addEventListener('click', (ev) => {
