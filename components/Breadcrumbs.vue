@@ -1,7 +1,8 @@
 <template>
   <ul class="breadcrumbs">
     <li v-for="(item, index) in list" class="breadcrumb float-left">
-      <a href="#">Home</a>
+      <span class="crust">></span>
+      <a :href="item.url">{{ item.title }}</a>
     </li>
   </ul>
 </template>
@@ -21,5 +22,9 @@ export default {
 .breadcrumbs {
   width: 100%;
   display: inline-block;
+}
+
+.crust {
+  padding: 10px;
 }
 </style>
