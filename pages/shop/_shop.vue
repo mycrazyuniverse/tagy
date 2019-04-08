@@ -124,6 +124,7 @@ import ShopBar from "~/components/ShopBar.vue";
 import Nav from "~/components/Nav.vue";
 import MiniPost from "~/components/MiniPost.vue";
 import SidebarItem from "~/components/SidebarItem.vue";
+import Breadcrumbs from "~/components/Breadcrumbs.vue";
 
 import axios from "axios";
 
@@ -153,7 +154,8 @@ export default {
       related: data.related,
       must_know: data.must_know,
       useful_link: data.useful_link,
-      blog: data.blog
+      blog: data.blog,
+      breadcrumbs: data.breadcrumbs
     };
   },
   head() {
@@ -180,7 +182,8 @@ export default {
     HallOfFame,
     WebshopLogo,
     MiniPost,
-    SidebarItem
+    SidebarItem,
+    Breadcrumbs
   },
   mounted() {}
 };
