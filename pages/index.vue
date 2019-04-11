@@ -107,6 +107,8 @@ export default {
     }
   },
   mounted() {
+    alert("mounted");
+
     const carousel = document.querySelector("[data-target='carousel']");
 
     if (carousel) {
