@@ -7,7 +7,10 @@
     </div>
     <div class="container">
       <div id="content">
-        <section class="tags"></section>
+        <Breadcrumbs :list="breadcrumbs"></Breadcrumbs>
+        <section class="tags">
+          <p>//TODO voeg coupons toe</p>
+        </section>
         <section class="hall_of_fame"></section>
         <Optin :logo="shopbar.thumb" :title="optin.title" :subtitle="optin.subtitle"></Optin>
       </div>

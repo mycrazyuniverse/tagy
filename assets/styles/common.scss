@@ -1,5 +1,31 @@
 @import "reset";
 
+.dib {
+  display: inline-block;
+}
+
+.w100 {
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+.dib-w100 {
+  display: inline-block;
+  width: 100%;
+}
+
+.lh {
+  line-height: 1.8;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -97,6 +123,23 @@ body {
   }
 }
 
+.text {
+
+  p {
+    line-height: 1.4;
+  }
+
+  h1 {
+    padding-bottom: 15px;
+  }
+
+  img {
+    width: 100%;
+    padding-top: 10px;
+  }
+
+}
+
 
 .widget {
   display: inline-block;
@@ -104,14 +147,7 @@ body {
   padding-bottom: 15px;
   width: 100%;
 
-  .text {
 
-    img {
-      width: 100%;
-      padding-top: 10px;
-    }
-
-  }
 
 
   p {
@@ -214,12 +250,10 @@ body {
 
 h1 {
   font-size: 2rem;
-  font-weight: bold;
 }
 
-h1 {
+h2 {
   font-size: 1.5rem;
-  font-weight: bold;
 }
 
 h3 {
@@ -286,9 +320,8 @@ strong {
 
 
   h2 {
-    font-weight: bold;
-    font-size: 18px;
     padding-bottom: 10px;
+    font-size: 18px;
   }
 
   .btn {
@@ -423,6 +456,7 @@ $tooltip_w: 100px;
     width: 80%;
     float: left;
   }
+
 
   .sidebar {
     width: 20% !important;
@@ -587,6 +621,12 @@ nav {
 }
 
 @media only screen and (max-width: 1180px) {
+
+  .m_w100p {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
   #nav-container {
     background-color: #1b194a;
     background-image: url("../assets/images/navigation_bg.png");
@@ -749,5 +789,65 @@ nav {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#05abe0', endColorstr='#87e0fd', GradientType=0);
     /* IE6-9 */
     margin-bottom: 20px;
+  }
+}
+
+.center-title {
+  text-align: center;
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+.ptb2x {
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+//blog
+
+.pagination {
+  padding-top: 10px;
+  padding-bottom: 30px;
+  margin-top: 10px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+
+  p {
+    display: inline-block;
+  }
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 14px 16px;
+  border-radius: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-decoration: none;
+  background-color: #fff;
+}
+
+.pagination .active {
+  background-color: #4ca9db;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.minipost {
+  margin-right: 7px;
+  margin-left: 7px;
+}
+
+@media only screen and (max-width: 1180px) {
+  .blogposts {
+    padding-top: 15px;
+
+    li {
+      width: 100%;
+    }
   }
 }

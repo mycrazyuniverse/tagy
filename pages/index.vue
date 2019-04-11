@@ -4,8 +4,63 @@
       <TopBar :search="common.search"></TopBar>
       <Nav :items="common.nav"></Nav>
     </div>
+
     <div class="container">
-      <p>dit is de homepage</p>
+      <div class="intro padding text-center text ptb2x">
+        <h1>De beste kortingscodes en kortingen van België</h1>
+        <p>
+          Gebruik één van onze kortingscodes en bespaar op je online aankopen.
+          Omdat wij Belgen graag wat centen uitsparen, helpen we je hier een handje. Wij verzamelen namelijk alle kortingscodes en promoties
+          van je favoriete Belgische en internationale webshops.
+          Winkel je graag online en mét korting bij winkels, zoals Zalando, bol.com en ColliShop? Dan gaat het Metro kortingsplatform je zeker bevallen.
+        </p>
+      </div>
+      <div id="carousel" class="ptb2x">
+        <Carousel>
+          <AdCard
+            v-for="(item, index) in ads.content"
+            :key="index"
+            :title="item.post_title"
+            :logo="item.logo"
+            :image="item.og_img"
+            :link="item.link"
+          ></AdCard>
+        </Carousel>
+      </div>
+      <div id="best" class="best text-center padding dib w100 lh ptb2x">
+        <div class="center-title">
+          <h2>Beste kortingen</h2>
+          <p>We lichten hier een aantal van onze strafste deals uit. Wat is je favoriete korting?</p>
+        </div>
+      </div>
+      <div class="blogposts ptb2x dib">
+        <div class="center-title">
+          <h2>{{ blog.title }}</h2>
+          <p>{{ blog.subtitle }}</p>
+        </div>
+        <ul class="list-style-none blogposts">
+          <li v-for="(item, index) in blog.content" :key="index">
+            <MiniPost
+              :slug="item.post_name"
+              :title="item.post_title"
+              :content="item.short_desc"
+              :thumbnail="item.mini"
+              :friendly_date="item.friendly_date"
+              :post_date="item.post_date"
+              bg="true"
+            ></MiniPost>
+          </li>
+        </ul>
+      </div>
+      <div class="lh ptb2x">
+        <div class="center-title">
+          <h2>{{ press.title }}</h2>
+        </div>
+        <Press :logos="press.content"></Press>
+      </div>
+      <div class="ptb2x dib-w100">
+        <Optin></Optin>
+      </div>
     </div>
   </div>
 </template>
@@ -15,6 +70,10 @@ import TopBar from "~/components/TopBar.vue";
 import Nav from "~/components/Nav.vue";
 import Tag from "~/components/Tag.vue";
 import Optin from "~/components/Optin.vue";
+import Carousel from "~/components/Carousel.vue";
+import Press from "~/components/press.vue";
+import MiniPost from "~/components/MiniPost.vue";
+import AdCard from "~/components/AdCard.vue";
 
 import axios from "axios";
 
@@ -33,7 +92,10 @@ export default {
     });
 
     return {
-      common: data.common
+      common: data.common,
+      press: data.press,
+      blog: data.blog,
+      ads: data.ads
     };
   },
   computed: {
@@ -44,14 +106,73 @@ export default {
       return this.$i18n.locale;
     }
   },
+  mounted() {
+    const carousel = document.querySelector("[data-target='carousel']");
+
+    if (carousel) {
+      const card = carousel.querySelector("[data-target='card']");
+      const leftButton = document.querySelector("[data-action='slideLeft']");
+      const rightButton = document.querySelector("[data-action='slideRight']");
+
+      const carouselWidth = carousel.offsetWidth;
+      const cardWidth = card.offsetWidth;
+      const cardStyle = card.currentStyle || window.getComputedStyle(card);
+      const cardMarginRight = Number(cardStyle.marginRight.match(/\d+/g)[0]);
+
+      const cardCount = carousel.querySelectorAll("[data-target='card']")
+        .length;
+      var cardPerSlide = Math.floor(carouselWidth / cardWidth);
+      var isPaused = false;
+
+      var offset = 0;
+      const maxX = -(
+        (cardCount / cardPerSlide) * carouselWidth +
+        cardMarginRight * (cardCount / cardPerSlide) -
+        carouselWidth -
+        cardMarginRight
+      );
+
+      setInterval(() => {
+        if (!isPaused) {
+          if (offset <= maxX) {
+            offset = 0;
+            carousel.style.transform = `translateX(${offset}px)`;
+          } else {
+            right();
+          }
+        }
+      }, 2000);
+
+      leftButton.addEventListener("click", function() {
+        right();
+        isPaused = true;
+      });
+
+      rightButton.addEventListener("click", function() {
+        left();
+        isPaused = true;
+      });
+    }
+  },
   props: {},
   components: {
     Nav,
-    TopBar
+    TopBar,
+    Carousel,
+    Optin,
+    Press,
+    MiniPost,
+    AdCard
   },
   mounted() {}
 };
 </script>
 
 <style lang="scss">
+.blogposts li {
+  width: 50%;
+  float: left;
+  height: 125px;
+  margin-bottom: 15px;
+}
 </style>

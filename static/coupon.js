@@ -238,6 +238,19 @@ document
 
 
 
+    function left() {
+      if (offset !== 0) {
+        offset += carouselWidth + cardMarginRight;
+        carousel.style.transform = `translateX(${offset}px)`;
+      }
+    }
+
+    function right() {
+      if (offset !== maxX) {
+        offset -= carouselWidth + cardMarginRight;
+        carousel.style.transform = `translateX(${offset}px)`;
+      }
+    }
 
     var toggleswitches = document
       .querySelectorAll('.m-toggle-switch');
@@ -289,6 +302,8 @@ document
         closeMenu();
 
       }, false);
+
+
 
     function closeMenu() {
       var navcontainer = document.querySelector('.nav-container');

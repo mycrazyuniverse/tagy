@@ -1,6 +1,6 @@
 <template>
-  <a :href="url" :title="title" class="tooltip">
-    <img :src="logo" class="webshop-logo" width="40">
+  <a :href="url" :title="title" class="tooltip webshop-logo">
+    <img :src="logo" class width="40">
     <span class="tooltiptext">{{ title }}</span>
   </a>
 </template>

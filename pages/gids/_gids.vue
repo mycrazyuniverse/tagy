@@ -12,10 +12,7 @@
           </time>
           <div class="article-title">
             <h1>{{ content.post_title }}</h1>
-            <ul class="bubbles">
-              <li class="bubble">Solden</li>
-              <li class="bubble">Koopjes</li>
-            </ul>
+            <p>november 9</p>
           </div>
         </div>
       </div>
@@ -52,10 +49,7 @@
           :display="true"
           titleclass="m-padding m-only-toggle"
         >
-          <Ad
-            image="https://tagcity.be/app/uploads/2018/12/7becf9777748067e6a0c82ad8eaf37c21d9214.jpg"
-            url="https://www.plopsa.be/kabouter/?tt=3059_1517659_211001_&amp;r="
-          ></Ad>
+          <Ad :image="ad.size['square-banner'].img" :url="ad.link"></Ad>
         </SidebarItem>
 
         <SidebarItem id="posts" :display="blog.content" :title="blog.title" titleclass="m-padding">
@@ -132,7 +126,8 @@ export default {
       content: data.content,
       meta: data.meta,
       blog: data.blog,
-      related: data.related
+      related: data.related,
+      ad: data.ad
     };
   },
   head() {
@@ -175,7 +170,7 @@ export default {
 #gids {
   .article-title {
     padding-right: 30px;
-    line-height: 1.8;
+    line-height: 1.4;
   }
 
   .adverlink {
@@ -211,15 +206,6 @@ export default {
 
     .blog-title {
       line-height: 32px;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-weight: bold;
     }
 
     p {
