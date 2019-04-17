@@ -53,9 +53,7 @@
         </ul>
       </div>
       <div class="lh ptb2x">
-        <div class="center-title">
-          <h2>{{ press.title }}</h2>
-        </div>
+        <div class="center-title"></div>
       </div>
       <div class="ptb2x dib-w100">
         <Optin></Optin>
@@ -91,7 +89,6 @@ export default {
 
     return {
       common: data.common,
-      press: data.press,
       blog: data.blog,
       ads: data.ads
     };
@@ -160,7 +157,6 @@ export default {
     TopBar,
     Carousel,
     Optin,
-    Press,
     MiniPost,
     AdCard
   },
