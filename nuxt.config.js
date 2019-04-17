@@ -47,6 +47,7 @@ module.exports = {
    ** Global CSS
    */
   css: [],
+  quiet: false,
 
   /*
    ** Plugins to load before mounting the App
