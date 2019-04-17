@@ -74,7 +74,7 @@ module.exports = {
         defaultLocale: 'nl'
       }
     ],
-    '@nuxtjs/svg-sprite'
+    //'@nuxtjs/svg-sprite'
   ],
   render: {
     resourceHints: false
