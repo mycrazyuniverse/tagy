@@ -100,6 +100,5 @@ module.exports = {
      */
     extend(config, ctx) {},
     quiet: false,
-
   }
 }
