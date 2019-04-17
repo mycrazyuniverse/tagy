@@ -74,7 +74,7 @@ module.exports = {
         defaultLocale: 'nl'
       }
     ],
-    //'@nuxtjs/svg-sprite'
+    '@nuxtjs/svg-sprite'
   ],
   render: {
     resourceHints: false
@@ -82,6 +82,7 @@ module.exports = {
 
   generate: {
     routes: routes,
+    interval: 400,
   },
 
   hooks: {
