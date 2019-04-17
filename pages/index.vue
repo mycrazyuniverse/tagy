@@ -56,7 +56,6 @@
         <div class="center-title">
           <h2>{{ press.title }}</h2>
         </div>
-        <Press :logos="press.content"></Press>
       </div>
       <div class="ptb2x dib-w100">
         <Optin></Optin>
@@ -71,7 +70,6 @@ import Nav from "~/components/Nav.vue";
 import Tag from "~/components/Tag.vue";
 import Optin from "~/components/Optin.vue";
 import Carousel from "~/components/Carousel.vue";
-import Press from "~/components/press.vue";
 import MiniPost from "~/components/MiniPost.vue";
 import AdCard from "~/components/AdCard.vue";
 
