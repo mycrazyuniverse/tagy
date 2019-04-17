@@ -1,7 +1,9 @@
 <template>
   <div class="discount-box text-center">
-    <span :class="sizeclass">{{ value }}</span>
-    <span :class="context + ' label uppercase'">{{ label }}</span>
+    <slot>
+      <span :class="sizeclass">{{ value }}</span>
+      <span v-if="label" :class="context + ' label uppercase'" :style="labelcolorStyle">{{ label }}</span>
+    </slot>
   </div>
 </template>
 
@@ -17,6 +19,10 @@ export default {
       default: ""
     },
     context: {
+      type: String,
+      default: ""
+    },
+    labelbg: {
       type: String,
       default: ""
     }
@@ -44,7 +50,12 @@ export default {
         sizeclass = "text-nano";
       }
 
-      return "discount " + sizeclass;
+      return "discount-text " + sizeclass;
+    },
+    labelcolorStyle: function() {
+      if (this.labelbg) {
+        return "background: " + this.labelbg + ";";
+      }
     }
   }
 };
@@ -88,14 +99,14 @@ export default {
   cursor: pointer;
   padding-right: 10px;
   padding-left: 10px;
-  width: 85px;
+  width: 100px;
   display: block;
   transform: translate(0%, -50%);
   position: absolute;
   top: 50%;
   margin-top: -2px;
 
-  .discount {
+  .discount-text {
     display: block;
     font-weight: bold;
     padding-bottom: 5px;

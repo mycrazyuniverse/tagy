@@ -59,7 +59,7 @@
               class="mininamopost"
               type="nano"
               :key="index"
-              :slug="item.post_name"
+              :slug="item.slug"
               :title="item.post_title"
               :content="item.short_desc"
               :thumbnail="item.nano"
@@ -69,20 +69,19 @@
         </SidebarItem>
 
         <SidebarItem
+          v-if="related.content.length != 0"
           id="related_shops"
           class="related_shop_logo"
           :display="related.content"
           :title="related.title"
         >
-          <div class="padding">
-            <WebshopLogo
-              v-for="(item, index) in related.content"
-              :key="index"
-              :logo="item.logo"
-              :url="item.link"
-              :title="item.name"
-            ></WebshopLogo>
-          </div>
+          <WebshopLogo
+            v-for="(item, index) in related.content"
+            :key="index"
+            :logo="item.logo"
+            :url="item.link"
+            :title="item.name"
+          ></WebshopLogo>
         </SidebarItem>
       </div>
     </div>
@@ -162,7 +161,9 @@ export default {
     SidebarItem,
     Ad
   },
-  mounted() {}
+  mounted() {
+    console.log(this.related);
+  }
 };
 </script>
 
@@ -170,7 +171,12 @@ export default {
 #gids {
   .article-title {
     padding-right: 30px;
-    line-height: 1.4;
+    line-height: 1;
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 39px;
+    }
   }
 
   .adverlink {

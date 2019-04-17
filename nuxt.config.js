@@ -18,10 +18,15 @@ module.exports = {
       content: pkg.description
     }],
     link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    }],
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      },
+      {
+        rel: 'stylesheet',
+        href: '/dynamic.css'
+      },
+    ],
     script: [{
       src: '/coupon.js'
     }, ]
@@ -77,7 +82,7 @@ module.exports = {
 
   generate: {
     routes: routes,
-    interval: 200,
+    interval: 400,
   },
 
   hooks: {

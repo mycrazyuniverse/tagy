@@ -7,7 +7,26 @@
     </div>
     <div class="container">
       <div id="content">
-        <p>dit word de categoriepagina</p>
+        <h3 class="firstletter uppercase text-center">Subcategorieën</h3>
+        <div class="letter">
+          <ul>
+            <li v-for="sub in children" :key="sub.id">
+              <a :href="sub.link">
+                <span class="shopname">{{sub.name}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <h3 class="firstletter uppercase text-center">Alle Webshops in deze categorie</h3>
+        <div class="letter">
+          <ul>
+            <li v-for="sub in related.content" :key="sub.id">
+              <a :href="sub.link">
+                <span class="shopname">{{sub.name}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="sidebar sidebar-fusion">
         <SidebarItem
@@ -59,17 +78,7 @@
           class="related_shop_logo"
           :display="related.content"
           :title="related.title"
-        >
-          <div class="padding text-center">
-            <WebshopLogo
-              v-for="(item, index) in related.content"
-              :key="index"
-              :logo="item.logo"
-              :url="item.link"
-              :title="item.name"
-            ></WebshopLogo>
-          </div>
-        </SidebarItem>
+        ></SidebarItem>
       </div>
       <div id="popup" class="popup hide">
         <div class="popup-content rounded">
@@ -124,7 +133,8 @@ export default {
       related: data.related,
       must_know: data.must_know,
       useful_link: data.useful_link,
-      blog: data.blog
+      blog: data.blog,
+      children: data.children
     };
   },
   computed: {

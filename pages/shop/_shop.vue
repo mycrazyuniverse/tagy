@@ -9,7 +9,34 @@
       <div id="content">
         <Breadcrumbs :list="breadcrumbs"></Breadcrumbs>
         <section class="tags">
-          <p>//TODO voeg coupons toe</p>
+          <tag
+            v-for="item in tags"
+            :key="item.id"
+            :id="item.id"
+            :title="item.title"
+            :details="item.details"
+            :views="item.views"
+            :discount="item.discount"
+            :logo="item.logo"
+            :code="item.code"
+            :url="item.url"
+            :dictionary="item.dictionary"
+            :starts="item.timeline.startdate"
+            :ends="item.timeline.enddate"
+          >
+            <template #discount>
+              <Discountbox>
+                <img
+                  src="https://media.tagcity.be/2019/03/amazon.png?auto=compress%2C%20format&fill-color=%23fff&fit=fill&h=58&ixlib=php-1.2.1&w=100"
+                >
+              </Discountbox>
+            </template>
+          </tag>
+          <tag ends="1555286400">
+            <template #discount>
+              <Discountbox value="value" label="label"></Discountbox>
+            </template>
+          </tag>
         </section>
         <section class="hall_of_fame"></section>
         <Optin :logo="shopbar.thumb" :title="optin.title" :subtitle="optin.subtitle"></Optin>
@@ -53,7 +80,7 @@
               class="mininamopost"
               type="nano"
               :key="index"
-              :slug="item.post_name"
+              :slug="item.slug"
               :title="item.post_title"
               :content="item.short_desc"
               :thumbnail="item.nano"
@@ -245,11 +272,11 @@ export default {
 }
 
 .visit-shop {
-  /* background-color: #fff; */
   text-align: center;
   font-size: 14px;
   font-weight: bold;
-  /* border-radius: 20px; */
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .popup-hidden {

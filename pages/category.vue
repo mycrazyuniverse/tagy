@@ -6,7 +6,7 @@
     </div>
     <div class="container">
       <div id="content">
-        <p>dit word het categorieoverzicht</p>
+        <h2>Webshops in deze categorie</h2>
       </div>
     </div>
   </div>

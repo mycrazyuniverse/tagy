@@ -155,7 +155,7 @@ export default {
 @media only screen and (max-width: 1180px) {
   .shop-bar {
     padding-top: 15px !important;
-    padding-bottom: 20px !important;
+    padding-bottom: 0px !important;
   }
 
   .searchresults {

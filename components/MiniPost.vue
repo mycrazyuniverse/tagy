@@ -1,10 +1,10 @@
 <template>
   <div class="minipost" v-bind:class="{ 'minipost-bg': bg}">
     <article>
-      <a :href="'/gids/' + slug" v-if="type == 'mini'">
+      <a :href="slug" v-if="type == 'mini'">
         <img :src="thumbnail" class="float-right thumbnail" v-if="thumbnail">
       </a>
-      <a :href="'/gids/' + slug" class="article-content">
+      <a :href="slug" class="article-content">
         <img :src="thumbnail" class="float-right thumbnail" v-if="thumbnail && type == 'nano'">
         <time :datetime="post_date">{{ friendly_date }}</time>
         <h4>{{ title }}</h4>
@@ -72,6 +72,7 @@ export default {
 .minipost-bg {
   background-color: #fff;
   border-radius: 10px;
+  margin-right: 15px;
 
   article {
     padding-left: 5px;

@@ -74,14 +74,6 @@ export default {
 
 
 <style lang="scss">
-.firstletter {
-  font-weight: bold;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed #95aec5;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
-}
-
 .fasttraveltothaalphabet {
   display: inline-block;
   margin-bottom: 20px;
@@ -101,48 +93,6 @@ export default {
     a {
       text-decoration: none;
     }
-  }
-}
-
-@media only screen and (max-width: 990px) {
-  .fasttraveltothaalphabet {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .letter {
-    padding-left: 15px;
-    padding-right: 15px;
-    ul {
-      -webkit-column-count: 1 !important;
-      -moz-column-count: 1 !important;
-      -ms-column-count: 1 !important;
-      -o-column-count: 1 !important;
-      column-count: 1 !important;
-    }
-  }
-}
-
-.letter {
-  padding-bottom: 40px;
-
-  ul {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    -ms-column-count: 3;
-    -o-column-count: 3;
-    column-count: 3;
-  }
-
-  .shopname {
-    display: inline-block;
-    padding-left: 15px;
-  }
-
-  li {
-    padding: 10px;
-    width: 100%;
-    display: inline-block;
   }
 }
 </style>

@@ -20,7 +20,7 @@ export default {
     },
     titleclass: {
       type: String,
-      default: "padding"
+      default: ""
     },
     containerclass: {
       type: String,

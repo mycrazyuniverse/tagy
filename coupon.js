@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+  thefinalcountdown();
+
   var popup_id = getUrlParameter('popup');
 
   if (popup_id) {
@@ -86,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     removeClass(navcontainer, 'menu_opened');
     removeClass(app, 'menuopen');
   }
+
 
 
   const triggers = Array.from(document.querySelectorAll('[data-toggle="collapse"]'));

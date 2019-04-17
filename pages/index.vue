@@ -41,7 +41,7 @@
         <ul class="list-style-none blogposts">
           <li v-for="(item, index) in blog.content" :key="index">
             <MiniPost
-              :slug="item.post_name"
+              :slug="item.slug"
               :title="item.post_title"
               :content="item.short_desc"
               :thumbnail="item.mini"
