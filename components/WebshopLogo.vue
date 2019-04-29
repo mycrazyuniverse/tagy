@@ -1,7 +1,7 @@
 <template>
   <a :href="url" :title="title" class="tooltip webshop-logo">
     <img :src="logo" class width="40">
-    <span class="tooltiptext">{{ title }}</span>
+    <span class="tooltiptext" v-if="title">{{ title }}</span>
   </a>
 </template>
 

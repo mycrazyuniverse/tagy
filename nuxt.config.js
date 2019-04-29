@@ -28,8 +28,10 @@ module.exports = {
       },
     ],
     script: [{
-      src: '/coupon.js'
-    }, ]
+        src: '/coupon.js'
+      },
+
+    ]
   },
   env: {
     apiUrl: 'http://dev-tagcity.pantheonsite.io',

@@ -1,7 +1,9 @@
 <template>
-  <article class="tag tag-normal wall_of_fame">
+  <div>
     <div class="masterpiece float-left">
-      <Discountbox :value="discountvalue" :label="discountlabel"></Discountbox>
+      <slot name="discount">
+        <Discountbox :value="discount.value" :label="discount.label"></Discountbox>
+      </slot>
       <img src="../assets/images/masterpiece-8.png">
     </div>
     <div class="claim_to_fame float-left text-center">
@@ -13,9 +15,6 @@
         <svg-icon name="star" class="star"/>
       </div>
       <h3>{{title}}</h3>
-      <div class="collapse" :id="'details' + id">
-        <p>{{ details }}</p>
-      </div>
       <a
         data-toggle="collapse"
         class="moreinfo"
@@ -24,7 +23,22 @@
       >details ></a>
     </div>
     <div class="vip"></div>
-  </article>
+    <div class="details" v-if="details">
+      <a data-toggle="collapse" class="more more-bottom prevent" :data-target="'#details' + id">
+        details
+        <span class="arrow arrow-down float-right"></span>
+      </a>
+    </div>
+    <div class="tag-desc" v-if="details">
+      <div class="collapse details-container w100" :id="'details' + id">
+        <slot name="details">
+          <div class="padding">
+            <div>{{ details }}</div>
+          </div>
+        </slot>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -47,28 +61,26 @@ export default {
       type: String,
       default: ""
     },
-    discountlabel: {
-      type: String,
-      default: ""
-    },
-    discountvalue: {
-      type: String,
-      default: ""
+    discount: {
+      type: Array,
+      default: function() {
+        return [];
+      }
     }
+  },
+  mounted() {
+    console.log(this.discount);
   }
 };
 </script>
 
 <style lang="scss">
-.wall_of_fame {
+.tag-halloffame {
   background-image: url("../assets/images/hall_of_fame_paper.png");
-  padding-top: 25px;
-  padding-bottom: 25px;
   display: inline-block;
   width: 100%;
 
   .discount-box {
-    padding-left: 10px !important;
     padding-top: 5px;
   }
 
@@ -112,7 +124,7 @@ export default {
   }
 
   .discount-box {
-    left: 22px;
+    left: 14px;
 
     .label {
       background-color: #fbae17;
@@ -131,7 +143,6 @@ export default {
   }
 
   .masterpiece {
-    margin-left: 5%;
     position: relative;
   }
 }

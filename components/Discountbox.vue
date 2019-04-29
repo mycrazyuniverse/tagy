@@ -117,7 +117,7 @@ export default {
     display: inline-block;
     padding: 5px 0px;
     border-radius: 80px;
-    width: 100%;
+    width: 85%;
     font-size: 14px;
     font-weight: bold;
     color: #ffffff;

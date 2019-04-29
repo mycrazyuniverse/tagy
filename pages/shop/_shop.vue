@@ -8,14 +8,22 @@
     <div class="container">
       <div id="content">
         <Breadcrumbs :list="breadcrumbs"></Breadcrumbs>
+        <div class="updatedetected hide">
+          <p>Zeer recente wijziging gevonden. Updating Codes</p>
+        </div>
         <section class="tags">
           <tag
             v-for="item in tags"
             :key="item.id"
             :id="item.id"
+            :type="item.type"
+            :status="item.status"
+            :status_data="item.status_data"
             :title="item.title"
+            :properties="item.properties"
             :details="item.details"
             :views="item.views"
+            :btn="item.btn"
             :discount="item.discount"
             :logo="item.logo"
             :code="item.code"
@@ -23,23 +31,69 @@
             :dictionary="item.dictionary"
             :starts="item.timeline.startdate"
             :ends="item.timeline.enddate"
-          >
-            <template #discount>
-              <Discountbox>
-                <img
-                  src="https://media.tagcity.be/2019/03/amazon.png?auto=compress%2C%20format&fill-color=%23fff&fit=fill&h=58&ixlib=php-1.2.1&w=100"
-                >
-              </Discountbox>
-            </template>
-          </tag>
-          <tag ends="1555286400">
-            <template #discount>
-              <Discountbox value="value" label="label"></Discountbox>
-            </template>
-          </tag>
+            :dialog="item.dialog"
+          ></tag>
         </section>
+
         <section class="hall_of_fame"></section>
-        <Optin :logo="shopbar.thumb" :title="optin.title" :subtitle="optin.subtitle"></Optin>
+
+        <Optin
+          class="tag tag-normal tag-newsletter"
+          :logo="shopbar.thumb"
+          :title="optin.title"
+          :subtitle="optin.subtitle"
+        ></Optin>
+        <section class="tags">
+          <tag
+            v-for="item in expired"
+            :key="item.id"
+            :id="item.id"
+            :type="item.type"
+            :title="item.title"
+            :properties="item.properties"
+            :details="item.details"
+            :views="item.views"
+            :btn="item.btn"
+            :discount="item.discount"
+            :logo="item.logo"
+            :code="item.code"
+            :url="item.url"
+            :dictionary="item.dictionary"
+            :starts="item.timeline.startdate"
+            :ends="item.timeline.enddate"
+            :dialog="item.dialog"
+          ></tag>
+        </section>
+        <section class="additionalcontent">
+          <article>
+            <div class="title lh">
+              <h2>{{ how.title }}</h2>
+              <p>{{ how.subtitle }}</p>
+            </div>
+            <Boxes :items="how.content">
+              <box slot-scope="{ row }" :item="row" position="top" type="image" textalign="center"></box>
+            </Boxes>
+          </article>
+          <article>
+            <div class="title lh">
+              <h2>{{ tips.title }}</h2>
+              <p>{{ tips.subtitle }}</p>
+            </div>
+            <Boxes :items="tips.content">
+              <box slot-scope="{ row }" :item="row" position="top" type="image" textalign="center"></box>
+            </Boxes>
+          </article>
+          <article>
+            <div class="title lh">
+              <h2>{{ list.title }}</h2>
+              <p>{{ list.subtitle }}</p>
+            </div>
+            <Boxes :items="list.content">
+              <box slot-scope="{ row }" :item="row" layout="special" type="numbered"></box>
+            </Boxes>
+          </article>
+          <article class="post_content extra-maincontent lh" v-html="must_know.content"></article>
+        </section>
       </div>
       <div class="sidebar sidebar-fusion">
         <SidebarItem
@@ -107,15 +161,6 @@
         </SidebarItem>
 
         <SidebarItem
-          id="must_know"
-          class="related_shop_logo"
-          :display="must_know.content"
-          :title="must_know.title"
-        >
-          <div v-html="must_know.content"></div>
-        </SidebarItem>
-
-        <SidebarItem
           id="useful_links"
           class="related_shop_logo"
           :display="useful_link.content"
@@ -128,16 +173,7 @@
           </ul>
         </SidebarItem>
       </div>
-      <div id="popup" class="popup hide">
-        <div class="popup-content rounded">
-          <div class="close pop-close"></div>
-          <img class="pop-logo" width="58">
-          <h1 class="pop-title"></h1>
-          <input class="pop-code" type="text" value="geen code nodig" readonly>
-          <a class="btn uppercase">Ga naar de website</a>
-        </div>
-        <div class="overlay pop-close"></div>
-      </div>
+      <Dialog></Dialog>
     </div>
   </div>
 </template>
@@ -147,7 +183,6 @@ import Tag from "~/components/Tag.vue";
 import Optin from "~/components/Optin.vue";
 import AuthorBio from "~/components/AuthorBio.vue";
 import Discountbox from "~/components/Discountbox.vue";
-import HallOfFame from "~/components/HallOfFame.vue";
 import WebshopLogo from "~/components/WebshopLogo.vue";
 import TopBar from "~/components/TopBar.vue";
 import ShopBar from "~/components/ShopBar.vue";
@@ -155,6 +190,9 @@ import Nav from "~/components/Nav.vue";
 import MiniPost from "~/components/MiniPost.vue";
 import SidebarItem from "~/components/SidebarItem.vue";
 import Breadcrumbs from "~/components/Breadcrumbs.vue";
+import Dialog from "~/components/Dialog.vue";
+import Boxes from "~/components/Boxes.vue";
+import Box from "~/components/Box.vue";
 
 import axios from "axios";
 
@@ -176,6 +214,7 @@ export default {
       common: data.common,
       term: data.term,
       tags: data.tags,
+      expired: data.expired,
       shopbar: data.shopbar,
       authorbio: data.authorbio,
       optin: data.optin,
@@ -185,7 +224,10 @@ export default {
       must_know: data.must_know,
       useful_link: data.useful_link,
       blog: data.blog,
-      breadcrumbs: data.breadcrumbs
+      breadcrumbs: data.breadcrumbs,
+      tips: data.tips,
+      list: data.list,
+      how: data.how
     };
   },
   head() {
@@ -209,77 +251,24 @@ export default {
     Optin,
     AuthorBio,
     Discountbox,
-    HallOfFame,
     WebshopLogo,
     MiniPost,
     SidebarItem,
-    Breadcrumbs
+    Breadcrumbs,
+    Dialog,
+    Boxes,
+    Box
   },
   mounted() {}
 };
 </script>
 
 <style lang="scss">
-#popup {
-  position: fixed;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  z-index: 1002;
-  text-align: center;
-  padding-left: 15px;
-  padding-right: 15px;
-
-  .popup-content {
-    max-height: 95vh;
-    overflow-y: auto;
-    z-index: 9999;
-    position: relative;
-    background: #e8edf1;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 30px 0px;
-  }
-
-  .pop-logo {
-    border-radius: 50px;
-    padding: 10px;
-    background-color: #fff;
-    margin-bottom: 10px;
-  }
-
-  .pop-title {
-    padding-bottom: 15px;
-    font-size: 20px;
-    font-weight: normal;
-  }
-
-  .pop-code {
-    font-size: 29px;
-    text-align: center;
-    border-top: 2px dashed #e8edf0;
-    border-bottom: 2px dashed #e8edf0;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-left: 0px;
-    border-right: 0px;
-    font-weight: bolder;
-  }
-}
-
 .visit-shop {
   text-align: center;
   font-size: 14px;
   font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;
-}
-
-.popup-hidden {
-  height: 0px;
 }
 </style>

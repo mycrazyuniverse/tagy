@@ -1,12 +1,12 @@
 <template>
-  <li class="card m_w100p" data-target="card">
-    <a class="carousel-image dib" :style="bgimage(image)" :href="link">
-      <div class="text-overlay text-center">
-        <div class="dib">
+  <li class="card" data-target="card">
+    <a class="carousel-image dib" :href="link" :style="bgimage(image)">
+      <span class="text-overlay text-center">
+        <span class="dib">
           <WebshopLogo :logo="logo"></WebshopLogo>
-        </div>
+        </span>
         <p class="dealtitle">{{ title }}</p>
-      </div>
+      </span>
     </a>
   </li>
 </template>

@@ -1,15 +1,24 @@
 <template>
   <article
     :class="tagclass()"
-    :data-logo="logo"
-    :data-code="code"
     :id="'tag' + id"
+    :data-tagno="id"
+    :data-href="url"
     :data-starts-at="starts.timestamp"
     :data-ends-at="ends.timestamp"
+    :data-dialog="JSON.stringify(dialog)"
   >
     <div class="tag-item">
       <div class="discount">
-        <slot name="discount">
+        <slot v-if="status == 'halloffame'">
+          <div class="masterpiece float-left">
+            <slot name="discount">
+              <Discountbox :value="discount.value" :label="discount.label"></Discountbox>
+            </slot>
+            <img src="../assets/images/masterpiece-8.png">
+          </div>
+        </slot>
+        <slot v-else name="discount">
           <Discountbox :value="discount.value" :label="discount.label"></Discountbox>
         </slot>
       </div>
@@ -18,27 +27,22 @@
           <h3 class="tag-title">
             <a :href="url">{{ title }}</a>
           </h3>
-          <ul class="tag-properties" v-if="views || details">
-            <li v-if="views">{{ views }}x bekeken vandaag</li>
-            <li>
-              <time :datetime="starts.basis">{{ dictionary.added }} {{ starts.readable }}</time>
-            </li>
-            <li>
-              <time :datetime="ends.basis">{{ dictionary.expires }} {{ ends.readable }}</time>
-            </li>
-          </ul>
-          <ul>
-            <li class="shop-logo-prop logo-prop float-left">
-              <LogoProp
-                logo="https://media.tagcity.be/2019/03/amazon.png?auto=compress%2C%20format&fill-color=%23fff&fit=fill&h=58&ixlib=php-1.2.1&w=58"
-                link="/shop/amazon"
-                content="Gevonden in Amazon kortingscodes"
-              >
-                eindigt in
-                <Timer :ends="ends.timestamp"></Timer>
-              </LogoProp>
-            </li>
-          </ul>
+          <slot name="properties">
+            <ul class="tag-properties">
+              <li v-for="(item, index) in properties" :key="index" :class="propertyclass(item)">
+                <span v-if="item.slug == 'timed'">Limited offer</span>
+                <span v-else-if="item.slug == 'status'">{{ status_data.name }}</span>
+                <span v-else-if="item.slug == 'toegevoed-op'">{{ item.name }} {{ starts.readable }}</span>
+                <span v-else-if="item.slug == 'verloopt'">{{ item.name }} {{ ends.readable }}</span>
+                <span v-else-if="item.slug == 'eindigt-in'">
+                  {{ item.name }}
+                  <Timer :ends="ends.timestamp"></Timer>
+                </span>
+                <span v-else-if="item.slug == 'toon-type'">{{ type.name }}</span>
+                <span v-else>{{ item.name }}</span>
+              </li>
+            </ul>
+          </slot>
         </div>
       </div>
       <div class="tag-button float-right" v-if="btn.content">
@@ -48,9 +52,8 @@
         </button>
       </div>
     </div>
-    <div class="tag-buttoncontainer"></div>
     <div class="details" v-if="details">
-      <a data-toggle="collapse" class="more more-bottom" :data-target="'#details' + id">
+      <a data-toggle="collapse" class="more more-bottom prevent" :data-target="'#details' + id">
         {{ dictionary.details }}
         <span class="arrow arrow-down float-right"></span>
       </a>
@@ -71,22 +74,52 @@
 import Discountbox from "~/components/Discountbox.vue";
 import LogoProp from "~/components/LogoProp.vue";
 import Timer from "~/components/Timer.vue";
+import HallOfFame from "~/components/HallOfFame.vue";
 
 export default {
   components: {
     Discountbox,
     LogoProp,
-    Timer
+    Timer,
+    HallOfFame
   },
   methods: {
     tagclass() {
-      var basic = "tag tag-normal coupon";
+      var classes = [];
 
-      var status = "tag-" + this.status;
-      var time = this.ends / 86400;
-      var dateclass = "t-" + time;
+      classes.push("tag");
+      classes.push("tag-normal");
+      classes.push("tag-dialog");
 
-      return basic + " " + status + " " + dateclass;
+      if (this.id) {
+        classes.push("tag-" + this.id);
+      }
+
+      if (this.status) {
+        classes.push("tag-" + this.status);
+      }
+
+      if (this.ends) {
+        var time = this.ends.timestamp / 86400;
+        classes.push("t-" + time);
+      }
+
+      if (this.properties) {
+        this.properties.forEach(element => {
+          classes.push("tag-" + element.slug);
+        });
+      }
+
+      return classes.join(" ");
+    },
+    propertyclass($property) {
+      var classes = [];
+
+      classes.push("tag-property");
+      classes.push("tag-property-" + $property.slug);
+      classes.push("property-" + $property.slug);
+
+      return classes.join(" ");
     }
   },
   props: {
@@ -94,19 +127,29 @@ export default {
       type: Number,
       default: 0
     },
+    type: {
+      type: Object,
+      default: ""
+    },
+    dialog: {
+      type: Object,
+      default: ""
+    },
     status: {
       type: String,
       default: ""
     },
+    status_data: {
+      type: Object,
+      default: function() {
+        return [];
+      }
+    },
+    properties: {
+      type: Array,
+      default: []
+    },
     title: {
-      type: String,
-      default: ""
-    },
-    discountlabel: {
-      type: String,
-      default: ""
-    },
-    discountvalue: {
       type: String,
       default: ""
     },
@@ -135,30 +178,33 @@ export default {
       default: {}
     },
     starts: {
-      type: Number,
-      default: 0
+      type: Object,
+      default: function() {
+        return [];
+      }
     },
     ends: {
-      type: Number,
-      default: 0
+      type: Object,
+      default: function() {
+        return [];
+      }
     },
     discount: {
       type: Object,
-      default: {}
+      default: function() {
+        return [];
+      }
     },
     dictionary: {
       type: Object,
       default: {}
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 
 <style lang="scss">
-.discount {
-  float: left;
-}
-
 .tag {
   position: relative;
   cursor: pointer;
@@ -198,8 +244,8 @@ export default {
   h3 {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
-    padding-right: 60px;
+    margin-bottom: 5px;
+    padding-right: 70px;
     text-decoration: underline;
     letter-spacing: -0.5px;
 
@@ -234,6 +280,8 @@ export default {
     color: #acacac;
     width: 100%;
     display: inline-block;
+    max-width: 440px;
+    line-height: 1.4;
 
     li {
       float: left;
@@ -241,8 +289,8 @@ export default {
 
     li + li::before {
       content: "-";
-      padding-right: 10px;
-      padding-left: 10px;
+      padding-right: 5px;
+      padding-left: 7px;
     }
   }
 
@@ -299,13 +347,28 @@ export default {
   border-top: 1px solid #ebebf5;
 }
 
+.tag-free-delivery {
+  background-image: url("../assets/images/delivery.svg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-color: #00ace8;
+
+  .tag-properties {
+    color: #4d698f;
+  }
+
+  .more-bottom {
+    color: #fdfdfd;
+  }
+}
+
 .tag-exclusive {
   //background-image: url("../assets/images/exlcusieve_coupon.png");
-  background-size: cover;
+  background-size: contain;
   background-position: right bottom;
   background-repeat: no-repeat;
-  background-color: #29abe2;
-
+  background-color: #1c1465;
   h3 a {
     color: #fff !important;
   }
@@ -379,7 +442,7 @@ export default {
   .tag-content {
     h3 {
       font-size: 20px;
-      padding-right: 250px;
+      padding-right: 400px;
       line-height: 1.4;
     }
   }

@@ -7,26 +7,33 @@
     </div>
     <div class="container">
       <div id="content">
-        <h3 class="firstletter uppercase text-center">Subcategorieën</h3>
-        <div class="letter">
-          <ul>
-            <li v-for="sub in children" :key="sub.id">
-              <a :href="sub.link">
-                <span class="shopname">{{sub.name}}</span>
+        <div class="collist">
+          <ul class="headcat">
+            <li v-for="sub in related.raw.content" :key="sub.id">
+              <a :href="sub.term.link" v-if="sub.title" class="padding dib termtitle">
+                <h2 class="shopname" v-if="sub.term.name">
+                  <WebshopLogo v-if="sub.term.logo" :logo="sub.term.logo"></WebshopLogo>
+                  <span>{{sub.term.name}}</span>
+                </h2>
+              </a>
+              <ul>
+                <li v-for="sub in sub.shops" :key="sub.id">
+                  <a :href="sub.link" class="padding dib">{{sub.name}}</a>
+                </li>
+              </ul>
+              <a v-if="sub.more" :href="sub.term.link" class="padding dib">
+                <strong>{{ sub.more }} »</strong>
               </a>
             </li>
           </ul>
         </div>
-        <h3 class="firstletter uppercase text-center">Alle Webshops in deze categorie</h3>
-        <div class="letter">
-          <ul>
-            <li v-for="sub in related.content" :key="sub.id">
-              <a :href="sub.link">
-                <span class="shopname">{{sub.name}}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <section class="tags" v-if="!hidetags">
+          <tag title="test">
+            <template #discount>
+              <Discountbox value="value" label="label"></Discountbox>
+            </template>
+          </tag>
+        </section>
       </div>
       <div class="sidebar sidebar-fusion">
         <SidebarItem
@@ -45,6 +52,7 @@
         </SidebarItem>
         <SidebarItem
           id="about"
+          v-if="description.content"
           :display="description.content"
           :title="description.title"
           titleclass="padding"
@@ -55,6 +63,7 @@
         <SidebarItem
           id="posts"
           :display="blog.content"
+          v-if="blog.content"
           :title="blog.title"
           titleclass="m-only-toggle m-padding"
         >
@@ -64,7 +73,7 @@
               class="mininamopost"
               type="nano"
               :key="index"
-              :slug="item.post_name"
+              :slug="item.slug"
               :title="item.post_title"
               :content="item.short_desc"
               :thumbnail="item.nano"
@@ -72,13 +81,6 @@
             ></MiniPost>
           </ul>
         </SidebarItem>
-
-        <SidebarItem
-          id="related_shops"
-          class="related_shop_logo"
-          :display="related.content"
-          :title="related.title"
-        ></SidebarItem>
       </div>
       <div id="popup" class="popup hide">
         <div class="popup-content rounded">
@@ -86,7 +88,7 @@
           <img class="pop-logo" width="58">
           <h1 class="pop-title"></h1>
           <input class="pop-code" type="text" value="geen code nodig" readonly>
-          <a class="btn uppercase">Ga naar de website</a>
+          <a class="btn uppercase">Website</a>
         </div>
         <div class="overlay pop-close"></div>
       </div>
@@ -125,6 +127,7 @@ export default {
       common: data.common,
       term: data.term,
       tags: data.tags,
+      hidetags: data.hidetags,
       shopbar: data.shopbar,
       authorbio: data.authorbio,
       optin: data.optin,

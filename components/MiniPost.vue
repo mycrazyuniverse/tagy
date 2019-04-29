@@ -1,5 +1,5 @@
 <template>
-  <div class="minipost" v-bind:class="{ 'minipost-bg': bg}">
+  <div class="minipost" v-bind:class="{ 'minipost-bg bg-white bg': bg}">
     <article>
       <a :href="slug" v-if="type == 'mini'">
         <img :src="thumbnail" class="float-right thumbnail" v-if="thumbnail">
@@ -70,7 +70,6 @@ export default {
 }
 
 .minipost-bg {
-  background-color: #fff;
   border-radius: 10px;
   margin-right: 15px;
 

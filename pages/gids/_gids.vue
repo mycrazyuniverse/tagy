@@ -3,7 +3,6 @@
     <div class="bar">
       <TopBar :search="search"></TopBar>
       <Nav :items="nav"></Nav>
-
       <div class="container">
         <div class="bigbar">
           <time class="date" :datetime="content.post_date">
@@ -192,31 +191,6 @@ export default {
 
   .bubbles {
     display: inline-block;
-  }
-
-  .post_content {
-    line-height: 1.8;
-
-    article {
-      padding-right: 30px;
-    }
-
-    img {
-      text-align: center;
-      max-width: 98%;
-      height: auto;
-      background-color: #fff;
-      border: 1px solid rgb(212, 212, 212);
-      padding: 10px;
-    }
-
-    .blog-title {
-      line-height: 32px;
-    }
-
-    p {
-      padding-bottom: 15px;
-    }
   }
 }
 

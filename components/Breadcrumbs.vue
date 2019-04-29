@@ -12,7 +12,7 @@
         <div v-else class="last-crum">
           <div class="arrow dib arrow-right"></div>
           <a :href="item.url" class="breadcrumb dib">
-            <div v-html="item.logo" class="breadcrumb-icon" v-if="item.logo != false"></div>
+            <div v-html="item.logo" class="breadcrumb-icon" v-if="item.logo"></div>
             <span class="crum">{{ item.title }}</span>
           </a>
         </div>
@@ -38,7 +38,6 @@ export default {
   margin-bottom: 10px;
 
   a {
-    text-decoration: none !important;
   }
 
   .arrow {
@@ -77,6 +76,7 @@ export default {
   padding: 10px;
   padding-left: 0px;
   display: inline-block;
+  text-decoration: underline;
 }
 
 .crust {

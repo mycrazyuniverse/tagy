@@ -48,11 +48,21 @@
                 :id="'menu_dropdown_category_' + navitem.ID"
                 class="collapse dropdown_menu"
               >
-                <li v-for="(item, key) of navitem.wpse_children" :class="dropdown(item.classes)">
-                  <a class="dropmenu-item" :href="item.url">
-                    <i class="icon" v-html="item.icon" v-if="item.icon"></i>
-                    {{ item.title }}
-                  </a>
+                <li
+                  v-for="(item, key) of navitem.wpse_children"
+                  :key="item.id"
+                  :class="dropdown(item.classes)"
+                >
+                  <a class="dropmenu-item" :href="item.url">{{ item.title }}</a>
+                  <ul v-if="item.wpse_children != ''" class="subitems">
+                    <li
+                      v-for="(subitem, peele) of item.wpse_children"
+                      :key="subitem.id"
+                      :class="dropdown(subitem.classes)"
+                    >
+                      <a :href="subitem.url">{{ subitem.title }}</a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>

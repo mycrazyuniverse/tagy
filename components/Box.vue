@@ -1,0 +1,228 @@
+<template>
+  <div :class="classes">
+    <div :class="iconclasses">
+      <div :class="icontypeclasses" v-if="type == 'image'">
+        <img :src="item.logo" class="icon icon-effect">
+      </div>
+      <div :class="icontypeclasses" v-else>
+        <span class="badge" v-if="type == 'numbered'">{{ item.index + 1 }}</span>
+      </div>
+    </div>
+    <div :class="boxcontentclasses">
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.content }}</p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    item: {
+      type: Object,
+      default: {}
+    },
+    position: {
+      type: String,
+      default: "left"
+    },
+    textalign: {
+      type: String,
+      default: "left"
+    },
+    type: {
+      type: String,
+      default: "image"
+    },
+    layout: {
+      type: String,
+      default: "default"
+    },
+    bg: {
+      type: String,
+      default: "white"
+    }
+  },
+  computed: {
+    classes() {
+      var classes = [];
+
+      classes.push("box");
+      classes.push("bg-" + this.bg);
+      classes.push("box-" + this.position + "-" + this.layout);
+      classes.push(
+        "box-" + this.position + "-" + this.type + "-" + this.layout
+      );
+
+      if (this.position != "top") {
+        classes.push("aligner-center");
+      }
+
+      return classes.join(" ");
+
+      return classes;
+    },
+    boxcontentclasses() {
+      var classes = [];
+
+      classes.push("box-content");
+      classes.push("padding");
+      classes.push("lh");
+
+      classes.push("text-" + this.textalign);
+
+      classes.push("w100");
+
+      return classes.join(" ");
+
+      return classes;
+    },
+    icontypeclasses() {
+      var classes = [];
+
+      classes.push("box-icon-content");
+
+      if (this.position == "left") {
+        classes.push("vcenter");
+      }
+
+      if (this.position == "right") {
+        classes.push("vcenter");
+      }
+
+      return classes.join(" ");
+
+      return classes;
+    },
+    iconclasses() {
+      var classes = [];
+
+      classes.push("box-icon");
+      classes.push("box-icon-" + this.type);
+      classes.push("bg-darkblue");
+
+      if (this.position == "left") {
+        classes.push("box-icon-landscape");
+      }
+
+      if (this.position == "right") {
+        classes.push("box-icon-landscape");
+      }
+
+      if (this.position == "top") {
+        classes.push("box-icon-portrait");
+      }
+
+      if (this.position == "top") {
+        classes.push("box-icon-botton");
+      }
+
+      return classes.join(" ");
+
+      return classes;
+    }
+  }
+};
+</script>
+
+
+<style lang="scss">
+.box {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+
+  .box-top-container {
+    width: 100%;
+  }
+
+  .box-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .box-icon-effect {
+    position: relative;
+    top: 10px;
+    margin-bottom: 5px;
+  }
+}
+
+.box-icon-landscape {
+  position: absolute;
+  height: 100%;
+  width: 60px;
+
+  img {
+    position: relative;
+    width: 100%;
+    left: 10px;
+  }
+}
+
+.box-right-special {
+  right: 0px;
+
+  .box-content {
+    margin-right: 80px;
+  }
+
+  .box-icon {
+    right: 0px;
+
+    .icon {
+      left: -10px;
+    }
+  }
+}
+
+.box-left-image-special {
+  .box-content {
+    margin-left: 75px;
+  }
+}
+
+.box-left-special {
+  .box-icon-numbered {
+    width: 5%;
+    height: 100%;
+  }
+
+  .badge {
+    position: relative;
+    left: 10px;
+  }
+
+  .box-content {
+    text-align: left;
+  }
+}
+
+.box-left-numbered-special {
+  .box-content {
+    padding-left: 10%;
+  }
+}
+
+.box-top-image-default {
+  .box-icon-image {
+    height: 60px;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    text-align: center;
+
+    .icon {
+      position: relative;
+      height: 60px;
+      top: 10px;
+    }
+  }
+
+  .box-content {
+    padding-top: 80px;
+  }
+}
+</style>

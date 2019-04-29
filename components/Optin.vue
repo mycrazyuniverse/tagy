@@ -1,23 +1,18 @@
 <template>
   <section class="optin">
-    <article class="tag tag-normal tag-newsletter">
+    <article>
       <form>
-        <div class="optin-container">
+        <div class="optin-container" v-if="intro">
           <div class="optin-logo">
-            <img :src="logo" class="optin-logo-img">
-            <img
-              src="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/optin.png"
-              class="envloppe"
-            >
-            <div class="badge">1</div>
+            <img :src="logo" class="optin-logo-img logo-img">
+            <img src="https://media.tagcity.be/2019/04/optin-1.svg?auto=compress" class="envloppe">
+            <div class="badge badge-right badge-absolute">1</div>
           </div>
         </div>
-        <div class="optin-text">
+        <div class="optin-text padding-xl">
           <template v-if="webshop">
             <h2>{{ title }}</h2>
-            <p>
-              {{ subtitle }}
-            </p>
+            <p>{{ subtitle }}</p>
           </template>
           <template v-else>
             <h2>Mis nooit meer een nieuwe kortingscode</h2>
@@ -55,9 +50,62 @@ export default {
       type: String,
       default: ""
     },
+    intro: {
+      type: Boolean,
+      default: true
+    }
   }
 };
 </script>
 
-<style>
+<style lang="scss">
+.optin {
+  line-height: 1.2;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+  background-color: #fff;
+
+  h2 {
+    padding-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .btn {
+    margin-top: 10px;
+  }
+
+  .form-control {
+    background: #dcf4ff;
+    border: none;
+    font-size: 16px;
+    margin-top: 15px;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .optin-container {
+    background: #3f4c6b;
+    //background-image: url("./images/opting.jpg");
+    background-position: bottom center;
+    background-size: cover;
+  }
+
+  .optin-logo {
+    position: relative;
+    display: inline-block;
+    top: 20px;
+
+    .optin-logo-img {
+      width: 58px;
+      left: 21px;
+      position: absolute;
+    }
+
+    .envloppe {
+      width: 100px;
+    }
+  }
+}
 </style>
