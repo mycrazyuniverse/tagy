@@ -1,5 +1,5 @@
 <template>
-  <section class="optin rounded">
+  <section class="optin">
     <article>
       <form>
         <div class="optin-container" v-if="intro">
@@ -89,7 +89,6 @@ export default {
 
   .optin-container {
     background: #3f4c6b;
-    //background-image: url("./images/opting.jpg");
     background-position: bottom center;
     background-size: cover;
   }

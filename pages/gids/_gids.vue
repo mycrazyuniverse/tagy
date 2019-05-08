@@ -47,9 +47,7 @@
           title="Advertentie"
           :display="true"
           titleclass="m-padding m-only-toggle"
-        >
-          <Ad :image="ad.size['square-banner'].img" :url="ad.link"></Ad>
-        </SidebarItem>
+        ></SidebarItem>
 
         <SidebarItem id="posts" :display="blog.content" :title="blog.title" titleclass="m-padding">
           <ul class="list-style-none m-toggle">

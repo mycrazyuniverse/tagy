@@ -2,7 +2,7 @@
   <div :class="classes">
     <div :class="iconclasses">
       <div :class="icontypeclasses" v-if="type == 'image'">
-        <div v-html="logo" class="icon icon-effect"></div>
+        <icon :content="logo"></icon>
       </div>
       <div :class="icontypeclasses" v-else>
         <span class="badge" v-if="type == 'numbered'">{{ index + 1 }}</span>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import icon from "~/components/icon.vue";
+
 export default {
   props: {
     title: {
@@ -131,6 +133,9 @@ export default {
 
       return classes;
     }
+  },
+  components: {
+    icon
   }
 };
 </script>
