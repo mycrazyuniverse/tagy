@@ -11,7 +11,7 @@
           </time>
           <div class="article-title">
             <h1>{{ content.post_title }}</h1>
-            <p>november 9</p>
+            <p v-for="item in content.category" :key="item.id">#{{ item.name }}</p>
           </div>
         </div>
       </div>

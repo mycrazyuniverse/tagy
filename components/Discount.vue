@@ -1,15 +1,39 @@
 <template>
-  <div class="discount-box text-center">
-    <slot>
-      <span :class="sizeclass">{{ value }}</span>
-      <span v-if="label" :class="context + ' label uppercase'" :style="labelcolorStyle">{{ label }}</span>
-    </slot>
+  <div :class="discount_classes()">
+    <p :class="sizeclass">{{ value }}</p>
+    <p class="label label-default uppercase">multi</p>
   </div>
 </template>
 
 <script>
 export default {
+  methods: {
+    discount_classes() {
+      var classes = [];
+
+      classes.push("discount-box");
+
+      if (this.position == "center") {
+        classes.push("center");
+        classes.push("text-center");
+      }
+
+      if (this.border) {
+        classes.push("discount-border");
+      }
+
+      return classes.join(" ");
+    }
+  },
   props: {
+    position: {
+      type: String,
+      default: "center"
+    },
+    border: {
+      type: Boolean,
+      default: true
+    },
     value: {
       type: String,
       default: ""
@@ -62,47 +86,81 @@ export default {
 </script>
 
 <style lang="scss">
-.warning {
-  background-color: #dd9b20 !important;
+.text-lg {
+  font-size: 32px;
+}
+
+.discount-text {
+  font-weight: bold;
+  padding-bottom: 5px;
 }
 
 .coupon-top {
-  .discount-text {
-    padding-top: 20px !important;
-  }
+  padding-top: 15px !important;
 }
 
-.vcenter {
-  transform: translate(0%, -50%);
-  position: absolute;
-  top: 50%;
+.coupon-bottom {
+  padding-bottom: 15px !important;
 }
 
 .discount-box {
-  overflow: hidden;
-  cursor: pointer;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
   width: 100px;
-  display: block;
-  margin-top: -2px;
+  line-height: 1;
 
-  .discount-text {
-    display: block;
-    font-weight: bold;
-    padding-bottom: 5px;
-    color: #173a68;
+  .label-default {
+    color: #ffffff;
+    background-color: #29abe2;
   }
 
   .label {
     display: inline-block;
     padding: 5px 0px;
     border-radius: 80px;
-    width: 85%;
+    width: 90px;
     font-size: 14px;
     font-weight: bold;
-    color: #ffffff;
-    background-color: #29abe2;
+  }
+}
+
+.text-md {
+  font-size: 28px;
+}
+
+.text-sm {
+  font-size: 20px;
+}
+
+.text-xs {
+  font-size: 16px;
+}
+
+.text-mini {
+  font-size: 12px;
+}
+
+.text-micro {
+  font-size: 10px;
+}
+
+.text-nano {
+  font-size: 8px;
+}
+
+.discount-border {
+  border-right: 1px dashed #85b5c5;
+}
+
+@media only screen and (max-width: 1180px) {
+  .discount-box {
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 90px;
+
+    .label {
+      width: 80px;
+    }
   }
 }
 </style>

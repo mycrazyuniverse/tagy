@@ -2,15 +2,17 @@
   <div :class="classes">
     <div :class="iconclasses">
       <div :class="icontypeclasses" v-if="type == 'image'">
-        <img :src="item.logo" class="icon icon-effect">
+        <div v-html="logo" class="icon icon-effect"></div>
       </div>
       <div :class="icontypeclasses" v-else>
-        <span class="badge" v-if="type == 'numbered'">{{ item.index + 1 }}</span>
+        <span class="badge" v-if="type == 'numbered'">{{ index + 1 }}</span>
       </div>
     </div>
     <div :class="boxcontentclasses">
-      <h3>{{ item.title }}</h3>
-      <p>{{ item.content }}</p>
+      <h3>{{ title }}</h3>
+      <slot>
+        <p>{{ content }}</p>
+      </slot>
     </div>
   </div>
 </template>
@@ -18,9 +20,17 @@
 <script>
 export default {
   props: {
-    item: {
-      type: Object,
-      default: {}
+    title: {
+      type: String,
+      default: ""
+    },
+    content: {
+      type: String,
+      default: ""
+    },
+    logo: {
+      type: String,
+      default: ""
     },
     position: {
       type: String,
@@ -141,6 +151,15 @@ export default {
     margin-left: auto;
     margin-right: auto;
     display: block;
+
+    svg {
+      height: 70px;
+      fill: #09abe0 !important;
+
+      path {
+        fill: #09abe0 !important;
+      }
+    }
   }
 
   .box-icon-effect {

@@ -10,16 +10,8 @@
   >
     <div class="tag-item">
       <div class="discount">
-        <slot v-if="status == 'halloffame'">
-          <div class="masterpiece float-left">
-            <slot name="discount">
-              <Discountbox :value="discount.value" :label="discount.label"></Discountbox>
-            </slot>
-            <img src="../assets/images/masterpiece-8.png">
-          </div>
-        </slot>
-        <slot v-else name="discount">
-          <Discountbox :value="discount.value" :label="discount.label"></Discountbox>
+        <slot name="discount">
+          <Discountbox class="vcenter" :value="discount.value" :label="discount.label"></Discountbox>
         </slot>
       </div>
       <div class="tag-info float-right">
@@ -89,7 +81,10 @@ export default {
 
       classes.push("tag");
       classes.push("tag-normal");
-      classes.push("tag-dialog");
+
+      if (this.type) {
+        classes.push("tag-dialog");
+      }
 
       if (this.id) {
         classes.push("tag-" + this.id);
@@ -109,15 +104,6 @@ export default {
           classes.push("tag-" + element.slug);
         });
       }
-
-      return classes.join(" ");
-    },
-    propertyclass($property) {
-      var classes = [];
-
-      classes.push("tag-property");
-      classes.push("tag-property-" + $property.slug);
-      classes.push("property-" + $property.slug);
 
       return classes.join(" ");
     }

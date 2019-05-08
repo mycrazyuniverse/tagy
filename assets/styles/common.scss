@@ -13,6 +13,7 @@
   width: 50%;
 }
 
+
 .vcenter {
   transform: translate(0%, -50%);
   position: absolute;
@@ -44,7 +45,6 @@
 .col-container {
   display: table;
   width: 100%;
-  /* Set full-width to expand the whole page */
 }
 
 .flexbox {
@@ -53,7 +53,12 @@
   display: flex;
 }
 
-
+.masonry {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 0;
+}
 
 h1,
 h2,
@@ -86,7 +91,8 @@ body {
 }
 
 
-.shop {
+.shop,
+.overflow-hidden {
   overflow: hidden;
 }
 
@@ -201,9 +207,6 @@ body {
   padding-bottom: 15px;
   width: 100%;
 
-
-
-
   p {
     margin-bottom: 10px;
   }
@@ -275,8 +278,6 @@ body {
   margin-left: 5px;
 }
 
-
-
 .arrow-right {
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
@@ -345,6 +346,15 @@ strong {
   text-align: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+
 .uppercase {
   text-transform: uppercase;
 }
@@ -355,18 +365,6 @@ strong {
 
 .rounded {
   border-radius: 10px;
-}
-
-.btn {
-  background-color: #29abe2;
-  font-weight: bold;
-  text-decoration: none;
-  color: #fff;
-  border-radius: 40px;
-  border: none;
-  margin-top: 15px;
-  padding: 15px 20px;
-  display: inline-block;
 }
 
 
@@ -794,19 +792,19 @@ nav {
     background-color: #05abe0;
     /* Old browsers */
     background-color: -moz-linear-gradient(top,
-      #05abe0 0%,
-      #53cbf1 60%,
-      #87e0fd 100%);
+        #05abe0 0%,
+        #53cbf1 60%,
+        #87e0fd 100%);
     /* FF3.6-15 */
     background-color: -webkit-linear-gradient(top,
-      #05abe0 0%,
-      #53cbf1 60%,
-      #87e0fd 100%);
+        #05abe0 0%,
+        #53cbf1 60%,
+        #87e0fd 100%);
     /* Chrome10-25,Safari5.1-6 */
     background-color: linear-gradient(to bottom,
-      #05abe0 0%,
-      #53cbf1 60%,
-      #87e0fd 100%);
+        #05abe0 0%,
+        #53cbf1 60%,
+        #87e0fd 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#05abe0', endColorstr='#87e0fd', GradientType=0);
     /* IE6-9 */
@@ -904,8 +902,6 @@ nav {
 
 .letter,
 .collist {
-  padding-bottom: 40px;
-
   -webkit-column-count: 3;
   -moz-column-count: 3;
   -ms-column-count: 3;
@@ -965,8 +961,8 @@ nav {
 .text-overlay {
   position: absolute;
   background: linear-gradient(to top,
-    rgba(0, 0, 0, 0.65) 0,
-    rgba(0, 0, 0, 0) 100%);
+      rgba(0, 0, 0, 0.65) 0,
+      rgba(0, 0, 0, 0) 100%);
   height: 40%;
   width: 100%;
   bottom: 0px;
@@ -1075,15 +1071,21 @@ nav {
     }
 
   }
-
-
 }
 
 .post_content {
   line-height: 1.8;
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-bottom: 10px;
+  }
+
   ul {
     list-style: inherit;
+    list-style-position: inside;
   }
 
   ol {

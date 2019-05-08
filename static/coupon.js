@@ -15,7 +15,6 @@ if (lang != "nl") {
 document.addEventListener("DOMContentLoaded", function () {
   date = new Date();
   timestamp = Math.floor(Date.now() / 1000);
-  dialog_id = getUrlParameter("open");
   mobilemenuoverlay = document.querySelector(".mobile-menu-overlay");
   dialog = document.querySelectorAll(".dialog")[0];
   langcode = document.documentElement.lang;
@@ -26,77 +25,53 @@ document.addEventListener("DOMContentLoaded", function () {
     apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
   }
 
-  closebtn();
-
-  menuitems();
-
-  searchfield();
-
-  thefinalcountdown();
-
-
-  const optin = Array.from(document.querySelectorAll(".optin"));
-
-  optin.forEach(target => {
-    target.querySelector('.btn').addEventListener("click", ev => {
-
-      var email = target.querySelector('.email-input').value;
-
-      var data = JSON.stringify({
-        email: email
-      });
-
-      subscribe_to_newsletter(data);
-
-      ev.preventDefault();
-
-    });
-  });
-
-  const tagwpop = Array.from(document.querySelectorAll(".tag-dialog"));
-  tagwpop.forEach(target => {
-    target.addEventListener("click", ev => {
-
-      if (!hasClass(ev.target, "prevent")) {
-        window.open("?open=" + ev.currentTarget.dataset.tagno);
-        window.open(apiUrl + ev.currentTarget.dataset.href, "_self");
-      }
-
-    });
-  });
-
-  const triggers = Array.from(
-    document.querySelectorAll('[data-toggle="collapse"]')
-  );
-
-  window.addEventListener(
-    "click",
-    ev => {
-      const elm = ev.target;
-
-      if (triggers.includes(elm)) {
-        const selector = elm.getAttribute("data-target");
-        collapse(selector, "toggle");
-
-        if (!hasClass(elm, "open_collapse")) {
-          addClass(elm, "open_collapse");
-        } else {
-          removeClass(elm, "open_collapse");
-        }
-      }
-    },
-    false
-  );
-
-  document.addEventListener("readystatechange", event => {
-
-    console.log(document.readyState);
-
-  });
 
   document.addEventListener("readystatechange", event => {
 
     if (document.readyState == "complete") {
+
+      dialog = document.querySelectorAll(".dialog")[0];
+      dialog_id = getUrlParameter("open");
+
+      const tagwpop = Array.from(document.querySelectorAll(".tag-dialog"));
+      tagwpop.forEach(target => {
+        target.addEventListener("click", ev => {
+
+          console.log(ev.target);
+
+          if (!hasClass(ev.target, "prevent")) {
+            window.open("?open=" + ev.currentTarget.dataset.tagno);
+            window.open(apiUrl + ev.currentTarget.dataset.href, "_self");
+          }
+
+        });
+      });
+
+
+      const triggers = Array.from(
+        document.querySelectorAll('[data-toggle="collapse"]')
+      );
+
+      window.addEventListener(
+        "click",
+        ev => {
+          const elm = ev.target;
+
+          if (triggers.includes(elm)) {
+            const selector = elm.getAttribute("data-target");
+
+            collapse(selector, "toggle");
+
+            if (!hasClass(elm, "open_collapse")) {
+              addClass(elm, "open_collapse");
+            } else {
+              removeClass(elm, "open_collapse");
+            }
+          }
+        },
+        false
+      );
+
       var tags = Array.from(document.querySelectorAll(".tag"));
 
       if (tags) {
@@ -116,12 +91,42 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    if (document.readyState == "complete") {
-      setupDialog();
-    }
+    setupDialog();
+
+    thefinalcountdown();
+
+    closebtn();
+
+    menuitems();
+
+    searchfield();
+
+    optin();
 
   });
 });
+
+function optin() {
+
+  const optin = Array.from(document.querySelectorAll(".optin"));
+
+  optin.forEach(target => {
+    target.querySelector('.btn').addEventListener("click", ev => {
+
+      var email = target.querySelector('.email-input').value;
+
+      var data = JSON.stringify({
+        email: email
+      });
+
+      subscribe_to_newsletter(data);
+
+      ev.preventDefault();
+
+    });
+  });
+
+}
 
 function subscribe_to_newsletter(data) {
   var request = new XMLHttpRequest();
@@ -529,6 +534,7 @@ function searchfield() {
 }
 
 function setupDialog() {
+
   if (dialog_id) {
     var tag = document.querySelectorAll("#tag" + dialog_id)[0];
 
@@ -548,8 +554,6 @@ function setupDialog() {
         false
       );
 
-      console.log(dialog_data);
-
       if (dialog_data.optin == false) {
         addClass(dialog.querySelector(".optin"), "hide");
       }
@@ -558,7 +562,6 @@ function setupDialog() {
       var logos = dialog.querySelectorAll(".logo-img");
 
       logos.forEach(target => {
-        console.log(target);
         target.setAttribute("src", logo);
       });
 

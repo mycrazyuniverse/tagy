@@ -12,33 +12,29 @@
           <p>Zeer recente wijziging gevonden. Updating Codes</p>
         </div>
         <section class="tags">
-          <tag
+          <Coupon
             v-for="item in tags"
             :key="item.id"
             :id="item.id"
-            :type="item.type"
-            :status="item.status"
-            :status_data="item.status_data"
-            :title="item.title"
-            :properties="item.properties"
-            :details="item.details"
-            :views="item.views"
-            :btn="item.btn"
-            :discount="item.discount"
-            :logo="item.logo"
-            :code="item.code"
+            :details="item.post_content"
             :url="item.url"
-            :dictionary="item.dictionary"
-            :starts="item.timeline.startdate"
-            :ends="item.timeline.enddate"
+            :author="item.author"
+            :status="item.status_data"
+            :title="item.title"
+            :timeline="item.timeline"
             :dialog="item.dialog"
-          ></tag>
+            :discount="item.discount"
+            :properties="item.properties"
+            :primary_property="item.primary_property"
+            :template="item.template"
+            :btn="item.btn"
+          ></Coupon>
         </section>
 
         <section class="hall_of_fame"></section>
 
         <Optin
-          class="tag tag-normal tag-newsletter"
+          class="tag tag-normal tag-newsletter rounded overflow-hidden"
           :logo="shopbar.thumb"
           :title="optin.title"
           :subtitle="optin.subtitle"
@@ -71,7 +67,14 @@
               <p>{{ how.subtitle }}</p>
             </div>
             <Boxes :items="how.content">
-              <box slot-scope="{ row }" :item="row" position="top" type="image" textalign="center"></box>
+              <box
+                slot-scope="{ row }"
+                :title="row.title"
+                :content="row.content"
+                position="top"
+                type="image"
+                textalign="center"
+              ></box>
             </Boxes>
           </article>
           <article>
@@ -80,7 +83,15 @@
               <p>{{ tips.subtitle }}</p>
             </div>
             <Boxes :items="tips.content">
-              <box slot-scope="{ row }" :item="row" position="top" type="image" textalign="center"></box>
+              <box
+                slot-scope="{ row }"
+                :title="row.title"
+                :content="row.content"
+                :logo="row.logo"
+                position="top"
+                type="image"
+                textalign="center"
+              ></box>
             </Boxes>
           </article>
           <article>
@@ -89,7 +100,14 @@
               <p>{{ list.subtitle }}</p>
             </div>
             <Boxes :items="list.content">
-              <box slot-scope="{ row }" :item="row" layout="special" type="numbered"></box>
+              <box
+                slot-scope="{ row }"
+                :title="row.title"
+                :content="row.content"
+                :index="row.index"
+                layout="special"
+                type="numbered"
+              ></box>
             </Boxes>
           </article>
           <article class="post_content extra-maincontent lh" v-html="must_know.content"></article>
@@ -179,10 +197,9 @@
 </template>
 
 <script>
-import Tag from "~/components/Tag.vue";
 import Optin from "~/components/Optin.vue";
 import AuthorBio from "~/components/AuthorBio.vue";
-import Discountbox from "~/components/Discountbox.vue";
+//import Discountbox from "~/components/Discountbox.vue";
 import WebshopLogo from "~/components/WebshopLogo.vue";
 import TopBar from "~/components/TopBar.vue";
 import ShopBar from "~/components/ShopBar.vue";
@@ -193,6 +210,7 @@ import Breadcrumbs from "~/components/Breadcrumbs.vue";
 import Dialog from "~/components/Dialog.vue";
 import Boxes from "~/components/Boxes.vue";
 import Box from "~/components/Box.vue";
+import Coupon from "~/components/Coupon.vue";
 
 import axios from "axios";
 
@@ -247,17 +265,16 @@ export default {
     Nav,
     ShopBar,
     TopBar,
-    Tag,
     Optin,
     AuthorBio,
-    Discountbox,
     WebshopLogo,
     MiniPost,
     SidebarItem,
     Breadcrumbs,
     Dialog,
     Boxes,
-    Box
+    Box,
+    Coupon
   },
   mounted() {}
 };
@@ -270,5 +287,9 @@ export default {
   font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.coupon {
+  margin-bottom: 15px;
 }
 </style>

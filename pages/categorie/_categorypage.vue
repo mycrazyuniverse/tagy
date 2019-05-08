@@ -7,26 +7,39 @@
     </div>
     <div class="container">
       <div id="content">
-        <div class="collist">
-          <ul class="headcat">
-            <li v-for="sub in related.raw.content" :key="sub.id">
-              <a :href="sub.term.link" v-if="sub.title" class="padding dib termtitle">
-                <h2 class="shopname" v-if="sub.term.name">
-                  <WebshopLogo v-if="sub.term.logo" :logo="sub.term.logo"></WebshopLogo>
-                  <span>{{sub.term.name}}</span>
-                </h2>
-              </a>
-              <ul>
-                <li v-for="sub in sub.shops" :key="sub.id">
-                  <a :href="sub.link" class="padding dib">{{sub.name}}</a>
-                </li>
-              </ul>
-              <a v-if="sub.more" :href="sub.term.link" class="padding dib">
-                <strong>{{ sub.more }} »</strong>
-              </a>
-            </li>
-          </ul>
+        <div class="headcategories" v-if="hidetags">
+          <div class="container">
+            <div v-for="(item, index) in related.raw.content" :key="index" :id="index" class>
+              <box
+                position="top"
+                :title="item.term.name"
+                type="image"
+                :logo="item.term.logo"
+                textalign="center"
+              >
+                <ul class="collist">
+                  <li v-for="sub in item.shops" :key="sub.id">
+                    <a :href="sub.link">
+                      <span class="shopname">{{sub.name}}</span>
+                    </a>
+                  </li>
+                </ul>
+                <a v-if="item.more" :href="item.term.link" class="padding dib w100 text-center">
+                  <strong>{{ item.more }} »</strong>
+                </a>
+              </box>
+            </div>
+          </div>
         </div>
+        <section v-if="!hidetags">
+          <div class="collist">
+            <ul>
+              <li v-for="sub in related.content" :key="sub.id">
+                <a :href="sub.link" class="padding dib">{{sub.name}}</a>
+              </li>
+            </ul>
+          </div>
+        </section>
         <section class="tags" v-if="!hidetags">
           <tag title="test">
             <template #discount>
@@ -106,6 +119,8 @@ import ShopBar from "~/components/ShopBar.vue";
 import Nav from "~/components/Nav.vue";
 import MiniPost from "~/components/MiniPost.vue";
 import SidebarItem from "~/components/SidebarItem.vue";
+import Box from "~/components/Box.vue";
+import Coupon from "~/components/Coupon.vue";
 
 import axios from "axios";
 
@@ -158,11 +173,11 @@ export default {
     AuthorBio,
     WebshopLogo,
     MiniPost,
-    SidebarItem
+    SidebarItem,
+    Box,
+    Coupon
   },
   mounted() {}
 };
 </script>
 
-<style lang="scss">
-</style>

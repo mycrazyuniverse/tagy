@@ -37,15 +37,16 @@ export default {
   border-radius: 30px;
   margin-bottom: 10px;
 
-  a {
-  }
-
   .arrow {
     position: relative;
     margin-right: 2px;
     margin-left: 2px;
     border-left: 5px solid #c0c7cf;
   }
+}
+
+.last-crum .crum {
+  text-decoration: none !important;
 }
 
 .breadcrumb-icon {

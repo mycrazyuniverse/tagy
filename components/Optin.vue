@@ -1,5 +1,5 @@
 <template>
-  <section class="optin">
+  <section class="optin rounded">
     <article>
       <form>
         <div class="optin-container" v-if="intro">
@@ -24,7 +24,7 @@
             value
             placeholder="jouw@emailadres.be"
           >
-          <input type="submit" value="inschrijving" class="btn uppercase">
+          <input type="submit" value="inschrijving" class="btn btn-primary uppercase">
         </div>
       </form>
     </article>
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import Btn from "~/components/Btn.vue";
+
 export default {
   props: {
     logo: {

@@ -1,0 +1,87 @@
+<ul>
+  <li class="shop-logo-prop logo-prop float-left" v-if="ends.timestamp">
+    <LogoProp
+      logo="https://media.tagcity.be/2019/03/amazon.png?auto=compress%2C%20format&fill-color=%23fff&fit=fill&h=58&ixlib=php-1.2.1&w=58"
+      link="/shop/amazon" content="Gevonden in Amazon kortingscodes">eindigt in</LogoProp>
+  </li>
+</ul>
+
+//
+<ul class="headcat">
+  <li v-for="sub in related.raw.content" :key="sub.id">
+    <a :href="sub.term.link" v-if="sub.title" class="padding dib termtitle">
+      <h2 class="shopname" v-if="sub.term.name">
+        <WebshopLogo v-if="sub.term.logo" :logo="sub.term.logo"></WebshopLogo>
+        <span>{{ sub.term.name }}</span>
+    </a>
+    <ul>
+      <li v-for="sub in sub.shops" :key="sub.id">
+        <a :href="sub.link" class="padding dib">{{ sub.name }}</a>
+      </li>
+    </ul>
+    <a v-if="sub.more" :href="sub.term.link" class="padding dib">
+      <strong>{{ sub.more }} »</strong>
+    </a>
+  </li>
+</ul>
+
+
+<box v-for="term in related.raw.content" :key="term.id" position="top" textalign="center" :title="term.term.name"
+  :logo="term.term.logo">
+  <ul>
+    <li v-for="sub in term.shops" :key="sub.id">
+      <a :href="sub.link" class="padding dib">{{sub.name}}</a>
+    </li>
+  </ul>
+  <a v-if="term.more" :href="term.term.link" class="padding dib">
+    <strong>{{ term.more }} »</strong>
+  </a>
+</box>
+
+add_filter('edit_category_form_fields', 'cat_description');
+function cat_description($tag)
+{
+?>
+<table class="form-table">
+  <tr class="form-field">
+    <th scope="row" valign="top"><label for="description"><?php _ex('Description', 'Taxonomy Description'); ?></label>
+    </th>
+    <td>
+      <?php
+                    $settings = array('wpautop' => true, 'media_buttons' => true, 'quicktags' => true, 'textarea_rows' => '15', 'textarea_name' => 'description' );
+                    wp_editor(wp_kses_post($tag->description , ENT_QUOTES, 'UTF-8'), 'cat_description', $settings);
+                ?>
+      <br />
+      <span
+        class="description"><?php _e('The description is not prominent by default; however, some themes may show it.'); ?></span>
+    </td>
+  </tr>
+</table>
+<?php
+}
+
+function get_related_shops($shop)
+{
+
+    $related_shops = get_related_shops_category($shop->term_id);
+
+    $related = [];
+
+    if ($related_shops) {
+        foreach ($related_shops as $key => $value) {
+            if ($value->slug != $shop->slug) {
+                $related[$value->slug]['name'] = htmlspecialchars_decode($value->name);
+                $related[$value->slug]['logo'] = get_shoplogo($value->term_id);
+                $related[$value->slug]['link'] = get_term_link($value, 'webshop');
+            }
+        }
+    }
+
+    return $related;
+}
+
+      <tag v-for="item in tags" :key="item.id" :id="item.id" :type="item.type" :status="item.status"
+        :status_data="item.status_data" :title="item.title" :properties="item.properties" :details="item.details"
+        :views="item.views" :btn="item.btn" :discount="item.discount" :logo="item.logo" :code="item.code"
+        :url="item.url" :dictionary="item.dictionary" :starts="item.timeline.startdate" :ends="item.timeline.enddate"
+        :dialog="item.dialog"></tag>

@@ -3,7 +3,7 @@
     <img class="codal-logo logo-img" width="58">
     <h1 class="codal-title"></h1>
     <input class="codal-code" type="text" value="geen code nodig" readonly>
-    <a class="codal-btn btn uppercase" target="_blank"></a>
+    <a class="codal-btn btn btn-default uppercase" target="_blank"></a>
   </div>
 </template>
 
@@ -17,6 +17,10 @@ export default {};
   padding: 10px;
   background-color: #fff;
   margin-bottom: 10px;
+}
+
+.codal-btn {
+  margin-top: 15px;
 }
 
 .codal-title {
