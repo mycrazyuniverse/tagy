@@ -28,7 +28,7 @@ module.exports = {
       },
     ],
     script: [{
-        src: '/coupon.js'
+        src: '/coupon.min.js'
       },
 
     ]

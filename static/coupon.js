@@ -13,31 +13,31 @@ if (lang != "nl") {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  date = new Date();
-  timestamp = Math.floor(Date.now() / 1000);
-  mobilemenuoverlay = document.querySelector(".mobile-menu-overlay");
-  dialog = document.querySelectorAll(".dialog")[0];
-  langcode = document.documentElement.lang;
-  lang = langcode.replace("-BE", "");
-  apiUrl = "https://dev-tagcity.pantheonsite.io";
 
-  if (lang != "nl") {
-    apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
-  }
+  document.onreadystatechange = function () {
+    if (document.readyState === 'complete') {
 
 
-  document.addEventListener("readystatechange", event => {
+      date = new Date();
+      timestamp = Math.floor(Date.now() / 1000);
+      mobilemenuoverlay = document.querySelector(".mobile-menu-overlay");
+      dialog = document.querySelectorAll(".dialog")[0];
+      langcode = document.documentElement.lang;
+      lang = langcode.replace("-BE", "");
+      apiUrl = "https://dev-tagcity.pantheonsite.io";
 
-    if (document.readyState == "complete") {
+      if (lang != "nl") {
+        apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
+      }
+
 
       dialog = document.querySelectorAll(".dialog")[0];
       dialog_id = getUrlParameter("open");
 
       const tagwpop = Array.from(document.querySelectorAll(".tag-dialog"));
-      tagwpop.forEach(target => {
-        target.addEventListener("click", ev => {
 
-          console.log(ev.target);
+      tagwpop.forEach(function (target) {
+        target.addEventListener("click", function (ev) {
 
           if (!hasClass(ev.target, "prevent")) {
             window.open("?open=" + ev.currentTarget.dataset.tagno);
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       window.addEventListener(
         "click",
-        ev => {
+        function (ev) {
           const elm = ev.target;
 
           if (triggers.includes(elm)) {
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var needupdate = false;
 
-        tags.forEach(target => {
+        tags.forEach(function (target) {
           var ends = target.getAttribute("data-ends-at");
           var timedifference = ends - timestamp;
 
@@ -89,29 +89,31 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
       }
+
+
+      setupDialog();
+
+      thefinalcountdown();
+
+      closebtn();
+
+      menuitems();
+
+      searchfield();
+
+      optin();
+
     }
+  }
 
-    setupDialog();
-
-    thefinalcountdown();
-
-    closebtn();
-
-    menuitems();
-
-    searchfield();
-
-    optin();
-
-  });
 });
 
 function optin() {
 
   const optin = Array.from(document.querySelectorAll(".optin"));
 
-  optin.forEach(target => {
-    target.querySelector('.btn').addEventListener("click", ev => {
+  optin.forEach(function (target) {
+    target.querySelector('.btn').addEventListener("click", function (ev) {
 
       var email = target.querySelector('.email-input').value;
 
@@ -138,14 +140,14 @@ function subscribe_to_newsletter(data) {
 function left() {
   if (offset !== 0) {
     offset += carouselWidth + cardMarginRight;
-    carousel.style.transform = `translateX(${offset}px)`;
+    carousel.style.transform = 'translateX(${offset}px)';
   }
 }
 
 function right() {
   if (offset !== maxX) {
     offset -= carouselWidth + cardMarginRight;
-    carousel.style.transform = `translateX(${offset}px)`;
+    carousel.style.transform = 'translateX(${offset}px)';
   }
 }
 
@@ -168,7 +170,7 @@ var fnmap = {
 function collapse(selector, cmd) {
   var targets = Array.from(document.querySelectorAll(selector));
 
-  targets.forEach(target => {
+  targets.forEach(function (target) {
     target.classList[fnmap[cmd]]("show");
   });
 }
@@ -231,25 +233,25 @@ function getUrlParameter(name) {
 
 function thefinalcountdown() {
   var timers = document.querySelectorAll(".timer");
-  let inow = new Date().getTime();
+  var inow = new Date().getTime();
 
   if (timers.length) {
-    timers.forEach(timer => {
+    timers.forEach(function (timer) {
       var endDate = timer.dataset.ends * 1000;
-      let it = endDate - inow;
+      var it = endDate - inow;
 
       if (it >= 0) {
         setInterval(function () {
-          let now = new Date().getTime();
-          let t = endDate - now;
+          var now = new Date().getTime();
+          var t = endDate - now;
 
           if (t >= 0) {
-            let days = Math.floor(t / (1000 * 60 * 60 * 24));
-            let hours =
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            var hours =
               Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) +
               days * 24;
-            let mins = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-            let secs = Math.floor((t % (1000 * 60)) / 1000);
+            var mins = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+            var secs = Math.floor((t % (1000 * 60)) / 1000);
 
             timer.querySelector(".timer-hours").innerHTML = hours + " :";
 
@@ -273,10 +275,10 @@ function thefinalcountdown() {
 function closebtn() {
   var closebtns = Array.from(document.querySelectorAll(".dia-close"));
 
-  closebtns.forEach(target => {
+  closebtns.forEach(function (target) {
     target.addEventListener(
       "click",
-      ev => {
+      function (ev) {
         addClass(dialog, "hide");
         addClass(dialog, "dialog-hidden");
         var alteredURL = removeParam("open", window.location.href);
@@ -309,15 +311,15 @@ function removeParam(key, sourceURL) {
 function menuitems() {
   var menuitems = Array.from(document.querySelectorAll(".menu-items"));
 
-  menuitems.forEach(target => {
+  menuitems.forEach(function (target) {
     target.addEventListener(
       "click",
-      ev => {
+      function (ev) {
         var dropdown_menu = Array.from(
           document.querySelectorAll(".dropdown_menu")
         );
 
-        dropdown_menu.forEach(items => {
+        dropdown_menu.forEach(function (items) {
           /*removeClass(items, 'show');
 
             if(hasClass(items, 'show')){
@@ -336,7 +338,7 @@ function menuitems() {
   Array.prototype.forEach.call(toggleswitches, function (el, i) {
     el.addEventListener(
       "click",
-      ev => {
+      function (ev) {
         var toggleNode = ev.target.parentNode;
 
         addClass(toggleNode, "m-toggle-on");
@@ -347,7 +349,7 @@ function menuitems() {
 
   document.querySelectorAll("#openmenu")[0].addEventListener(
     "click",
-    ev => {
+    function (ev) {
       var app = document.querySelector(".app");
       var navcontainer = document.querySelector(".nav-container");
 
@@ -373,7 +375,7 @@ function menuitems() {
 
   document.querySelectorAll(".mobile-menu-overlay")[0].addEventListener(
     "click",
-    ev => {
+    function (ev) {
       closeMenu();
     },
     false
@@ -385,7 +387,7 @@ function searchfield() {
 
   document.querySelectorAll("#navigation .close")[0].addEventListener(
     "click",
-    ev => {
+    function (ev) {
       closeMenu();
     },
     false
@@ -393,7 +395,7 @@ function searchfield() {
 
   document.querySelectorAll(".searchfield")[0].addEventListener(
     "input",
-    ev => {
+    function (ev) {
       document.querySelectorAll(".tagcitylogo")[0].src =
         "https://media.tagcity.be/2019/03/search.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
 
@@ -418,7 +420,7 @@ function searchfield() {
           }
 
           results += "<ul>";
-          data.search.webshops.results.forEach(target => {
+          data.search.webshops.results.forEach(function (target) {
             results += '<li class="searchresult">';
             results += '<a href="';
             results += target.link;
@@ -437,7 +439,7 @@ function searchfield() {
             results += "</a>";
 
             if (data.search.webshops.tags) {
-              data.search.webshops.tags.forEach(tags => {
+              data.search.webshops.tags.forEach(function (tags) {
                 results += '<ul class="tag-results">';
                 results += '<li class="search-tag">';
                 results +=
@@ -459,7 +461,7 @@ function searchfield() {
 
           results += "<ul>";
 
-          data.search.categories.results.forEach(target => {
+          data.search.categories.results.forEach(function (target) {
             results += '<li class="searchresult">';
             results += '<a href="';
             results += target.link;
@@ -476,7 +478,7 @@ function searchfield() {
             results += "</a>";
 
             if (target.tags) {
-              data.search.categories.tags.forEach(tags => {
+              data.search.categories.tags.forEach(function (tags) {
                 results += '<ul class="tag-results">';
                 results += '<li class="search-tag">';
                 results +=
@@ -508,7 +510,7 @@ function searchfield() {
 
   document.querySelectorAll(".searchfield")[0].addEventListener(
     "focus",
-    ev => {
+    function (ev) {
       document.querySelectorAll(".tagcitylogo")[0].src =
         "https://media.tagcity.be/2019/03/search.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
 
@@ -520,7 +522,7 @@ function searchfield() {
 
   document.querySelectorAll(".searchfield")[0].addEventListener(
     "blur",
-    ev => {
+    function (ev) {
       document.querySelectorAll(".tagcitylogo")[0].src =
         "https://media.tagcity.be/2019/03/tagcity.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
 
@@ -548,7 +550,7 @@ function setupDialog() {
 
       dialog.querySelector(".codal-code").addEventListener(
         "click",
-        ev => {
+        function (ev) {
           const elm = ev.target.select();
         },
         false
@@ -561,7 +563,7 @@ function setupDialog() {
       var logo = dialog_data.logo;
       var logos = dialog.querySelectorAll(".logo-img");
 
-      logos.forEach(target => {
+      logos.forEach(function (target) {
         target.setAttribute("src", logo);
       });
 
@@ -575,123 +577,4 @@ function setupDialog() {
     removeClass(dialog, "hide");
     removeClass(dialog, "dialog-hidden");
   }
-}
-
-const TAGS = {
-  "": ["<em>", "</em>"],
-  _: ["<strong>", "</strong>"],
-  "\n": ["<br />"],
-  " ": ["<br />"],
-  "-": ["<hr />"]
-};
-
-function outdent(str) {
-  return str.replace(RegExp("^" + (str.match(/^(\t| )+/) || "")[0], "gm"), "");
-}
-
-function encodeAttr(str) {
-  return (str + "")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
-function parse(md) {
-  let tokenizer = /((?:^|\n+)(?:\n---+|\* \*(?: \*)+)\n)|(?:^```(\w*)\n([\s\S]*?)\n```$)|((?:(?:^|\n+)(?:\t|  {2,}).+)+\n*)|((?:(?:^|\n)([>*+-]|\d+\.)\s+.*)+)|(?:\!\[([^\]]*?)\]\(([^\)]+?)\))|(\[)|(\](?:\(([^\)]+?)\))?)|(?:(?:^|\n+)([^\s].*)\n(\-{3,}|={3,})(?:\n+|$))|(?:(?:^|\n+)(#{1,3})\s*(.+)(?:\n+|$))|(?:`([^`].*?)`)|(  \n\n*|\n{2,}|__|\*\*|[_*])/gm,
-    context = [],
-    out = "",
-    last = 0,
-    links = {},
-    chunk,
-    prev,
-    token,
-    inner,
-    t;
-
-  function tag(token) {
-    var desc = TAGS[token.replace(/\*/g, "_")[1] || ""],
-      end = context[context.length - 1] == token;
-    if (!desc) return token;
-    if (!desc[1]) return desc[0];
-    context[end ? "pop" : "push"](token);
-    return desc[end | 0];
-  }
-
-  function flush() {
-    let str = "";
-    while (context.length) str += tag(context[context.length - 1]);
-    return str;
-  }
-
-  md = md
-    .replace(/^\[(.+?)\]:\s*(.+)$/gm, (s, name, url) => {
-      links[name.toLowerCase()] = url;
-      return "";
-    })
-    .replace(/^\n+|\n+$/g, "");
-
-  while ((token = tokenizer.exec(md))) {
-    prev = md.substring(last, token.index);
-    last = tokenizer.lastIndex;
-    chunk = token[0];
-    if (prev.match(/[^\\](\\\\)*\\$/)) {
-      // escaped
-    }
-    // Code/Indent blocks:
-    else if (token[3] || token[4]) {
-      chunk =
-        '<pre class="code ' +
-        (token[4] ? "poetry" : token[2].toLowerCase()) +
-        '">' +
-        outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, "")) +
-        "</pre>";
-    }
-    // > Quotes, -* lists:
-    else if (token[6]) {
-      t = token[6];
-      if (t.match(/\./)) {
-        token[5] = token[5].replace(/^\d+/gm, "");
-      }
-      inner = parse(outdent(token[5].replace(/^\s*[>*+.-]/gm, "")));
-      if (t === ">") t = "blockquote";
-      else {
-        t = t.match(/\./) ? "ol" : "ul";
-        inner = inner.replace(/^(.*)(\n|$)/gm, "<li>$1</li>");
-      }
-      chunk = "<" + t + ">" + inner + "</" + t + ">";
-    }
-    // Images:
-    else if (token[8]) {
-      chunk = `<img src="${encodeAttr(token[8])}" alt="${encodeAttr(
-        token[7]
-      )}">`;
-    }
-    // Links:
-    else if (token[10]) {
-      out = out.replace(
-        "<a>",
-        `<a href="${encodeAttr(token[11] || links[prev.toLowerCase()])}">`
-      );
-      chunk = flush() + "</a>";
-    } else if (token[9]) {
-      chunk = "<a>";
-    }
-    // Headings:
-    else if (token[12] || token[14]) {
-      t = "h" + (token[14] ? token[14].length : token[13][0] === "=" ? 1 : 2);
-      chunk = "<" + t + ">" + parse(token[12] || token[15]) + "</" + t + ">";
-    }
-    // `code`:
-    else if (token[16]) {
-      chunk = "<code>" + encodeAttr(token[16]) + "</code>";
-    }
-    // Inline formatting: *em*, **strong** & friends
-    else if (token[17] || token[1]) {
-      chunk = tag(token[17] || "--");
-    }
-    out += prev;
-    out += chunk;
-  }
-
-  return (out + md.substring(last) + flush()).trim();
 }

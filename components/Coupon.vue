@@ -332,7 +332,7 @@ export default {
   }
 
   .white-space {
-    background-image: url("../assets/images/solden_space.svg");
+    background-image: url("../assets/images/solden_space.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
