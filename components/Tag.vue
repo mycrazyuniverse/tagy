@@ -64,14 +64,14 @@
 
 <script>
 import Discountbox from "~/components/Discountbox.vue";
-import LogoProp from "~/components/LogoProp.vue";
+import Logo from "~/components/Logo.vue";
 import Timer from "~/components/Timer.vue";
 import HallOfFame from "~/components/HallOfFame.vue";
 
 export default {
   components: {
     Discountbox,
-    LogoProp,
+    Logo,
     Timer,
     HallOfFame
   },

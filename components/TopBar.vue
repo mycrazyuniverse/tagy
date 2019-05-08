@@ -13,7 +13,6 @@
         <div class="search">
           <form action="/zoek">
             <input
-              name="q"
               type="search"
               maxlength="75"
               placeholder="Zoek webshop of soort product je naar op zoek bent bij die webshop bv. Pizza"

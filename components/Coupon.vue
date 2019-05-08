@@ -82,7 +82,6 @@
 </template>
 
 <script>
-import LogoProp from "~/components/LogoProp.vue";
 import Timer from "~/components/Timer.vue";
 import Property from "~/components/Property.vue";
 import Discount from "~/components/Discount.vue";
@@ -93,7 +92,6 @@ var basisname = "coupon";
 
 export default {
   components: {
-    LogoProp,
     Timer,
     Discount,
     Btn,

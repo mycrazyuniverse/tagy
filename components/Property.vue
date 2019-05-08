@@ -1,6 +1,6 @@
 <template>
   <span class="property">
-    <icon :content="logo" class="property-icon"></icon>
+    <Logo :content="logo" class="property-icon"></Logo>
     <a v-if="link" :href="link" class="property-text prevent">
       <slot>{{ name }}</slot>
     </a>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import icon from "~/components/icon.vue";
+import Logo from "~/components/Logo.vue";
 
 export default {
   props: {
@@ -32,7 +32,7 @@ export default {
     tag_classes() {}
   },
   components: {
-    icon
+    Logo
   }
 };
 </script>

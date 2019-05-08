@@ -2,7 +2,7 @@
   <div :class="classes">
     <div :class="iconclasses">
       <div :class="icontypeclasses" v-if="type == 'image'">
-        <icon :content="logo"></icon>
+        <Logo :content="logo"></Logo>
       </div>
       <div :class="icontypeclasses" v-else>
         <span class="badge" v-if="type == 'numbered'">{{ index + 1 }}</span>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import icon from "~/components/icon.vue";
+import Logo from "~/components/Logo.vue";
 
 export default {
   props: {
@@ -135,7 +135,7 @@ export default {
     }
   },
   components: {
-    icon
+    Logo
   }
 };
 </script>
