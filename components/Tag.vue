@@ -420,6 +420,10 @@ export default {
     padding-left: 15px !important;
   }
 
+  .property-text {
+    font-size: 10px;
+  }
+
   .tag-padding {
     padding-top: 40px !important;
     padding-bottom: 40px !important;

@@ -1,7 +1,7 @@
 <template>
   <div :class="discount_classes()">
     <p :class="sizeclass">{{ value }}</p>
-    <p class="label label-default uppercase">multi</p>
+    <p class="label label-default uppercase">{{ label }}</p>
   </div>
 </template>
 

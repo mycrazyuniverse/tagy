@@ -443,8 +443,22 @@ export default {
     border-radius: 0px;
   }
 
+  .property-text {
+    font-size: 10px;
+  }
+
   .tag-title {
-    font-size: 16px !important;
+    font-size: 15px !important;
+  }
+
+  .tag-properties .property-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .tag-properties .property-icon {
+    width: 15px;
+    height: 15px;
   }
 
   .coupon-content-padding {
@@ -453,7 +467,7 @@ export default {
   }
 
   .coupon-content {
-    width: 45%;
+    width: 55%;
     padding-left: 10px;
   }
 }

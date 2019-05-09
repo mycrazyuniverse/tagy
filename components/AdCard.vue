@@ -2,9 +2,9 @@
   <li class="card" data-target="card">
     <a class="carousel-image dib" :href="link" :style="bgimage(image)">
       <span class="text-overlay text-center">
-        <span class="dib">
+        <em class="dib">
           <WebshopLogo :logo="logo"></WebshopLogo>
-        </span>
+        </em>
         <p class="dealtitle">{{ title }}</p>
       </span>
     </a>
