@@ -97,6 +97,7 @@ export default {
     background-color: transparent !important;
     padding-left: 0px;
     padding-right: 0px;
+    font-size: 12px;
   }
 }
 </style>

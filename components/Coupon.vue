@@ -17,7 +17,17 @@
       <slot>
         <div :class="content_classes()">
           <div class="tagcontent-head">
-            <p class="important-prop" v-if="primary_property">{{ primary_property.name }}</p>
+            <p class="important-prop tag-properties" v-if="primary_property">
+              <Property
+                :name="primary_property.name"
+                :link="primary_property.link"
+                v-if="primary_property.shared == 'ends-in'"
+              >
+                {{ primary_property.name }}
+                <Timer :ends="timeline.enddate.timestamp"></Timer>
+              </Property>
+              <Property :name="primary_property.content" :link="primary_property.link" v-else></Property>
+            </p>
           </div>
           <div class="tagcontent-body">
             <h3 class="tag-title">
@@ -439,6 +449,38 @@ export default {
 }
 
 @media only screen and (max-width: 1180px) {
+  .text-lg {
+    font-size: 22px;
+  }
+
+  .text-md {
+    font-size: 20px;
+  }
+
+  .text-sm {
+    font-size: 16px;
+  }
+
+  .text-xs {
+    font-size: 12px !important;
+  }
+
+  .important-prop {
+    font-size: 12px;
+  }
+
+  .text-mini {
+    font-size: 10px;
+  }
+
+  .text-nano {
+    font-size: 6px;
+  }
+
+  .discount-box .label {
+    font-size: 12px;
+  }
+
   .coupon-default {
     border-radius: 0px;
   }
@@ -469,6 +511,12 @@ export default {
   .coupon-content {
     width: 55%;
     padding-left: 10px;
+  }
+
+  .breadcrumb-icon {
+    width: 20px;
+    padding-top: 5px;
+    height: 20px;
   }
 }
 </style>

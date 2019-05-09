@@ -1,6 +1,6 @@
 <template>
   <li class="card" data-target="card">
-    <a class="carousel-image dib" :href="link" :style="bgimage(image)">
+    <a class="carousel-image dib" :href="link" target="_blank" :style="bgimage(image)">
       <div class="text-overlay text-center">
         <p class="dib">
           <img :src="logo" class="webshop-logo" width="40">

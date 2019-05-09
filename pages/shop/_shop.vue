@@ -166,6 +166,7 @@
           class="related_shop_logo"
           :display="related.content"
           :title="related.title"
+          titleclass="m-only-toggle m-padding"
         >
           <div class="padding">
             <WebshopLogo
