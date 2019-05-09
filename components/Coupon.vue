@@ -3,6 +3,7 @@
     :id="'tag' + id"
     :class="tag_classes()"
     :data-tagno="id"
+    :data-response="tag_response()"
     :data-href="url"
     :data-starts-at="timeline.startdate.timestamp"
     :data-ends-at="timeline.enddate.timestamp"
@@ -31,36 +32,12 @@
                     :name="item.name"
                     :logo="item.logo"
                     :link="item.link"
-                    v-if="item.slug == 'status'"
-                  >{{ status.name }}</Property>
-                  <Property
-                    :name="item.name"
-                    :logo="item.logo"
-                    :link="item.link"
-                    v-else-if="item.slug == 'verified-by'"
-                  >{{ item.name }} {{ author }}</Property>
-                  <Property
-                    :name="item.name"
-                    :logo="item.logo"
-                    :link="item.link"
-                    v-else-if="item.slug == 'toegevoed-op'"
-                  >{{ item.name }} {{ timeline.startdate.readable }}</Property>
-                  <Property
-                    :name="item.name"
-                    :logo="item.logo"
-                    :link="item.link"
-                    v-else-if="item.slug == 'verloopt'"
-                  >{{ item.name }} {{ timeline.enddate.readable }}</Property>
-                  <Property
-                    :name="item.name"
-                    :logo="item.logo"
-                    :link="item.link"
-                    v-else-if="item.slug == 'eindigt-in'"
+                    v-if="item.shared == 'ends-in'"
                   >
                     {{ item.name }}
                     <Timer :ends="timeline.enddate.timestamp"></Timer>
                   </Property>
-                  <Property :name="item.name" :logo="item.logo" :link="item.link" v-else></Property>
+                  <Property :name="item.content" :logo="item.logo" :link="item.link" v-else></Property>
                 </li>
               </ul>
             </slot>
@@ -201,8 +178,6 @@ export default {
       classes.push(basisname + "-default");
       classes.push(basisname + "-bg");
 
-      console.log(this.template);
-
       classes.push("tag-dialog");
 
       classes.push("rounded");
@@ -228,6 +203,9 @@ export default {
       }
 
       return classes.join(" ");
+    },
+    tag_response() {
+      return "?open=" + this.id;
     },
     body_classes() {
       var classes = [];
@@ -408,7 +386,7 @@ export default {
     width: 15%;
   }
 
-  h3 {
+  .tag-title {
     font-size: 20px;
     font-weight: bold;
     text-decoration: underline;

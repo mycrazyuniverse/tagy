@@ -2,10 +2,10 @@
   <div :class="classes">
     <div :class="iconclasses">
       <div :class="icontypeclasses" v-if="type == 'image'">
-        <Logo :content="logo"></Logo>
+        <Logo :content="logo" class="icon"></Logo>
       </div>
       <div :class="icontypeclasses" v-else>
-        <span class="badge" v-if="type == 'numbered'">{{ index + 1 }}</span>
+        <span class="badge" v-if="type == 'numbered'">{{ index }}</span>
       </div>
     </div>
     <div :class="boxcontentclasses">
@@ -23,6 +23,10 @@ import Logo from "~/components/Logo.vue";
 export default {
   props: {
     title: {
+      type: String,
+      default: ""
+    },
+    index: {
       type: String,
       default: ""
     },
@@ -232,7 +236,7 @@ export default {
 
 .box-top-image-default {
   .box-icon-image {
-    height: 60px;
+    height: 70px;
     position: absolute;
     width: 100%;
     top: 0px;
@@ -240,7 +244,7 @@ export default {
 
     .icon {
       position: relative;
-      height: 60px;
+      height: 70px;
       top: 10px;
     }
   }

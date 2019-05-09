@@ -7,6 +7,7 @@ var langcode = document.documentElement.lang;
 var lang = langcode.replace("-BE", "");
 var apiUrl = "https://dev-tagcity.pantheonsite.io";
 var urlParams = new URLSearchParams(window.location.search);
+var tagwpop = '';
 
 if (lang != "nl") {
   apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
@@ -30,23 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
         apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
       }
 
-
       dialog = document.querySelectorAll(".dialog")[0];
       dialog_id = getUrlParameter("open");
-
-      const tagwpop = Array.from(document.querySelectorAll(".tag-dialog"));
-
-      tagwpop.forEach(function (target) {
-        target.addEventListener("click", function (ev) {
-
-          if (!hasClass(ev.target, "prevent")) {
-            window.open("?open=" + ev.currentTarget.dataset.tagno);
-            window.open(apiUrl + ev.currentTarget.dataset.href, "_self");
-          }
-
-        });
-      });
-
 
       const triggers = Array.from(
         document.querySelectorAll('[data-toggle="collapse"]')
@@ -93,6 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       setupDialog();
 
+      tagDialog();
+
       thefinalcountdown();
 
       closebtn();
@@ -107,6 +95,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 });
+
+function tagDialog() {
+
+  tagwpop = Array.from(document.querySelectorAll(".tag-dialog"));
+
+  tagwpop.forEach(function (target) {
+    target.addEventListener("click", function (ev) {
+
+      if (!hasClass(ev.target, "prevent")) {
+        window.open(ev.currentTarget.dataset.response);
+        window.open(apiUrl + ev.currentTarget.dataset.href, "_self");
+      }
+
+    });
+  });
+
+}
 
 function optin() {
 
@@ -440,10 +445,47 @@ function searchfield() {
 
             if (data.search.webshops.tags) {
               data.search.webshops.tags.forEach(function (tags) {
+
+                console.log(tags);
+
                 results += '<ul class="tag-results">';
                 results += '<li class="search-tag">';
-                results +=
-                  '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-"><div class="tag-item"><div class="float-left"><div class="discount-box text-center"><span class="discount text-lg">-20%</span> <span class=" label uppercase">Korting</span></div></div> <div class="tag-info float-right"><div class="tag-content"><h3 class="tag-title"><a href="?open=110">Exclusief: 10% korting op de volledige website</a></h3><div id="details110" class="tag-desc">Toegevoegd 1 maart 2019<div></div></div></div></div></div></article>';
+                results += "<article data-dialog='";
+                results += JSON.stringify(tags.dialog);
+                results += "' ";
+                results += "data-href='";
+                results += tags.url;
+                results += "' ";
+                results += "data-tagno='";
+                results += tags.id;
+                results += "' ";
+                results += "data-response='";
+                results += '/shop/' + tags.shop.slug + '?open=' + tags.id;
+                results += "' ";
+                results += ' id="tag110" class="coupon tag-search coupon-table coupon-default coupon-bg tag-dialog">';
+                results += '<div class="discount-box center text-center discount-border coupon-center text-center">';
+                results += '<p class="discount-text ';
+                results += sizeclass(tags.discount.value)
+                results += '">';
+                results += tags.discount.value;
+                results += '</p>';
+                results += '<p class="label label-default uppercase">';
+                results += tags.discount.label;
+                results += '</p>';
+                results += '</div>';
+                results += '<div class="coupon-center text-left">';
+                results += '<div class="tag-content">';
+                results += '<h3 class="tag-title">';
+                results += tags.post_title;
+                results += '</h3>';
+                results += '<div id="details110" class="tag-desc">';
+                results += returnProperties(tags.properties);
+                results += '</div>';
+                results += '</div>';
+                results += '</div>';
+                results += '</div>';
+                results += '</div>';
+                results += '</article>';
                 results += "</li>";
                 results += "</ul>";
               });
@@ -479,10 +521,32 @@ function searchfield() {
 
             if (target.tags) {
               data.search.categories.tags.forEach(function (tags) {
+
+                console.log(tags);
+
                 results += '<ul class="tag-results">';
                 results += '<li class="search-tag">';
-                results +=
-                  '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-"><div class="tag-item"><div class="float-left"><div class="discount-box text-center"><span class="discount text-lg">-20%</span> <span class=" label uppercase">Korting</span></div></div> <div class="tag-info float-right"><div class="tag-content"><h3 class="tag-title"><a href="?open=110">Exclusief: 10% korting op de volledige website</a></h3><div id="details110" class="tag-desc">Toegevoegd 1 maart 2019<div></div></div></div></div></div></article>';
+                results += '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-dialog dib w100">';
+                results += '<div class="tag-item float-left">';
+                results += '<div class="discount-box text-center">';
+                results += '<span class="discount text-lg">-20%</span>';
+                results += '<span class=" label uppercase">Korting</span>'
+                results += '</div>';
+                results += '</div>';
+                results += '<div class="tag-info float-left">';
+                results += '<div class="tag-content">';
+                results += '<h3 class="tag-title">';
+                results += '<a href="?open=110">';
+                results += '</a>';
+                results += '</h3>';
+                results += '<div id="details110" class="tag-desc">';
+                results += returnProperties(tags.properties)
+                results += '<div>';
+                results += '</div>';
+                results += '</div>';
+                results += '</div>';
+                results += '</div>';
+                results += '</article>';
                 results += "</li>";
                 results += "</ul>";
               });
@@ -497,6 +561,9 @@ function searchfield() {
         } else {
           // We reached our target server, but it returned an error
         }
+
+        tagDialog();
+
       };
 
       request.onerror = function () {
@@ -504,6 +571,8 @@ function searchfield() {
       };
 
       request.send();
+
+
     },
     false
   );
@@ -527,12 +596,65 @@ function searchfield() {
         "https://media.tagcity.be/2019/03/tagcity.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
 
       myVar = setTimeout(function () {
-        addClass(searchresults, "hide");
-        addClass(mobilemenuoverlay, "hide");
+        //addClass(searchresults, "hide");
+        //addClass(mobilemenuoverlay, "hide");
       }, 300);
     },
     false
   );
+}
+
+function sizeclass(value) {
+  var charcount = value.length;
+  var sizeclass = "text";
+
+  if (charcount <= 4) {
+    sizeclass = "text-lg";
+  } else if (charcount <= 6) {
+    sizeclass = "text-md";
+  } else if (charcount <= 8) {
+    sizeclass = "text-sm";
+  } else if (charcount <= 10) {
+    sizeclass = "text-xs";
+  } else if (charcount <= 12) {
+    sizeclass = "text-mini";
+  } else if (charcount <= 14) {
+    sizeclass = "text-micro";
+  } else if (charcount <= 16) {
+    sizeclass = "text-nano";
+  } else {
+    sizeclass = "text-nano";
+  }
+
+  return "discount-text " + sizeclass;
+}
+
+function returnProperties(properties) {
+
+  console.log(properties)
+  var html = '';
+
+  html += '<ul class="tag-properties">';
+
+  properties.forEach(function (target) {
+
+    html += '<li>';
+    html += '<span class="property">';
+    html += '<i class="property-icon">';
+    html += target.logo;
+    html += '</i>';
+    html += '<em class="property-text">';
+    html += target.name;
+    html += '</em>';
+    html += '</span>';
+    html += '</li>';
+
+  });
+
+  html += '</ul>';
+
+  return html;
+
 }
 
 function setupDialog() {
@@ -544,7 +666,7 @@ function setupDialog() {
       var dialog_data = JSON.parse(tag.dataset.dialog);
     }
 
-    if (dialog_data.type == 'custom') {
+    if (dialog_data.type == "custom") {
       dialog.querySelector(".dialog-slot").innerHTML = parse(dialog_data.content);
     } else {
 

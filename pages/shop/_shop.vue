@@ -288,8 +288,4 @@ export default {
   padding-left: 10px;
   padding-right: 10px;
 }
-
-.coupon {
-  margin-bottom: 15px;
-}
 </style>

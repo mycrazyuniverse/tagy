@@ -9,7 +9,7 @@
       <div id="content">
         <div class="headcategories" v-if="hidetags">
           <div class="container">
-            <div v-for="(item, index) in related.raw.content" :key="index" :id="index" class>
+            <div v-for="(item, index) in related.raw.content" :key="index" :id="index">
               <box
                 position="top"
                 :title="item.term.name"
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <section v-if="!hidetags">
+        <section class="subcategory" v-if="!hidetags">
           <div class="collist">
             <ul>
               <li v-for="sub in related.content" :key="sub.id">
@@ -180,4 +180,10 @@ export default {
   mounted() {}
 };
 </script>
+
+<style>
+.subcategory {
+  padding-bottom: 30px;
+}
+</style>
 

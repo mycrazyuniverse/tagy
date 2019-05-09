@@ -18,6 +18,15 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/coupon.min.js": {
+		"ft": 64,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/coupon.min-min.js",
+		"oF": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/default_avatar.jpg": {
 		"ft": 16384,
 		"iS": 3392,
@@ -43,6 +52,15 @@
 		"oA": 2,
 		"oAP": "\/favicon.ico",
 		"oF": 0
+		},
+	"\/markdown.js": {
+		"ft": 64,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/markdown-min.js",
+		"oF": 0,
+		"sC": 0,
+		"tS": 0
 		},
 	"\/README.md": {
 		"cS": 0,
