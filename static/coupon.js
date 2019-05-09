@@ -93,7 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
   }
-
 });
 
 function tagDialog() {
