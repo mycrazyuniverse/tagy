@@ -225,9 +225,13 @@ export default {
       var url = process.env.apiUrl + requestRoute;
     }
 
-    let { data } = await axios.get(url, {
-      params: {}
-    });
+    let { data } = await axios
+      .get(url, {
+        params: {}
+      })
+      .catch(function(error) {
+        throw err;
+      });
 
     return {
       common: data.common,
