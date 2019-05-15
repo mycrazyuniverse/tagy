@@ -279,7 +279,7 @@ export default {
         params: {}
       })
       .catch(function(error) {
-        process.exit();
+        process.exit(1);
       });
 
     return {
