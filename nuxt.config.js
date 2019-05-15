@@ -8,20 +8,53 @@ module.exports = {
   head: {
     title: pkg.name,
     meta: [{
-      charset: 'utf-8'
-    }, {
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1'
-    }, {
-      hid: 'description',
-      name: 'description',
-      content: pkg.description
-    }],
-    link: [{
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: '/favicon.ico'
+        charset: 'utf-8'
+      }, {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      }, {
+        hid: 'description',
+        name: 'description',
+        content: pkg.description
       },
+      {
+        name: 'msapplication-TileColor',
+        content: '#2d89ef'
+      },
+      {
+        name: 'theme-color',
+        content: '#ffffff'
+      },
+
+    ],
+    link: [{
+        rel: "manifest",
+        href: "/site.webmanifest"
+      },
+      {
+        rel: "mask-icon",
+        sizes: '16x16',
+        href: "/safari-pinned-tab.svg",
+        color: "#f47f4f",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: '16x16',
+        href: "/favicon-16x16.png"
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: '32x32',
+        href: "/favicon-32x32.png"
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png",
+      },
+
       {
         rel: 'stylesheet',
         href: '/dynamic.css'
@@ -92,7 +125,7 @@ module.exports = {
   },
   generate: {
     routes: routes,
-    interval: 1200,
+    interval: 300,
   },
 
   hooks: {

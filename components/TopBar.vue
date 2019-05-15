@@ -30,11 +30,7 @@
                 class="searchresult"
               >
                 <a class="searchresult_link" :href="target.link">
-                  <img
-                    src="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png"
-                    height="40"
-                    class="float-left searchresult_thumb"
-                  >
+                  <img :src="target.logo" height="40" class="float-left searchresult_thumb">
                   <span class="searchresult_text">
                     <strong>{{ target.name }}</strong>
                     <br>

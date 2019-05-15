@@ -60,9 +60,9 @@ export default {
 
       if (charcount <= 4) {
         sizeclass = "text-lg";
-      } else if (charcount <= 6) {
+      } else if (charcount <= 5) {
         sizeclass = "text-md";
-      } else if (charcount <= 8) {
+      } else if (charcount <= 7) {
         sizeclass = "text-sm";
       } else if (charcount <= 10) {
         sizeclass = "text-xs";
