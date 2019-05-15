@@ -1,8 +1,8 @@
 <template>
   <div id="gids">
     <div class="bar">
-      <TopBar :search="search"></TopBar>
-      <Nav :items="nav"></Nav>
+      <TopBar :search="common.search"></TopBar>
+      <Nav :items="common.nav"></Nav>
       <div class="container">
         <div class="bigbar">
           <time class="date" :datetime="content.post_date">
