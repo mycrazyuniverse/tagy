@@ -94,6 +94,7 @@ import AuthorBio from "~/components/AuthorBio.vue";
 import WebshopLogo from "~/components/WebshopLogo.vue";
 import SidebarItem from "~/components/SidebarItem.vue";
 import Ad from "~/components/Ad.vue";
+import Footer from "~/components/Footer.vue";
 
 import axios from "axios";
 
