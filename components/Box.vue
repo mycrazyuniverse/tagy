@@ -1,5 +1,6 @@
 <template>
   <div :class="classes">
+    <slot name="image">
     <div :class="iconclasses">
       <div :class="icontypeclasses" v-if="type == 'image'">
         <Logo :content="logo" class="icon"></Logo>
@@ -8,6 +9,7 @@
         <span class="badge" v-if="type == 'numbered'">{{ index }}</span>
       </div>
     </div>
+    </slot>
     <div :class="boxcontentclasses">
       <h3>{{ title }}</h3>
       <slot>
@@ -171,6 +173,14 @@ export default {
     }
   }
 
+  h3 {
+    line-height: 1.4 !important;
+  }
+
+  .box-content {
+    line-height: 1.8;
+  }
+
   .box-icon-effect {
     position: relative;
     top: 10px;
@@ -250,7 +260,7 @@ export default {
   }
 
   .box-content {
-    padding-top: 80px;
+    padding-top: 85px;
   }
 }
 </style>

@@ -76,12 +76,20 @@ module.exports = {
         defaultLocale: 'nl'
       }
     ],
-    '@nuxtjs/svg-sprite'
+    '@nuxtjs/svg-sprite',
+    '@nuxtjs/sitemap'
   ],
   render: {
     resourceHints: false
   },
-
+  sitemap: {
+    path: '/sitemap.xml',
+    hostname: 'https://tagcity.be',
+    cacheTime: 1000 * 60 * 15,
+    gzip: true,
+    generate: true,
+    routes: routes,
+  },
   generate: {
     routes: routes,
     interval: 1200,

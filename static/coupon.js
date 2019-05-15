@@ -5,7 +5,8 @@ var mobilemenuoverlay = document.querySelector(".mobile-menu-overlay");
 var dialog = document.querySelectorAll(".dialog")[0];
 var langcode = document.documentElement.lang;
 var lang = langcode.replace("-BE", "");
-var apiUrl = "https://dev-tagcity.pantheonsite.io";
+var basisUrl = "https://dev-tagcity.pantheonsite.io";
+var apiUrl = basisUrl;
 var urlParams = new URLSearchParams(window.location.search);
 var tagwpop = '';
 
@@ -17,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.onreadystatechange = function () {
     if (document.readyState === 'complete') {
-
 
       date = new Date();
       timestamp = Math.floor(Date.now() / 1000);
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var needupdate = false;
 
-        tags.forEach(function (target) {
+        /*tags.forEach(function (target) {
           var ends = target.getAttribute("data-ends-at");
           var timedifference = ends - timestamp;
 
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
               addClass(target, "expired");
             }
           }
-        });
+        });*/
       }
 
 
@@ -104,7 +104,7 @@ function tagDialog() {
 
       if (!hasClass(ev.target, "prevent")) {
         window.open(ev.currentTarget.dataset.response);
-        window.open(apiUrl + ev.currentTarget.dataset.href, "_self");
+        window.open(basisUrl + ev.currentTarget.dataset.href, "_self");
       }
 
     });
@@ -423,8 +423,10 @@ function searchfield() {
               "</div>";
           }
 
+          var webshops = data.search.webshops.results;
+
           results += "<ul>";
-          data.search.webshops.results.forEach(function (target) {
+          webshops.forEach(function (target) {
             results += '<li class="searchresult">';
             results += '<a href="';
             results += target.link;
@@ -445,8 +447,6 @@ function searchfield() {
             if (data.search.webshops.tags) {
               data.search.webshops.tags.forEach(function (tags) {
 
-                console.log(tags);
-
                 results += '<ul class="tag-results">';
                 results += '<li class="search-tag">';
                 results += "<article data-dialog='";
@@ -461,8 +461,8 @@ function searchfield() {
                 results += "data-response='";
                 results += '/shop/' + tags.shop.slug + '?open=' + tags.id;
                 results += "' ";
-                results += ' id="tag110" class="coupon tag-search coupon-table coupon-default coupon-bg tag-dialog">';
-                results += '<div class="discount-box center text-center discount-border coupon-center text-center">';
+                results += ' id="tag110" class="tag tag-search tag-table tag-default tag-bg tag-dialog">';
+                results += '<div class="discount-box center text-center discount-border tag-center text-center">';
                 results += '<p class="discount-text ';
                 results += sizeclass(tags.discount.value)
                 results += '">';
@@ -472,7 +472,7 @@ function searchfield() {
                 results += tags.discount.label;
                 results += '</p>';
                 results += '</div>';
-                results += '<div class="coupon-center text-left">';
+                results += '<div class="tag-center text-left">';
                 results += '<div class="tag-content">';
                 results += '<h3 class="tag-title">';
                 results += tags.post_title;
@@ -520,8 +520,6 @@ function searchfield() {
 
             if (target.tags) {
               data.search.categories.tags.forEach(function (tags) {
-
-                console.log(tags);
 
                 results += '<ul class="tag-results">';
                 results += '<li class="search-tag">';
@@ -595,8 +593,8 @@ function searchfield() {
         "https://media.tagcity.be/2019/03/tagcity.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
 
       myVar = setTimeout(function () {
-        //addClass(searchresults, "hide");
-        //addClass(mobilemenuoverlay, "hide");
+        addClass(searchresults, "hide");
+        addClass(mobilemenuoverlay, "hide");
       }, 300);
     },
     false
@@ -630,25 +628,32 @@ function sizeclass(value) {
 
 function returnProperties(properties) {
 
-  console.log(properties)
   var html = '';
 
   html += '<ul class="tag-properties">';
 
-  properties.forEach(function (target) {
 
-    html += '<li>';
-    html += '<span class="property">';
-    html += '<i class="property-icon">';
-    html += target.logo;
-    html += '</i>';
-    html += '<em class="property-text">';
-    html += target.name;
-    html += '</em>';
-    html += '</span>';
-    html += '</li>';
+  if (properties) {
 
-  });
+    console.log(properties);
+
+    properties.forEach(function (target) {
+
+      html += '<li>';
+      html += '<span class="property">';
+      html += '<i class="property-icon">';
+      html += target.logo;
+      html += '</i>';
+      html += '<em class="property-text">';
+      html += target.content;
+      html += '</em>';
+      html += '</span>';
+      html += '</li>';
+
+    });
+
+
+  }
 
   html += '</ul>';
 
@@ -677,9 +682,7 @@ function setupDialog() {
         false
       );
 
-      if (dialog_data.optin == false) {
-        addClass(dialog.querySelector(".optin"), "hide");
-      }
+
 
       var logo = dialog_data.logo;
       var logos = dialog.querySelectorAll(".logo-img");
@@ -690,7 +693,20 @@ function setupDialog() {
 
       dialog.querySelector(".codal-btn").setAttribute("href", apiUrl + dialog_data.url);
       dialog.querySelector(".codal-title").textContent = dialog_data.title;
-      dialog.querySelector(".codal-code").value = dialog_data.code;
+
+      if (dialog_data.code) {
+        dialog.querySelector(".codal-code").value = dialog_data.code;
+      } else {
+        addClass(dialog.querySelector(".codal-code"), "hide");
+      }
+
+      if (dialog_data.optin == false) {
+        addClass(dialog.querySelector(".optin"), "hide");
+      } else {
+        dialog.querySelector(".optin-title").textContent = dialog_data.optin.title;
+        dialog.querySelector(".optin-subtitle").textContent = dialog_data.optin.subtitle;
+      }
+
       dialog.querySelector(".codal-btn").textContent = dialog_data.btn.content;
 
     }

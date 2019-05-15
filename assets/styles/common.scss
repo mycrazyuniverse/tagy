@@ -74,7 +74,7 @@ h6 {
 }
 
 .lh {
-  line-height: 1.8;
+  line-height: 1.2;
 }
 
 
@@ -102,10 +102,29 @@ body {
   }
 }
 
-.tags .coupon {
+.mb-15 {
   margin-bottom: 15px;
 }
 
+.mt-30 {
+  margin-top: 30px;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
 
 .tag-search {
   background-color: #f9fafb !important;
@@ -329,6 +348,7 @@ body {
   color: #8b95a8;
 }
 
+
 .pad {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -343,7 +363,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 strong {
@@ -382,6 +402,9 @@ strong {
   text-align: left;
 }
 
+.underline {
+  text-decoration: underline;
+}
 
 .uppercase {
   text-transform: uppercase;
@@ -427,7 +450,6 @@ input {
 }
 
 .webshop-logo {
-  float: left;
   border-radius: 46px;
   height: 42px;
   width: 42px;
@@ -444,6 +466,29 @@ input {
   display: none;
 }
 
+.howbox{
+  width: 25%;
+  float: left;
+
+  .howbox-container{
+  background-color: #fff;
+  margin-right: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+
+  h3{
+    padding: 10px;
+  }
+
+    img{
+      width: 100%;
+    }
+  }
+
+  
+
+}
 
 .tooltip {
   position: relative;
@@ -486,8 +531,9 @@ $tooltip_w: 100px;
   #content {
     width: 80%;
     float: left;
-  }
 
+
+  }
 
   .sidebar {
     width: 20% !important;
@@ -663,6 +709,18 @@ nav {
   padding: 30px;
 }
 
+.index {
+  .title {
+    h2 {
+      padding-bottom: 10px;
+    }
+
+    p {
+      padding-bottom: 30px;
+    }
+
+  }
+}
 
 @media only screen and (max-width: 1180px) {
 
@@ -674,6 +732,50 @@ nav {
     width: 100% !important;
     min-width: 100% !important;
   }
+
+  .index {
+
+    .title {
+      h2 {
+        padding-bottom: 10px;
+      }
+
+      p {
+        padding-bottom: 15px;
+      }
+
+    }
+
+    .optin {
+      border-radius: 0px;
+    }
+
+    .blogposts {
+      padding-top: 0px;
+    }
+
+    .ptb2x {
+      padding-bottom: 15px;
+      padding-top: 15px;
+    }
+
+    .title {
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-bottom: 0px;
+
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+  }
+
 
   #nav-container {
     background-color: #1b194a;
@@ -840,12 +942,6 @@ nav {
   }
 }
 
-.center-title {
-  text-align: center;
-  margin-bottom: 15px;
-  line-height: 1.8;
-}
-
 .ptb2x {
   padding-bottom: 30px;
   padding-top: 30px;
@@ -885,12 +981,46 @@ nav {
   background-color: #ddd;
 }
 
+.blogposts li {
+  width: 50%;
+  float: left;
+  height: 125px;
+  margin-bottom: 15px;
+}
+
 @media only screen and (max-width: 1180px) {
+
+  .index {
+
+    .minipost-bg {
+      border-radius: 0px !important;
+      margin-right: 0px !important;
+      margin-left: 0px !important;
+      margin-bottom: 10px;
+    }
+
+    .minipost {
+
+      time {
+        font-size: 10px;
+      }
+
+      h4 {
+        font-size: 14px;
+      }
+
+      p {
+        font-size: 10px;
+      }
+
+    }
+  }
+
   .blogposts {
     padding-top: 15px;
 
     li {
-      width: 100%;
+      width: 100% !important;
     }
   }
 }
@@ -1069,6 +1199,7 @@ nav {
 
 .additionalcontent {
   padding-top: 15px;
+      margin-top: 60px;
   font-size: 14px;
 
   article {

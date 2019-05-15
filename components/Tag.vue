@@ -1,131 +1,259 @@
-<template>
+  <template>
   <article
-    :class="tagclass()"
     :id="'tag' + id"
+    :class="tag_classes()"
     :data-tagno="id"
+    :data-response="tag_response()"
     :data-href="url"
-    :data-starts-at="starts.timestamp"
-    :data-ends-at="ends.timestamp"
+    :data-starts-at="starts()"
+    :data-ends-at="ends()"
     :data-dialog="JSON.stringify(dialog)"
   >
-    <div class="tag-item">
-      <div class="discount">
-        <slot name="discount">
-          <Discountbox class="vcenter" :value="discount.value" :label="discount.label"></Discountbox>
+    <slot name="tag" v-if="template == 'hall-of-fame'">
+      <div :class="body_classes()">
+        <slot name="discountbox">
+          <div :class="discount_classes()">
+            <Discount :value="discount.value" :label="discount.label" class="tag-center">
+              <slot name="discount"></slot>
+            </Discount>
+          </div>
         </slot>
-      </div>
-      <div class="tag-info float-right">
-        <div class="tag-content">
-          <h3 class="tag-title">
-            <a :href="url">{{ title }}</a>
-          </h3>
-          <slot name="properties">
-            <ul class="tag-properties">
-              <li v-for="(item, index) in properties" :key="index" :class="propertyclass(item)">
-                <span v-if="item.slug == 'timed'">Limited offer</span>
-                <span v-else-if="item.slug == 'status'">{{ status_data.name }}</span>
-                <span v-else-if="item.slug == 'toegevoed-op'">{{ item.name }} {{ starts.readable }}</span>
-                <span v-else-if="item.slug == 'verloopt'">{{ item.name }} {{ ends.readable }}</span>
-                <span v-else-if="item.slug == 'eindigt-in'">
-                  {{ item.name }}
-                  <Timer :ends="ends.timestamp"></Timer>
-                </span>
-                <span v-else-if="item.slug == 'toon-type'">{{ type.name }}</span>
-                <span v-else>{{ item.name }}</span>
-              </li>
-            </ul>
-          </slot>
-        </div>
-      </div>
-      <div class="tag-button float-right" v-if="btn.content">
-        <button>
-          <span class="buttontext">{{ btn.content }}</span>
-          <span class="arrow arrow-right float-right"></span>
-        </button>
-      </div>
-    </div>
-    <div class="details" v-if="details">
-      <a data-toggle="collapse" class="more more-bottom prevent" :data-target="'#details' + id">
-        {{ dictionary.details }}
-        <span class="arrow arrow-down float-right"></span>
-      </a>
-    </div>
-    <div class="tag-desc" v-if="details">
-      <div class="collapse details-container w100" :id="'details' + id">
-        <slot name="details">
-          <div class="padding">
-            <div v-html="details"></div>
+        <slot>
+          <div :class="content_classes()">
+            <div class="tagcontent-head">
+              <p class="stars">
+                <svg-icon name="star" class="star"/>
+                <svg-icon name="star" class="star"/>
+                <svg-icon name="star" class="star"/>
+                <svg-icon name="star" class="star"/>
+                <svg-icon name="star" class="star"/>
+              </p>
+            </div>
+            <div class="tagcontent-body">
+              <p class="important-prop tag-properties" v-if="primary_property.content">
+                <Property
+                  :name="primary_property.content"
+                  :link="primary_property.link"
+                  v-if="primary_property.shared == 'ends-in'"
+                >
+                  {{ primary_property.name }}
+                  <Timer :ends="timeline.enddate.timestamp"></Timer>
+                </Property>
+                <Property :name="primary_property.content" :link="primary_property.link" v-else></Property>
+              </p>
+              <h3 class="tag-title">
+                <a :href="url">{{ title }}</a>
+              </h3>
+              <slot name="properties">
+                <ul class="tag-properties" v-if="properties">
+                  <li v-for="(item, index) in properties" :key="index" :class="propertyclass(item)">
+                    <Property
+                      :name="item.name"
+                      :logo="item.logo"
+                      :link="item.link"
+                      v-if="item.shared == 'ends-in'"
+                    >
+                      {{ item.name }}
+                      <Timer :ends="timeline.enddate.timestamp"></Timer>
+                    </Property>
+                    <Property :name="item.content" :logo="item.logo" :link="item.link" v-else></Property>
+                  </li>
+                </ul>
+                <div class="more" v-if="content != ''">
+                  <a
+                    data-toggle="collapse"
+                    class="more-btn prevent"
+                    :data-target="'#t-details-' + id"
+                  >
+                    details
+                    <span class="arrow arrow-down float-right"></span>
+                  </a>
+                </div>
+              </slot>
+            </div>
+            <div class="tagcontent-foot">
+              <slot name="button">
+                <btn :content="btn"></btn>
+              </slot>
+            </div>
+          </div>
+          <div class="tag-center white-space">
+            <img src="../assets/images/secondmasterpiece.svg" class="second-masterpiece">
           </div>
         </slot>
       </div>
-    </div>
+      <div class="details" v-if="details">
+        <div class="collapse details-container w100" :id="'t-details-' + id">
+          <slot name="details">
+            <div class="padding" v-html="details"></div>
+          </slot>
+        </div>
+      </div>
+    </slot>
+    <slot name="tag" v-else>
+      <slot name="head" class="tag-head"></slot>
+      <div :class="body_classes()">
+        <slot name="discountbox">
+          <Discount :value="discount.value" :label="discount.label" :class="discount_classes()">
+            <slot name="discount"></slot>
+          </Discount>
+        </slot>
+        <slot>
+          <div :class="content_classes()">
+            <div class="tagcontent-head">
+              <p class="important-prop tag-properties" v-if="primary_property.content">
+                <Property
+                  :name="primary_property.content"
+                  :link="primary_property.link"
+                  v-if="primary_property.shared == 'ends-in'"
+                >
+                  {{ primary_property.name }}
+                  <Timer :ends="timeline.enddate.timestamp"></Timer>
+                </Property>
+                <Property :name="primary_property.content" :link="primary_property.link" v-else></Property>
+              </p>
+            </div>
+            <div class="tagcontent-body">
+              <h3 class="tag-title">
+                <a :href="cloakurl()">{{ title }}</a>
+              </h3>
+            </div>
+            <div class="tagcontent-foot">
+              <slot name="properties">
+                <ul class="tag-properties" v-if="properties">
+                  <li v-for="(item, index) in properties" :key="index" :class="propertyclass(item)">
+                    <Property
+                      :name="item.name"
+                      :logo="item.logo"
+                      :link="item.link"
+                      v-if="item.shared == 'ends-in'"
+                    >
+                      {{ item.name }}
+                      <Timer :ends="timeline.enddate.timestamp"></Timer>
+                    </Property>
+                    <Property :name="item.content" :logo="item.logo" :link="item.link" v-else></Property>
+                  </li>
+                </ul>
+              </slot>
+            </div>
+          </div>
+        </slot>
+        <div class="tag-center white-space" v-if="layout.whitespace"></div>
+        <slot name="button">
+          <div :class="button_classes()">
+            <btn :content="btn"></btn>
+          </div>
+        </slot>
+      </div>
+      <slot name="foot" class="tag-foot"></slot>
+      <slot name="details">
+        <MoreDetails :id="id" :content="details"></MoreDetails>
+      </slot>
+    </slot>
   </article>
 </template>
 
 <script>
-import Discountbox from "~/components/Discountbox.vue";
-import Logo from "~/components/Logo.vue";
 import Timer from "~/components/Timer.vue";
-import HallOfFame from "~/components/HallOfFame.vue";
+import Property from "~/components/Property.vue";
+import Discount from "~/components/Discount.vue";
+import Btn from "~/components/Btn.vue";
+import MoreDetails from "~/components/MoreDetails.vue";
+
+var basisname = "tag";
 
 export default {
   components: {
-    Discountbox,
-    Logo,
     Timer,
-    HallOfFame
-  },
-  methods: {
-    tagclass() {
-      var classes = [];
-
-      classes.push("tag");
-      classes.push("tag-normal");
-
-      if (this.type) {
-        classes.push("tag-dialog");
-      }
-
-      if (this.id) {
-        classes.push("tag-" + this.id);
-      }
-
-      if (this.status) {
-        classes.push("tag-" + this.status);
-      }
-
-      if (this.ends) {
-        var time = this.ends.timestamp / 86400;
-        classes.push("t-" + time);
-      }
-
-      if (this.properties) {
-        this.properties.forEach(element => {
-          classes.push("tag-" + element.slug);
-        });
-      }
-
-      return classes.join(" ");
-    }
+    Discount,
+    Btn,
+    MoreDetails,
+    Property
   },
   props: {
     id: {
       type: Number,
       default: 0
     },
-    type: {
-      type: Object,
+    title: {
+      type: String,
       default: ""
+    },
+    author: {
+      type: String,
+      default: ""
+    },
+    url: {
+      type: String,
+      default: ""
+    },
+    status: {
+      type: Object,
+      default: {
+        slug: "actief"
+      }
+    },
+    details: {
+      type: String,
+      default: ""
+    },
+    timeline: {
+      startdate: {
+        type: Object,
+        default: {
+          timestamp: 100
+        }
+      },
+      enddate: {
+        type: Object,
+        default: {
+          timestamp: 100
+        }
+      }
+    },
+    template: {
+      type: Object,
+      default: {
+        slug: "default"
+      }
+    },
+    layout: {
+      type: Object,
+      default: {
+        background: {
+          scale: "fixed"
+        },
+        padding: {
+          bottom: "15px"
+        },
+        whitespace: true,
+        position: {
+          discount: {
+            text: "center",
+            vertical: "center"
+          },
+          content: {
+            text: "left",
+            vertical: "center"
+          },
+          btn: {
+            text: "right",
+            vertical: "center"
+          }
+        }
+      }
     },
     dialog: {
       type: Object,
       default: ""
     },
-    status: {
-      type: String,
-      default: ""
+    action: {
+      type: Object,
+      default: {
+        slug: "dialog"
+      }
     },
-    status_data: {
+    discount: {
       type: Object,
       default: function() {
         return [];
@@ -135,324 +263,559 @@ export default {
       type: Array,
       default: []
     },
-    title: {
-      type: String,
-      default: ""
-    },
-    code: {
-      type: String,
-      default: "No Code Required"
-    },
-    details: {
-      type: String,
-      default: ""
-    },
-    logo: {
-      type: String,
-      default: ""
-    },
-    views: {
-      type: String,
-      default: ""
-    },
-    url: {
-      type: String,
-      default: ""
-    },
     btn: {
       type: Object,
       default: {}
     },
-    starts: {
-      type: Object,
-      default: function() {
-        return [];
-      }
-    },
-    ends: {
-      type: Object,
-      default: function() {
-        return [];
-      }
-    },
-    discount: {
-      type: Object,
-      default: function() {
-        return [];
-      }
-    },
-    dictionary: {
+    primary_property: {
       type: Object,
       default: {}
     }
   },
-  mounted() {}
+  methods: {
+    tag_classes() {
+      var classes = [];
+
+      classes.push(basisname);
+      classes.push(basisname + "-table");
+      classes.push(basisname + "-default");
+      classes.push(basisname + "-bg");
+
+      if (this.action) {
+        if (this.action.slug) {
+          classes.push("tag-" + this.action.slug);
+        } else {
+          classes.push("tag-dialog");
+        }
+      } else {
+        classes.push("tag-dialog");
+      }
+
+      classes.push("rounded");
+
+      if (this.layout.background.scale == "fixed") {
+      }
+
+      if (this.template) {
+        if (this.template == "solden") {
+          classes.push(basisname + "-solden");
+        }
+
+        if (this.template == "hall-of-fame") {
+          classes.push(basisname + "-hall-of-fame");
+        }
+      }
+
+      if (this.layout.padding.bottom == "15px") {
+        classes.push("mb-15");
+      }
+
+      if (this.layout.padding.top == "15px") {
+        classes.push("mt-15");
+      }
+
+      if (this.layout.padding.left == "15px") {
+        classes.push("ml-15");
+      }
+
+      if (this.layout.padding.right == "15px") {
+        classes.push("mr-15");
+      }
+
+      /*if (this.timeline.enddate.timestamp != "") {
+        var time = this.timeline.enddate.timestamp / 86400;
+        classes.push("t-" + time);
+      }*/
+
+      classes.push("tag-bg-" + this.layout.background.scale);
+
+      if (this.status.slug) {
+        classes.push(basisname + "-" + this.status.slug);
+      }
+
+      return classes.join(" ");
+    },
+    tag_response() {
+      return "?open=" + this.id;
+    },
+    body_classes() {
+      var classes = [];
+
+      if (this.layout.background.scale == "fixed") {
+        //classes.push("tag-freedelivery");
+      }
+
+      classes.push(basisname + "-body");
+
+      return classes.join(" ");
+    },
+    content_classes() {
+      var classes = [];
+
+      classes.push(basisname + "-content");
+      classes.push(basisname + "-content-padding");
+
+      classes.push(basisname + "-" + this.layout.position.content.vertical);
+      classes.push("text-" + this.layout.position.content.text);
+
+      return classes.join(" ");
+    },
+    button_classes() {
+      var classes = [];
+
+      classes.push(basisname + "-btncontainer");
+      classes.push(basisname + "-" + this.layout.position.btn.vertical);
+      classes.push("text-" + this.layout.position.btn.text);
+
+      return classes.join(" ");
+    },
+    discount_classes() {
+      var classes = [];
+
+      classes.push(basisname + "-" + this.layout.position.discount.vertical);
+      classes.push("text-" + this.layout.position.discount.text);
+
+      if (this.template) {
+        classes.push("discount-box-" + this.template);
+
+        if (this.template == "hall-of-fame") {
+          classes.push("masterpiece");
+        }
+      }
+
+      return classes.join(" ");
+    },
+    propertyclass(property) {
+      var classes = [];
+
+      classes.push("tag-property");
+      classes.push("tag-property-" + property.slug);
+      classes.push("property-" + property.slug);
+
+      return classes.join(" ");
+    },
+    ends() {
+      var data = 100;
+
+      if (this.timeline) {
+        if (this.timeline.enddate) {
+          data = this.timeline.enddate.timestamp;
+        }
+      }
+      return data;
+    },
+    starts() {
+      var data = 100;
+
+      if (this.timeline) {
+        if (this.timeline.startdate) {
+          data = this.timeline.startdate.timestamp;
+        }
+      }
+      return data;
+    },
+    cloakurl() {
+      return "https://dev-tagcity.pantheonsite.io" + this.url;
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-.tag {
-  position: relative;
-  cursor: pointer;
-  display: block;
+.tag-flex {
+  display: flex;
+  align-items: center;
+
+  .center {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.tag-bg-fixed {
   overflow: hidden;
 
-  .tag-button {
-    transform: translate(0%, -50%);
-    position: absolute;
-    top: 50%;
-    right: 20px;
+  .tag-body {
+    width: 100%;
+  }
+}
 
-    .arrow-right {
-      position: relative;
-      top: 5px;
-      border-left: 5px solid #ffffff;
-      margin-left: 10px;
-    }
+.tag-content-padding {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
 
-    button {
-      -webkit-appearance: none;
-      background-color: #173a68;
-      color: #fff;
-      font-size: 15px;
-      padding-right: 20px;
-      padding-left: 20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border: none;
-      text-transform: uppercase;
-      font-weight: bold;
-      border-radius: 20px;
-      width: 215px;
-    }
+.tag-bg {
+}
+
+.tag-solden {
+  background-image: url("../assets/images/clouds.svg");
+  background-size: cover;
+
+  .more-btn {
+    color: #163a68;
   }
 
-  h3 {
+  .arrow-down {
+    border-top-color: #163a68;
+  }
+
+  .discount-border {
+    border-right: 1px dashed #163a68;
+  }
+
+  .white-space {
+    background-image: url("../assets/images/solden_space.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-size: 80%;
+  }
+
+  .discount-box .label-default {
+    background-color: #5376a2;
+    color: #ffffff;
+  }
+
+  .tag-properties .property-icon {
+    fill: #406ba1;
+  }
+
+  .tag-properties {
+    color: #406ba1;
+  }
+
+  background-color: #00ace8 !important;
+}
+
+.tag-freedelivery {
+  background-image: url("../assets/images/delivery.svg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-color: #00ace8;
+}
+
+.tag-content {
+  width: 50%;
+  padding-left: 15px;
+}
+
+.tag-btncontainer {
+  padding-right: 15px;
+}
+
+.tag-table {
+  .tag-body {
+    display: table;
+    height: 100px;
+    min-height: 100px;
+  }
+
+  .tag-center {
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+  .tag-top {
+    vertical-align: top;
+    display: table-cell;
+  }
+
+  .tag-bottom {
+    vertical-align: bottom;
+    display: table-cell;
+  }
+}
+
+.tag {
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+
+  .white-space {
+    width: 15%;
+  }
+
+  .tag-title {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 5px;
-    padding-right: 70px;
     text-decoration: underline;
+    line-height: 1;
     letter-spacing: -0.5px;
+    padding-top: 5px;
+    padding-bottom: 7px;
 
     a {
       color: #173a68;
       text-decoration: underline;
     }
   }
+}
 
-  .tag-item {
+.tag-properties {
+  font-size: 14px;
+  color: #acacac;
+  width: 100%;
+  display: inline-block;
+
+  .property-icon {
+    fill: #acacac;
+    width: 20px;
+    height: 20px;
     position: relative;
-    display: inline-block;
-    width: 100%;
-    top: 3px;
-  }
+    top: 5px;
 
-  .tag-info {
-    display: inline-block;
-    width: calc(100% - 120px);
-    padding-left: 10px;
-    border-left: 1px dashed #85b5c5;
-    padding-bottom: 25px;
-    padding-top: 35px;
-
-    p {
-      padding-top: 10px;
+    svg {
+      width: 20px;
+      height: 20px;
     }
   }
 
-  .tag-properties {
-    font-size: 14px;
-    color: #acacac;
-    width: 100%;
-    display: inline-block;
-    max-width: 440px;
-    line-height: 1.4;
-
-    li {
-      float: left;
-    }
-
-    li + li::before {
-      content: "-";
-      padding-right: 5px;
-      padding-left: 7px;
-    }
+  .property-text {
+    padding-right: 10px;
+    padding-left: 2px;
   }
 
-  .tag-desc {
-    font-size: 12px;
-    margin-top: 5px;
-
-    .details-container {
-      background-color: #cfd6e0;
-      line-height: 1.4;
-    }
-
-    .detail-content {
-      padding: 10px;
-    }
-
-    .show {
-      position: relative;
-    }
+  li {
+    float: left;
   }
 }
 
-.expired {
-  .discount-box .label {
-    background-color: gray;
+.important-prop {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #f13b3b;
+}
+
+.stars {
+  display: inline-block;
+
+  .star {
+    fill: #fbae17;
+    float: left;
+    width: 25px;
+    height: 25px;
+    padding-left: 2px;
+    padding-right: 2px;
   }
-}
-
-.tag-normal {
-  background-color: #fff;
-  margin-bottom: 15px;
-  border-radius: 15px;
-}
-
-.tag-search .tag-info :after {
-  content: "▶";
-  display: block;
-  position: absolute;
-  color: #fff;
-  background-color: #00ace8;
-  width: 19px;
-  right: 14px;
-  text-align: center;
-  font-size: 9px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  top: 48px;
-  top: calc(50% - 11px);
-  border-radius: 50%;
 }
 
 .tag-search {
-  background-color: #f9fafb;
-  border-top: 1px solid #ebebf5;
-}
-
-.tag-free-delivery {
-  background-image: url("../assets/images/delivery.svg");
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-color: #00ace8;
-
-  .tag-properties {
-    color: #4d698f;
-  }
-
-  .more-bottom {
-    color: #fdfdfd;
+  .tag-content {
+    width: 100%;
   }
 }
 
-.tag-exclusive {
-  //background-image: url("../assets/images/exlcusieve_coupon.png");
-  background-size: contain;
-  background-position: right bottom;
-  background-repeat: no-repeat;
-  background-color: #1c1465;
-  h3 a {
-    color: #fff !important;
+.tag-halloffame {
+  background-image: url("../assets/images/hall_of_fame_paper.jpg");
+  background-color: #86231d;
+
+  .secondmasterpiece {
+    position: absolute;
+    right: -120px;
+    top: -110px;
   }
 
-  .discount-box .discount {
-    color: #fff !important;
+  .important-prop {
+    color: #fbae16;
   }
-}
 
-#voucher {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 500;
-  overflow: hidden;
-}
+  .details .details-container {
+    background-color: #6e0b0b;
+    color: #fbae17;
+    text-align: center;
+  }
 
-.more-bottom {
-  color: gray;
-  font-size: 12px;
-  float: right;
-  padding-right: 20px;
-  height: 0px;
-  top: -20px;
-  position: relative;
+  .tag-properties li {
+    float: none;
+    display: inline-block;
+  }
 
   .arrow-down {
-    border-width: 3px;
-    border-top-color: gray;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #ffffff;
+    margin-top: 4px;
+    margin-left: 4px;
+  }
+
+  .tag-properties {
+    margin-bottom: 10px;
+  }
+
+  .more {
+    font-size: 12px;
+    display: inline-block;
+  }
+
+  .tag-body {
+    background-repeat: repeat-x;
+    background-position-y: 120%;
+    background-position-x: 60%;
+    display: table;
+    height: 100px;
+    min-height: 100px;
+    background-image: url("../assets/images/entrance.svg");
+    background-size: 50%;
+  }
+
+  .tagcontent-body {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .btn {
+    background-color: #fbae17;
+  }
+
+  .tag-content {
+    width: 70%;
+    text-align: center;
+    padding-left: 0px !important;
+
+    a {
+      color: #fff;
+    }
+  }
+
+  .discountbox {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  .masterpiece {
+    padding-left: 3%;
+
+    .discount-box {
+      width: 20%;
+    }
+  }
+
+  .discount-box {
+    background-image: url("../assets/images/masterpiece.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    height: 160px;
+    margin-left: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    .label {
+      width: 90px;
+      background-color: #fbae17;
+    }
   }
 }
 
 @media only screen and (max-width: 1180px) {
-  .tag {
-    border-radius: 0px;
+  .text-lg {
+    font-size: 22px;
   }
 
-  .buttontext {
-    display: none;
+  .text-md {
+    font-size: 20px;
   }
 
-  .more-bottom {
-    padding-right: 10px;
+  .text-sm {
+    font-size: 16px;
   }
 
-  .tag-button {
-    button {
-      width: 21px !important;
-      padding-right: 7px !important;
-      padding-left: 10px !important;
-      padding-bottom: 10px !important;
-      padding-top: 0px !important;
+  .text-xs {
+    font-size: 12px !important;
+  }
+
+  .important-prop {
+    font-size: 12px;
+  }
+
+  .text-mini {
+    font-size: 10px;
+  }
+
+  .text-nano {
+    font-size: 6px;
+  }
+
+  .discount-box .label {
+    font-size: 12px;
+  }
+
+  .discount-box {
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 90px;
+
+    .label {
+      width: 80px;
     }
   }
-}
 
-@media only screen and (min-width: 1180px) {
-  .tag-normal .tag-info {
-    width: 320px;
-    width: calc(100% - 140px) !important;
-    padding-left: 15px !important;
+  .tag-default {
+    border-radius: 0px;
   }
 
   .property-text {
     font-size: 10px;
   }
 
-  .tag-padding {
-    padding-top: 40px !important;
-    padding-bottom: 40px !important;
+  .tag-title {
+    font-size: 15px !important;
+  }
+
+  .tag-properties .property-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .tag-properties .property-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .tag-content-padding {
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
 
   .tag-content {
-    h3 {
-      font-size: 20px;
-      padding-right: 400px;
-      line-height: 1.4;
-    }
+    width: 55%;
+    padding-left: 10px;
   }
 
-  .tag-normal .tag-item {
-    //width: 75% !important;
+  .breadcrumb-icon {
+    width: 20px;
+    padding-top: 5px;
+    height: 20px;
   }
 
-  .wall_of_fame .claim_to_fame {
-    left: 45px;
-    width: 68% !important;
-    line-height: 1.4;
-
-    .collapse {
-      overflow: visible;
-      height: auto;
-      display: inline-block;
+  .tag-halloffame {
+    .tag-content {
+      padding-left: 5px;
+      padding-right: 5px;
     }
 
-    .moreinfo {
+    .white-space {
+      display: none;
+    }
+
+    .discount-box {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+
+      .label {
+        width: 80px !important;
+        margin-left: 7px;
+        margin-right: 7px;
+      }
+    }
+
+    .btn {
       display: none;
     }
   }

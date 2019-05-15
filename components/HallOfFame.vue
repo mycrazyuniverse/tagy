@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="masterpiece float-left">
-      <slot name="discount">
+      <slot name="discountbox">
         <Discountbox :value="discount.value" :label="discount.label"></Discountbox>
       </slot>
       <img src="../assets/images/masterpiece-8.png">
@@ -82,10 +82,6 @@ export default {
 
   .discount-box {
     padding-top: 5px;
-  }
-
-  .stars {
-    display: inline-block;
   }
 
   .claim_to_fame {

@@ -7,13 +7,8 @@
 
     <div class="container">
       <div class="intro padding text-center text ptb2x">
-        <h1>De beste kortingscodes en kortingen van België</h1>
-        <p>
-          Gebruik één van onze kortingscodes en bespaar op je online aankopen.
-          Omdat wij Belgen graag wat centen uitsparen, helpen we je hier een handje. Wij verzamelen namelijk alle kortingscodes en promoties
-          van je favoriete Belgische en internationale webshops.
-          Winkel je graag online en mét korting bij winkels, zoals Zalando, bol.com en ColliShop? Dan gaat het Metro kortingsplatform je zeker bevallen.
-        </p>
+        <h1>{{intro.title}}</h1>
+        <p>{{intro.content}}</p>
       </div>
       <div id="carousel" class="ptb2x">
         <Carousel>
@@ -27,14 +22,32 @@
           ></AdCard>
         </Carousel>
       </div>
-      <div id="best" class="best text-center padding dib w100 lh ptb2x">
-        <div class="center-title">
-          <h2>Beste kortingen</h2>
-          <p>We lichten hier een aantal van onze strafste deals uit. Wat is je favoriete korting?</p>
+      <div id="best" class="best text-center dib w100 lh ptb2x">
+        <div class="title">
+          <h2>{{tags.title}}</h2>
+          <p>{{tags.subtitle}}</p>
         </div>
+        <Tag
+          v-for="item in tags.content"
+          :key="item.id"
+          :id="item.id"
+          :details="item.post_content"
+          :url="item.url"
+          :author="item.author"
+          :status="item.status_data"
+          :title="item.title"
+          :timeline="item.timeline"
+          :dialog="item.dialog"
+          :action="item.action"
+          :discount="item.discount"
+          :properties="item.properties"
+          :primary_property="item.primary_property"
+          :template="item.template"
+          :btn="item.btn"
+        ></Tag>
       </div>
-      <div class="blogposts ptb2x dib">
-        <div class="center-title">
+      <div class="ptb2x dib w100">
+        <div class="title text-center">
           <h2>{{ blog.title }}</h2>
           <p>{{ blog.subtitle }}</p>
         </div>
@@ -52,13 +65,11 @@
           </li>
         </ul>
       </div>
-      <div class="lh ptb2x">
-        <div class="center-title"></div>
-      </div>
       <div class="ptb2x dib-w100">
-        <Optin></Optin>
+        <Optin :title="optin.title" :subtitle="optin.subtitle" class="rounded overflow-hidden"></Optin>
       </div>
     </div>
+    <Dialog></Dialog>
   </div>
 </template>
 
@@ -70,6 +81,7 @@ import Optin from "~/components/Optin.vue";
 import Carousel from "~/components/Carousel.vue";
 import MiniPost from "~/components/MiniPost.vue";
 import AdCard from "~/components/AdCard.vue";
+import Dialog from "~/components/Dialog.vue";
 
 import axios from "axios";
 
@@ -89,8 +101,11 @@ export default {
 
     return {
       common: data.common,
+      intro: data.intro,
       blog: data.blog,
-      ads: data.ads
+      ads: data.ads,
+      optin: data.optin,
+      tags: data.tags
     };
   },
   computed: {
@@ -109,17 +124,13 @@ export default {
     Carousel,
     Optin,
     MiniPost,
-    AdCard
+    AdCard,
+    Tag,
+    Dialog
   },
   mounted() {}
 };
 </script>
 
 <style lang="scss">
-.blogposts li {
-  width: 50%;
-  float: left;
-  height: 125px;
-  margin-bottom: 15px;
-}
 </style>

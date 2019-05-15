@@ -41,11 +41,24 @@
           </div>
         </section>
         <section class="tags" v-if="!hidetags">
-          <tag title="test">
-            <template #discount>
-              <Discountbox value="value" label="label"></Discountbox>
-            </template>
-          </tag>
+          <Tag
+            v-for="item in tags.content"
+            :key="item.id"
+            :id="item.id"
+            :details="item.post_content"
+            :url="item.url"
+            :author="item.author"
+            :status="item.status_data"
+            :title="item.title"
+            :timeline="item.timeline"
+            :dialog="item.dialog"
+            :action="item.action"
+            :discount="item.discount"
+            :properties="item.properties"
+            :primary_property="item.primary_property"
+            :template="item.template"
+            :btn="item.btn"
+          ></Tag>
         </section>
       </div>
       <div class="sidebar sidebar-fusion">
@@ -83,7 +96,7 @@
           <ul class="list-style-none m-toggle padding">
             <MiniPost
               v-for="(item, index) in blog.content"
-              class="mininamopost"
+              class="mininamopost float-left"
               type="nano"
               :key="index"
               :slug="item.slug"
@@ -95,16 +108,7 @@
           </ul>
         </SidebarItem>
       </div>
-      <div id="popup" class="popup hide">
-        <div class="popup-content rounded">
-          <div class="close pop-close"></div>
-          <img class="pop-logo" width="58">
-          <h1 class="pop-title"></h1>
-          <input class="pop-code" type="text" value="geen code nodig" readonly>
-          <a class="btn uppercase">Website</a>
-        </div>
-        <div class="overlay pop-close"></div>
-      </div>
+      <Dialog></Dialog>
     </div>
   </div>
 </template>
@@ -120,7 +124,7 @@ import Nav from "~/components/Nav.vue";
 import MiniPost from "~/components/MiniPost.vue";
 import SidebarItem from "~/components/SidebarItem.vue";
 import Box from "~/components/Box.vue";
-import Coupon from "~/components/Coupon.vue";
+import Dialog from "~/components/Dialog.vue";
 
 import axios from "axios";
 
@@ -175,7 +179,8 @@ export default {
     MiniPost,
     SidebarItem,
     Box,
-    Coupon
+    Tag,
+    Dialog
   },
   mounted() {}
 };

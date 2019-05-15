@@ -10,14 +10,8 @@
           </div>
         </div>
         <div class="optin-text padding-xl">
-          <template v-if="webshop">
-            <h2>{{ title }}</h2>
-            <p>{{ subtitle }}</p>
-          </template>
-          <template v-else>
-            <h2>Mis nooit meer een nieuwe kortingscode</h2>
-            <p>We sturen je enkel nieuwe kortingscodes en promoties. Niet te missen dus!</p>
-          </template>
+          <h2 class="optin-title">{{ title }}</h2>
+          <p class="optin-subtitle">{{ subtitle }}</p>
           <input
             type="email"
             class="form-control email-input"

@@ -1,7 +1,9 @@
 <template>
   <div :class="discount_classes()">
-    <p :class="sizeclass">{{ value }}</p>
-    <p class="label label-default uppercase">{{ label }}</p>
+    <slot>
+      <p :class="sizeclass">{{ value }}</p>
+      <p class="label label-default uppercase" v-if="label">{{ label }}</p>
+    </slot>
   </div>
 </template>
 
@@ -150,17 +152,5 @@ export default {
 
 .discount-border {
   border-right: 1px dashed #85b5c5;
-}
-
-@media only screen and (max-width: 1180px) {
-  .discount-box {
-    padding-right: 5px;
-    padding-left: 5px;
-    width: 90px;
-
-    .label {
-      width: 80px;
-    }
-  }
 }
 </style>

@@ -12,12 +12,12 @@
       </ul>
     </div>
     <div class="container">
-      <div v-for="(item, index) in az" :key="index" :id="index">
+      <div v-for="(item, index) in az" :key="index" :id="index" class="mb-30">
         <h3 class="firstletter uppercase text-center">{{index}}</h3>
         <ul class="letter">
           <li v-for="sub in item" :key="sub.id">
             <a :href="sub.link">
-              <span class="shopname">{{sub.name}}</span>
+              <span class="shopname underline">{{sub.name}}</span>
             </a>
           </li>
         </ul>

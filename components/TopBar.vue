@@ -99,6 +99,7 @@ export default {
     padding-right: 20px;
     padding-left: 20px;
     padding-top: 14px;
+    color: #fff;
   }
 }
 

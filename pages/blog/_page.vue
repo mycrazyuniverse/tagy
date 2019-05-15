@@ -77,12 +77,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.blogposts li {
-  width: 50%;
-  float: left;
-  height: 125px;
-  margin-bottom: 15px;
-}
-</style>

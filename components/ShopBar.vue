@@ -1,7 +1,7 @@
 <template>
   <div class="shop-bar bigbar">
     <div class="container">
-      <div class="shop-logo webshop-logo">
+      <div class="shop-logo webshop-logo float-left">
         <img :src="logo" id="webshop-logo" width="42" height="42">
       </div>
       <div class="inner">

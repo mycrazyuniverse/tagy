@@ -37,6 +37,7 @@ export default {
 
 <style lang="scss">
 .details {
+  color: gray;
   font-size: 12px;
 
   .details-container {
@@ -53,9 +54,11 @@ export default {
   }
 }
 
-.more-bottom {
-  color: gray;
+.more {
   font-size: 12px;
+}
+
+.more-bottom {
   float: right;
   padding-right: 20px;
   height: 0px;
