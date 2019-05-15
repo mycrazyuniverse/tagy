@@ -110,6 +110,7 @@
       </div>
       <Dialog></Dialog>
     </div>
+    <Footer :items="common.footer"></Footer>
   </div>
 </template>
 
@@ -125,6 +126,7 @@ import MiniPost from "~/components/MiniPost.vue";
 import SidebarItem from "~/components/SidebarItem.vue";
 import Box from "~/components/Box.vue";
 import Dialog from "~/components/Dialog.vue";
+import Footer from "~/components/Footer.vue";
 
 import axios from "axios";
 
@@ -138,9 +140,13 @@ export default {
       var url = process.env.apiUrl + requestRoute;
     }
 
-    let { data } = await axios.get(url, {
-      params: {}
-    });
+    let { data } = await axios
+      .get(url, {
+        params: {}
+      })
+      .catch(function(error) {
+        process.exit(1);
+      });
 
     return {
       common: data.common,
@@ -180,7 +186,8 @@ export default {
     SidebarItem,
     Box,
     Tag,
-    Dialog
+    Dialog,
+    Footer
   },
   mounted() {}
 };
