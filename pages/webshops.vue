@@ -72,7 +72,8 @@ export default {
   props: {},
   components: {
     Nav,
-    TopBar
+    TopBar,
+    Footer
   },
   mounted() {}
 };
