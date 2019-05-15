@@ -112,16 +112,16 @@
         <section class="additionalcontent">
           <article>
             <div class="dib w100">
-            <div class="title mb-15">
-              <h2>{{ how.title }}</h2>
-              <p>{{ how.subtitle }}</p>
-            </div>
-            <div v-for="item in how.content" class="howbox">
-              <div class="howbox-container">
-              <img :src="item.image" />
-              <h3>{{ item.title }}</h3>
+              <div class="title mb-15">
+                <h2>{{ how.title }}</h2>
+                <p>{{ how.subtitle }}</p>
               </div>
-            </div>
+              <div v-for="item in how.content" class="howbox">
+                <div class="howbox-container">
+                  <img :src="item.image">
+                  <h3>{{ item.title }}</h3>
+                </div>
+              </div>
             </div>
           </article>
           <article>
@@ -279,7 +279,7 @@ export default {
         params: {}
       })
       .catch(function(error) {
-        throw err;
+        process.exit();
       });
 
     return {
