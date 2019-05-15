@@ -32,6 +32,7 @@
         </p>
       </div>
     </div>
+    <Footer :items="common.footer"></Footer>
   </div>
 </template>
 
@@ -39,6 +40,8 @@
 import TopBar from "~/components/TopBar.vue";
 import Nav from "~/components/Nav.vue";
 import MiniPost from "~/components/MiniPost.vue";
+import Footer from "~/components/Footer.vue";
+
 import axios from "axios";
 
 export default {
@@ -60,7 +63,21 @@ export default {
     return {
       common: data.common,
       posts: data.posts,
-      paginate: data.paginate
+      paginate: data.paginate,
+      meta: data.meta
+    };
+  },
+  head() {
+    return {
+      title: this.meta.title,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: "description",
+          name: "description",
+          content: this.meta.desc
+        }
+      ]
     };
   },
   methods: {
@@ -73,7 +90,8 @@ export default {
   components: {
     Nav,
     TopBar,
-    MiniPost
+    MiniPost,
+    Footer
   }
 };
 </script>

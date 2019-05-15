@@ -70,6 +70,7 @@
       </div>
     </div>
     <Dialog></Dialog>
+    <Footer :items="common.footer"></Footer>
   </div>
 </template>
 
@@ -82,6 +83,7 @@ import Carousel from "~/components/Carousel.vue";
 import MiniPost from "~/components/MiniPost.vue";
 import AdCard from "~/components/AdCard.vue";
 import Dialog from "~/components/Dialog.vue";
+import Footer from "~/components/Footer.vue";
 
 import axios from "axios";
 
@@ -105,7 +107,8 @@ export default {
       blog: data.blog,
       ads: data.ads,
       optin: data.optin,
-      tags: data.tags
+      tags: data.tags,
+      meta: data.meta
     };
   },
   computed: {
@@ -115,6 +118,19 @@ export default {
     currentLocal() {
       return this.$i18n.locale;
     }
+  },
+  head() {
+    return {
+      title: this.meta.title,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: "description",
+          name: "description",
+          content: this.meta.desc
+        }
+      ]
+    };
   },
   mounted() {},
   props: {},
@@ -126,7 +142,8 @@ export default {
     MiniPost,
     AdCard,
     Tag,
-    Dialog
+    Dialog,
+    Footer
   },
   mounted() {}
 };

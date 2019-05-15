@@ -82,6 +82,7 @@
         </SidebarItem>
       </div>
     </div>
+    <Footer :items="common.footer"></Footer>
   </div>
 </template>
 
@@ -123,7 +124,8 @@ export default {
       meta: data.meta,
       blog: data.blog,
       related: data.related,
-      ad: data.ad
+      ad: data.ad,
+      common: data.common
     };
   },
   head() {
@@ -156,11 +158,10 @@ export default {
     AuthorBio,
     WebshopLogo,
     SidebarItem,
-    Ad
+    Ad,
+    Footer
   },
-  mounted() {
-    console.log(this.related);
-  }
+  mounted() {}
 };
 </script>
 

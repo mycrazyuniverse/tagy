@@ -9,6 +9,7 @@ var basisUrl = "https://dev-tagcity.pantheonsite.io";
 var apiUrl = basisUrl;
 var urlParams = new URLSearchParams(window.location.search);
 var tagwpop = '';
+var offset = 0;
 
 if (lang != "nl") {
   apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
@@ -91,6 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       optin();
 
+      initCarousel();
+
     }
   }
 });
@@ -141,18 +144,56 @@ function subscribe_to_newsletter(data) {
   request.send(data);
 }
 
-function left() {
-  if (offset !== 0) {
-    offset += carouselWidth + cardMarginRight;
-    carousel.style.transform = 'translateX(${offset}px)';
-  }
-}
+function initCarousel() {
 
-function right() {
-  if (offset !== maxX) {
-    offset -= carouselWidth + cardMarginRight;
-    carousel.style.transform = 'translateX(${offset}px)';
-  }
+  var carousel = document.querySelector("[data-target='carousel']");
+  var card = carousel.querySelector("[data-target='card']");
+  var leftButton = document.querySelector("[data-action='slideLeft']");
+  var rightButton = document.querySelector("[data-action='slideRight']");
+
+  var carouselWidth = carousel.offsetWidth;
+  var cardWidth = card.offsetWidth;
+  var cardStyle = card.currentStyle || window.getComputedStyle(card);
+  var cardMarginRight = Number(cardStyle.marginRight.match(/\d+/g)[0]);
+
+  var cardCount = carousel.querySelectorAll("[data-target='card']").length;
+  var cardPerSlide = Math.floor(carouselWidth / cardWidth);
+  var isPaused = false;
+
+
+  var maxX = -((cardCount / cardPerSlide) * carouselWidth + cardMarginRight * (cardCount / cardPerSlide) - carouselWidth - cardMarginRight);
+
+  setInterval(function () {
+    if (!isPaused) {
+      if (offset <= maxX) {
+        offset = 0;
+        carousel.style.transform = 'translateX(' + offset + 'px)';
+      } else {
+        if (offset !== maxX) {
+          offset -= carouselWidth + cardMarginRight;
+          carousel.style.transform = 'translateX(' + offset + 'px)';
+        }
+      }
+    }
+  }, 2000);
+
+
+  leftButton.addEventListener("click", function () {
+    if (offset !== maxX) {
+      offset -= carouselWidth + cardMarginRight;
+      carousel.style.transform = 'translateX(' + offset + 'px)';
+    }
+    isPaused = true;
+  });
+
+  rightButton.addEventListener("click", function () {
+    if (offset !== 0) {
+      offset += carouselWidth + cardMarginRight;
+      carousel.style.transform = 'translateX(' + offset + 'px)';
+    }
+    isPaused = true;
+  });
+
 }
 
 function closeMenu() {
@@ -632,7 +673,6 @@ function returnProperties(properties) {
 
   html += '<ul class="tag-properties">';
 
-
   if (properties) {
 
     console.log(properties);
@@ -651,7 +691,6 @@ function returnProperties(properties) {
       html += '</li>';
 
     });
-
 
   }
 
