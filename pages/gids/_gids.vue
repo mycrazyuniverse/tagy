@@ -115,7 +115,9 @@ export default {
       .then(response => {
         return response;
       })
-      .catch(error => {});
+      .catch(function(error) {
+        process.exit(1);
+      });
 
     return {
       nav: data.nav,

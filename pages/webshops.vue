@@ -23,12 +23,14 @@
         </ul>
       </div>
     </div>
+    <Footer :items="common.footer"></Footer>
   </div>
 </template>
 
 <script>
 import TopBar from "~/components/TopBar.vue";
 import Nav from "~/components/Nav.vue";
+import Footer from "~/components/Footer.vue";
 import axios from "axios";
 
 export default {
@@ -41,9 +43,13 @@ export default {
       var url = process.env.apiUrl + requestRoute;
     }
 
-    let { data } = await axios.get(url, {
-      params: {}
-    });
+    let { data } = await axios
+      .get(url, {
+        params: {}
+      })
+      .catch(function(error) {
+        process.exit(1);
+      });
 
     return {
       common: data.common,
