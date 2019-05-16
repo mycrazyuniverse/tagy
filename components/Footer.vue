@@ -24,6 +24,11 @@ export default {
   padding-top: 30px;
   padding-bottom: 30px;
   color: #13315b;
+  padding-right: 30px;
+
+  a {
+    color: #fff;
+  }
 
   li {
     padding-left: 10px;
