@@ -13,6 +13,7 @@
           <h2 class="optin-title">{{ title }}</h2>
           <p class="optin-subtitle">{{ subtitle }}</p>
           <input type="email" class="form-control email-input" value :placeholder="placeholder">
+          <p class="respone"></p>
           <input type="submit" :value="btn" :aria-label="btn" class="btn btn-primary uppercase">
         </div>
       </form>
