@@ -562,12 +562,12 @@ export default {
 
 .tag-properties {
   font-size: 14px;
-  color: #acacac;
+  color: #6f6f6f;
   width: 100%;
   display: inline-block;
 
   .property-icon {
-    fill: #acacac;
+    fill: #6f6f6f;
     width: 20px;
     height: 20px;
     position: relative;

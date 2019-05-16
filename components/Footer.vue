@@ -3,7 +3,7 @@
     <div class="container">
       <div class="pull-left">
         <ul class="footer-items">
-            <li v-for="(navitem, key) of items" :key="key" class="float-left">
+          <li v-for="(navitem, key) of items" :key="key" class="float-left">
             <a :href="navitem.url">{{ navitem.title }}</a>
           </li>
         </ul>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-    props: ["items"],
+  props: ["items"]
 };
 </script>
 
@@ -23,6 +23,7 @@ export default {
   background-color: #09aae0;
   padding-top: 30px;
   padding-bottom: 30px;
+  color: #13315b;
 
   li {
     padding-left: 10px;

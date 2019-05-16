@@ -113,7 +113,7 @@ export default {
 
   .label-default {
     color: #ffffff;
-    background-color: #29abe2;
+    background-color: #163a68;
   }
 
   .label {
