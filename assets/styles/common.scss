@@ -901,26 +901,10 @@ nav {
   }
 
   .bar {
-    background-image: url("../assets/images/cloud.svg");
-    background-color: #05abe0;
-    /* Old browsers */
-    background-color: -moz-linear-gradient(top,
-        #05abe0 0%,
-        #53cbf1 60%,
-        #87e0fd 100%);
-    /* FF3.6-15 */
-    background-color: -webkit-linear-gradient(top,
-        #05abe0 0%,
-        #53cbf1 60%,
-        #87e0fd 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background-color: linear-gradient(to bottom,
-        #05abe0 0%,
-        #53cbf1 60%,
-        #87e0fd 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#05abe0', endColorstr='#87e0fd', GradientType=0);
-    /* IE6-9 */
+    background-image: url("../assets/images/cloudv2.svg");
+    background-position: right bottom;
+    background-size: cover;
+    background-color: #0391d8;
     margin-bottom: 20px;
   }
 }

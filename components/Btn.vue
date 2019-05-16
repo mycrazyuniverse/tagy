@@ -63,7 +63,7 @@ export default {
 }
 
 .btn-primary {
-  background-color: #09aae0;
+  background-color: #1e76b8;
   color: #fff;
 
   .arrow-right {
@@ -72,7 +72,7 @@ export default {
 }
 
 .btn-default {
-  background-color: #173a68;
+  background-color: #1e76b8;
   color: #fff;
 
   .arrow-right {
