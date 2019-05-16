@@ -136,7 +136,24 @@ function optin() {
         email: email
       });
 
-      subscribe_to_newsletter(data);
+      var request = new XMLHttpRequest();
+      request.open('POST', apiUrl + '/api/tagcity/v3/optin', true);
+      request.setRequestHeader('Content-Type', 'application/json');
+
+      request.send(data);
+
+      request.onreadystatechange = function () {
+
+        if (this.readyState == 4 && this.status == 200) {
+
+          var response = JSON.parse(this.responseText);
+
+          console.log(response);
+
+          target.querySelector(".optinrespone").innerHTML = response.message;
+
+        }
+      };
 
       ev.preventDefault();
 
@@ -146,22 +163,7 @@ function optin() {
 }
 
 function subscribe_to_newsletter(data) {
-  var request = new XMLHttpRequest();
-  request.open('POST', apiUrl + '/api/tagcity/v3/optin', true);
-  request.setRequestHeader('Content-Type', 'application/json');
 
-  request.send(data);
-
-  request.onreadystatechange = function () {
-
-    document.querySelector(".optin .response").innerHTML('this.responseText');
-
-    if (this.readyState == 4 && this.status == 200) {
-
-      document.querySelector(".optin .response").innerHTML('this.responseText');
-
-    }
-  };
 
 }
 
@@ -819,6 +821,7 @@ function setupDialog() {
       } else {
         dialog.querySelector(".optin-title").textContent = dialog_data.optin.title;
         dialog.querySelector(".optin-subtitle").textContent = dialog_data.optin.subtitle;
+        dialog.querySelector(".optin-btn").value = dialog_data.optin.btn;
       }
 
       dialog.querySelector(".codal-btn").textContent = dialog_data.btn.content;

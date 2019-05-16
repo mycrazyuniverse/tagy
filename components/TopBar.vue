@@ -176,7 +176,7 @@ export default {
   }
 
   .topbar .search {
-    width: calc(100% - 120px);
+    width: calc(100% - 140px);
   }
 
   .hide-mobile {
