@@ -122,7 +122,7 @@ module.exports = {
     path: '/sitemap.xml',
     hostname: 'https://tagcity.be',
     cacheTime: 1000 * 60 * 15,
-    gzip: true,
+    gzip: false,
     generate: true,
     routes: routes,
   },
