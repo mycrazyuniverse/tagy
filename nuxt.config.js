@@ -118,11 +118,12 @@ module.exports = {
   render: {
     resourceHints: false
   },
+  gzip: true,
   sitemap: {
     path: '/sitemap.xml',
     hostname: 'https://tagcity.be',
     cacheTime: 1000 * 60 * 15,
-    gzip: false,
+    gzip: true,
     generate: true,
     routes: routes,
   },
