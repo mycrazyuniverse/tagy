@@ -427,6 +427,8 @@ function menuitems() {
   );
 }
 
+var spos = 0;
+
 function searchfield() {
   var searchresults = document.querySelectorAll(".searchresults")[0];
 
@@ -438,11 +440,58 @@ function searchfield() {
     false
   );
 
+  var txtbox = document.getElementById('searchfield');
+  txtbox.onkeydown = function (e) {
+
+    var sresults = searchresults.querySelectorAll(".searchresult a");
+
+    if (e.key == "Enter") {
+      sresults[spos - 1].click();
+      e.preventDefault();
+    }
+
+    if (e.key == "ArrowUp") {
+
+
+      if (0 >= spos) {
+        spos = sresults.length;
+      } else {
+        spos--;
+      }
+
+      sresults.forEach(function (searchresult) {
+        removeClass(searchresult, 'active-result');
+      });
+
+      addClass(sresults[spos], 'active-result');
+
+    }
+
+    if (e.key == "ArrowDown") {
+
+      if (sresults.length <= spos) {
+        spos = 0;
+      } else {
+        spos++;
+      }
+
+      sresults.forEach(function (searchresult) {
+        removeClass(searchresult, 'active-result');
+      });
+
+      addClass(sresults[spos - 1], 'active-result');
+
+    }
+
+  };
+
   document.querySelectorAll(".searchfield")[0].addEventListener(
     "input",
     function (ev) {
       document.querySelectorAll(".tagcitylogo")[0].src =
         "https://media.tagcity.be/2019/03/search.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
+
+      ev.preventDefault();
 
       var request = new XMLHttpRequest();
 
@@ -456,6 +505,8 @@ function searchfield() {
           // Success!
           var data = JSON.parse(request.responseText);
           var results = "";
+
+          spos = 0;
 
           if (data.search.webshops.title) {
             results +=

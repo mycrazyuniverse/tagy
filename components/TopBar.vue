@@ -11,13 +11,14 @@
         </a>
         <a id="openmenu" class="float-right">☰</a>
         <div class="search">
-          <form action="/zoek">
+          <form>
             <input
               type="search"
               maxlength="75"
-              placeholder="Zoek webshop of soort product je naar op zoek bent bij die webshop bv. Pizza"
+              :placeholder="search.placeholder"
               spellcheck="false"
               autocomplete="off"
+              id="searchfield"
               class="searchfield"
             >
           </form>
@@ -99,6 +100,14 @@ export default {
   }
 }
 
+.active-result {
+  background-color: #a0d8f5;
+}
+
+.searchresult a:hover {
+  background-color: #a0d8f5;
+}
+
 .searchresult {
   border-top: 1px solid #e3e6e8;
 
@@ -152,6 +161,10 @@ export default {
   .shop-bar {
     padding-top: 15px !important;
     padding-bottom: 0px !important;
+  }
+
+  .howbox {
+    width: 50%;
   }
 
   .searchresults {
