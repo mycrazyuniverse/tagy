@@ -2,7 +2,7 @@
   <div class="shop-bar bigbar">
     <div class="container">
       <div class="shop-logo webshop-logo float-left">
-        <img :src="logo" id="webshop-logo" width="42" height="42">
+        <img :src="logo" :alt="title" id="webshop-logo" width="42" height="42">
       </div>
       <div class="inner">
         <h1>{{ title }}</h1>
@@ -17,7 +17,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Alle 12 Collishop kortingscodes geldig in augustus 2018"
+      default: ""
     },
     subtitle: {
       type: String,
@@ -27,7 +27,7 @@ export default {
     logo: {
       type: String,
       default:
-        "http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png"
+        "https://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png"
     }
   }
 };

@@ -4,7 +4,7 @@
       <div class>
         <a href="/">
           <img
-            src="../assets/images/tagcity.svg"
+            src="https://media.tagcity.be/2019/05/tagcity-logo.svg?auto=compress"
             alt="TagCity"
             class="pull-left tagcitylogo loading"
           >

@@ -1,5 +1,5 @@
 <template>
-  <button :class="classes()">
+  <button :class="classes()" :aria-label="content.content">
     <span class="buttontext">{{ content.content }}</span>
     <span v-if="arrow" class="arrow arrow-right float-right"></span>
   </button>

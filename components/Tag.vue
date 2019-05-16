@@ -78,7 +78,11 @@
             </div>
           </div>
           <div class="tag-center white-space">
-            <img src="../assets/images/secondmasterpiece.svg" class="second-masterpiece">
+            <img
+              src="../assets/images/secondmasterpiece.svg"
+              class="second-masterpiece"
+              alt="painting of the queen of TagCity"
+            >
           </div>
         </slot>
       </div>
@@ -115,7 +119,7 @@
             </div>
             <div class="tagcontent-body">
               <h3 class="tag-title">
-                <a :href="cloakurl()">{{ title }}</a>
+                <a :href="cloakurl()" :title="title">{{ title }}</a>
               </h3>
             </div>
             <div class="tagcontent-foot">

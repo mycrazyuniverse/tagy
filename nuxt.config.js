@@ -63,7 +63,10 @@ module.exports = {
     script: [{
         src: '/coupon.min.js'
       },
-
+      {
+        src: 'https://www.googletagmanager.com/gtag/js?id=UA-60427126-1',
+        async: true
+      }
     ]
   },
   env: {
@@ -115,6 +118,7 @@ module.exports = {
   render: {
     resourceHints: false
   },
+  gzip: true,
   sitemap: {
     path: '/sitemap.xml',
     hostname: 'https://tagcity.be',

@@ -13,7 +13,7 @@
               <box
                 position="top"
                 :title="item.term.name"
-                type="image"
+                type="logo"
                 :logo="item.term.logo"
                 textalign="center"
               >

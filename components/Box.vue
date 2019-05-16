@@ -1,18 +1,21 @@
 <template>
   <div :class="classes">
     <slot name="image">
-    <div :class="iconclasses">
-      <div :class="icontypeclasses" v-if="type == 'image'">
-        <Logo :content="logo" class="icon"></Logo>
+      <div :class="iconclasses">
+        <div :class="icontypeclasses" v-if="type == 'logo'">
+          <Logo :content="logo" class="icon" :alt="title"></Logo>
+        </div>
+        <div :class="icontypeclasses" v-if="type == 'image'">
+          <img :src="logo" :alt="title" width="100%">
+        </div>
+        <div :class="icontypeclasses" v-else>
+          <span class="badge" v-if="type == 'numbered'">{{ index }}</span>
+        </div>
       </div>
-      <div :class="icontypeclasses" v-else>
-        <span class="badge" v-if="type == 'numbered'">{{ index }}</span>
-      </div>
-    </div>
     </slot>
     <div :class="boxcontentclasses">
-      <h3>{{ title }}</h3>
       <slot>
+        <h3>{{ title }}</h3>
         <p>{{ content }}</p>
       </slot>
     </div>
@@ -50,7 +53,7 @@ export default {
     },
     type: {
       type: String,
-      default: "image"
+      default: "logo"
     },
     layout: {
       type: String,
@@ -84,7 +87,11 @@ export default {
       var classes = [];
 
       classes.push("box-content");
-      classes.push("padding");
+
+      if (this.type != "image") {
+        classes.push("padding");
+      }
+
       classes.push("lh");
 
       classes.push("text-" + this.textalign);
@@ -188,6 +195,34 @@ export default {
   }
 }
 
+.fourboxesinarow {
+  flex-wrap: wrap;
+  display: flex;
+
+  .box {
+    width: 23%;
+    display: block;
+    flex: none;
+    margin-left: 1%;
+    margin-right: 1%;
+
+    h3 {
+      padding: 10px;
+      text-align: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .fourboxesinarow {
+    .box {
+      margin-left: 2%;
+      margin-right: 2%;
+      width: 46%;
+    }
+  }
+}
+
 .box-icon-landscape {
   position: absolute;
   height: 100%;
@@ -216,7 +251,7 @@ export default {
   }
 }
 
-.box-left-image-special {
+.box-left-logo-special {
   .box-content {
     margin-left: 75px;
   }
@@ -244,8 +279,8 @@ export default {
   }
 }
 
-.box-top-image-default {
-  .box-icon-image {
+.box-top-logo-default {
+  .box-icon-logo {
     height: 70px;
     position: absolute;
     width: 100%;

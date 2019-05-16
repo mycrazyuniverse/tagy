@@ -153,4 +153,9 @@ export default {
 .discount-border {
   border-right: 1px dashed #85b5c5;
 }
+
+.discount-box .tooltiptext {
+  font-size: 10px;
+  top: 84% !important;
+}
 </style>

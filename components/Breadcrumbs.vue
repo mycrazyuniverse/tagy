@@ -4,15 +4,20 @@
       <li v-for="(item, index) in list" class="float-left">
         <div v-if="index != Object.keys(list).length - 1">
           <div class="arrow dib arrow-right"></div>
-          <a :href="item.url" class="breadcrumb dib">
-            <div v-html="item.logo" class="breadcrumb-icon" v-if="item.logo != false"></div>
+          <a :href="item.url" class="breadcrumb dib" :title="item.title">
+            <div
+              v-html="item.logo"
+              class="breadcrumb-icon"
+              v-if="item.logo != false"
+              :alt="item.title"
+            ></div>
             <span class="crum">{{ item.title }}</span>
           </a>
         </div>
         <div v-else class="last-crum">
           <div class="arrow dib arrow-right"></div>
-          <a :href="item.url" class="breadcrumb dib">
-            <div v-html="item.logo" class="breadcrumb-icon" v-if="item.logo"></div>
+          <a :href="item.url" class="breadcrumb dib" :title="item.title">
+            <div v-html="item.logo" class="breadcrumb-icon" v-if="item.logo" :alt="item.title"></div>
             <span class="crum">{{ item.title }}</span>
           </a>
         </div>

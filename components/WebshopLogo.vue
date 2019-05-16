@@ -5,7 +5,7 @@
     class="tooltip webshop-logo"
     v-bind:style="{ width: w + 'px',  height: h + 'px' }"
   >
-    <img :src="logo" class width="100%">
+    <img :src="logo" class width="100%" :alt="title">
     <span class="tooltiptext" v-if="title">{{ title }}</span>
   </a>
 </template>

@@ -12,13 +12,8 @@
         <div class="optin-text padding-xl">
           <h2 class="optin-title">{{ title }}</h2>
           <p class="optin-subtitle">{{ subtitle }}</p>
-          <input
-            type="email"
-            class="form-control email-input"
-            value
-            placeholder="jouw@emailadres.be"
-          >
-          <input type="submit" value="inschrijving" class="btn btn-primary uppercase">
+          <input type="email" class="form-control email-input" value :placeholder="placeholder">
+          <input type="submit" :value="btn" :aria-label="btn" class="btn btn-primary uppercase">
         </div>
       </form>
     </article>
@@ -33,6 +28,14 @@ export default {
     logo: {
       type: String,
       default: ""
+    },
+    placeholder: {
+      type: String,
+      default: "your@emailadress.com"
+    },
+    btn: {
+      type: String,
+      default: "subscribe"
     },
     webshop: {
       type: String,

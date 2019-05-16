@@ -94,6 +94,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       initCarousel();
 
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-60427126-1');
+
     }
   }
 });
@@ -146,53 +154,56 @@ function subscribe_to_newsletter(data) {
 
 function initCarousel() {
 
-  var carousel = document.querySelector("[data-target='carousel']");
-  var card = carousel.querySelector("[data-target='card']");
-  var leftButton = document.querySelector("[data-action='slideLeft']");
-  var rightButton = document.querySelector("[data-action='slideRight']");
+  if (document.querySelector("[data-target='carousel']")) {
+    var carousel = document.querySelector("[data-target='carousel']");
+    var card = carousel.querySelector("[data-target='card']");
+    var leftButton = document.querySelector("[data-action='slideLeft']");
+    var rightButton = document.querySelector("[data-action='slideRight']");
 
-  var carouselWidth = carousel.offsetWidth;
-  var cardWidth = card.offsetWidth;
-  var cardStyle = card.currentStyle || window.getComputedStyle(card);
-  var cardMarginRight = Number(cardStyle.marginRight.match(/\d+/g)[0]);
+    var carouselWidth = carousel.offsetWidth;
+    var cardWidth = card.offsetWidth;
+    var cardStyle = card.currentStyle || window.getComputedStyle(card);
+    var cardMarginRight = Number(cardStyle.marginRight.match(/\d+/g)[0]);
 
-  var cardCount = carousel.querySelectorAll("[data-target='card']").length;
-  var cardPerSlide = Math.floor(carouselWidth / cardWidth);
-  var isPaused = false;
+    var cardCount = carousel.querySelectorAll("[data-target='card']").length;
+    var cardPerSlide = Math.floor(carouselWidth / cardWidth);
+    var isPaused = false;
 
 
-  var maxX = -((cardCount / cardPerSlide) * carouselWidth + cardMarginRight * (cardCount / cardPerSlide) - carouselWidth - cardMarginRight);
+    var maxX = -((cardCount / cardPerSlide) * carouselWidth + cardMarginRight * (cardCount / cardPerSlide) - carouselWidth - cardMarginRight);
 
-  setInterval(function () {
-    if (!isPaused) {
-      if (offset <= maxX) {
-        offset = 0;
-        carousel.style.transform = 'translateX(' + offset + 'px)';
-      } else {
-        if (offset !== maxX) {
-          offset -= carouselWidth + cardMarginRight;
+    setInterval(function () {
+      if (!isPaused) {
+        if (offset <= maxX) {
+          offset = 0;
           carousel.style.transform = 'translateX(' + offset + 'px)';
+        } else {
+          if (offset !== maxX) {
+            offset -= carouselWidth + cardMarginRight;
+            carousel.style.transform = 'translateX(' + offset + 'px)';
+          }
         }
       }
-    }
-  }, 2000);
+    }, 2000);
 
 
-  leftButton.addEventListener("click", function () {
-    if (offset !== maxX) {
-      offset -= carouselWidth + cardMarginRight;
-      carousel.style.transform = 'translateX(' + offset + 'px)';
-    }
-    isPaused = true;
-  });
+    leftButton.addEventListener("click", function () {
+      if (offset !== maxX) {
+        offset -= carouselWidth + cardMarginRight;
+        carousel.style.transform = 'translateX(' + offset + 'px)';
+      }
+      isPaused = true;
+    });
 
-  rightButton.addEventListener("click", function () {
-    if (offset !== 0) {
-      offset += carouselWidth + cardMarginRight;
-      carousel.style.transform = 'translateX(' + offset + 'px)';
-    }
-    isPaused = true;
-  });
+    rightButton.addEventListener("click", function () {
+      if (offset !== 0) {
+        offset += carouselWidth + cardMarginRight;
+        carousel.style.transform = 'translateX(' + offset + 'px)';
+      }
+      isPaused = true;
+    });
+
+  }
 
 }
 

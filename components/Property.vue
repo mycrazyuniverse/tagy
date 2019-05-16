@@ -1,7 +1,7 @@
 <template>
   <span class="property">
     <Logo :content="logo" class="property-icon"></Logo>
-    <a v-if="link" :href="link" class="property-text prevent">
+    <a v-if="link" :href="link" :title="name" class="property-text prevent">
       <slot>{{ name }}</slot>
     </a>
     <em class="property-text" v-else>

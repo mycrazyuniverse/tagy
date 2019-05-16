@@ -8,9 +8,6 @@
     <div class="container">
       <div id="content">
         <Breadcrumbs :list="breadcrumbs"></Breadcrumbs>
-        <div class="updatedetected hide">
-          <p>Zeer recente wijziging gevonden. Updating Codes</p>
-        </div>
         <section class="tags">
           <Tag
             v-for="item in tags.content"
@@ -79,11 +76,13 @@
           :logo="shopbar.thumb"
           :title="optin.title"
           :subtitle="optin.subtitle"
+          :btn="optin.btn"
+          :placeholder="optin.placeholder"
         ></Optin>
         <section class="related">
           <div class="title mt-30 mb-15">
-            <h3 class="mb-15">{{ related.title }}</h3>
-            <p>{{ related.subtitle }}</p>
+            <h3 class="mb-10">{{ related.title }}</h3>
+            <p class="lh-lg">{{ related.subtitle }}</p>
           </div>
           <Tag
             v-for="item in related.content"
@@ -105,7 +104,14 @@
             :btn="item.btn"
           >
             <template v-slot:discount>
-              <WebshopLogo :logo="item.logo" :url="item.shop.link" w="50" h="50" class="prevent"></WebshopLogo>
+              <WebshopLogo
+                :logo="item.logo"
+                :url="item.shop.link"
+                :title="item.shop.name"
+                w="50"
+                h="50"
+                class="prevent"
+              ></WebshopLogo>
             </template>
           </Tag>
         </section>
@@ -116,11 +122,15 @@
                 <h2>{{ how.title }}</h2>
                 <p>{{ how.subtitle }}</p>
               </div>
-              <div v-for="item in how.content" class="howbox">
-                <div class="howbox-container">
-                  <img :src="item.image">
-                  <h3>{{ item.title }}</h3>
-                </div>
+              <div class="fourboxesinarow">
+                <box
+                  v-for="row in how.content"
+                  position="top"
+                  :logo="row.image"
+                  :title="row.title"
+                  type="image"
+                  :key="row.id"
+                ></box>
               </div>
             </div>
           </article>
@@ -136,7 +146,7 @@
                 :content="row.content"
                 :logo="row.logo"
                 position="top"
-                type="image"
+                type="logo"
                 textalign="center"
               ></box>
             </Boxes>
@@ -173,6 +183,7 @@
             :avatar="authorbio.avatar"
             :bio="authorbio.bio"
             :url="authorbio.url"
+            :domain="apidomain"
             :calltoaction="authorbio.calltoaction"
             class="m-padding"
           ></AuthorBio>
@@ -234,7 +245,7 @@
         >
           <ul class="list-style-none">
             <li v-for="item in useful_link.content">
-              <a :href="item.link">{{ item.text }}</a>
+              <a :href="item.link" :title="item.text">{{ item.text }}</a>
             </li>
           </ul>
         </SidebarItem>
