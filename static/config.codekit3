@@ -108,6 +108,12 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/favicon.ico": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/favicon.ico",
+		"oF": 0
+		},
 	"\/markdown.js": {
 		"ft": 64,
 		"mi": 1,
@@ -145,12 +151,6 @@
 		"pME": 1,
 		"rFN": 0,
 		"uCM": 0
-		},
-	"\/robots.txt": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/robots.txt",
-		"oF": 0
 		},
 	"\/safari-pinned-tab.svg": {
 		"ft": 2097152,

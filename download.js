@@ -14,6 +14,7 @@ var download = function (url, dest, cb) {
   });
 };
 
+//TODO change api url
 download('http://dev-tagcity.pantheonsite.io/api/tagcity/v3/sitemap', 'routes.json');
 
 var http = require('http');
@@ -31,5 +32,3 @@ var download = function (url, dest, cb) {
     if (cb) cb(err.message);
   });
 };
-
-download('http://dev-tagcity.pantheonsite.io/api/tagcity/v3/dynamiccss', 'dynamic.css');
