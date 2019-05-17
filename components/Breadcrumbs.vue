@@ -7,7 +7,7 @@
           <a :href="item.url" class="breadcrumb dib" :title="item.title">
             <div
               v-html="item.logo"
-              class="breadcrumb-icon"
+              class="breadcrumb-icon svgfill"
               v-if="item.logo != false"
               :alt="item.title"
             ></div>
@@ -59,18 +59,8 @@ export default {
   padding-top: 5px;
   height: 25px;
   float: left;
-  fill: #2aaae2;
+  fill: #0391d8;
   padding-right: 10px;
-
-  svg {
-    fill: #2aaae2;
-    height: 25px;
-    width: 25px;
-
-    path {
-      fill: #2aaae2;
-    }
-  }
 
   img {
     width: 30px;

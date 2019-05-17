@@ -1,5 +1,5 @@
 <template>
-  <div class="footer dib w100">
+  <div class="footer dib w100 lh-lg">
     <div class="container">
       <div class="pull-left">
         <ul class="footer-items">
@@ -20,11 +20,11 @@ export default {
 
 <style lang="scss">
 .footer {
-  background-color: #09aae0;
+  background-color: #0391d8;
   padding-top: 30px;
   padding-bottom: 30px;
   color: #13315b;
-  padding-right: 30px;
+  margin-top: 30px;
 
   a {
     color: #fff;

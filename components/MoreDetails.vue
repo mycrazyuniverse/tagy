@@ -42,6 +42,7 @@ export default {
 
   .details-container {
     background-color: #cfd6e0;
+    color: #163a68;
     line-height: 1.4;
   }
 
@@ -67,7 +68,7 @@ export default {
 
   .arrow-down {
     border-width: 3px;
-    border-top-color: gray;
+    border-top-color: 163a68;
   }
 }
 </style>

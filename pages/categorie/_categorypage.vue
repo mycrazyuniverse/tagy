@@ -3,7 +3,11 @@
     <div class="bar">
       <TopBar :search="common.search"></TopBar>
       <Nav :items="common.nav"></Nav>
-      <ShopBar :title="shopbar.title" :subtitle="shopbar.subtitle" :logo="shopbar.thumb"></ShopBar>
+      <ShopBar :title="shopbar.title" :subtitle="shopbar.subtitle" :logo="shopbar.thumb">
+        <template v-slot:logo>
+          <Logo :content="shopbar.thumb" class="svgfill" :alt="title"></Logo>
+        </template>
+      </ShopBar>
     </div>
     <div class="container">
       <div id="content">
@@ -24,8 +28,8 @@
                     </a>
                   </li>
                 </ul>
-                <a v-if="item.more" :href="item.term.link" class="padding dib w100 text-center">
-                  <strong>{{ item.more }} »</strong>
+                <a v-if="item.more" :href="item.term.link" class="dib w100 text-center mb-15">
+                  <strong class>{{ item.more }} »</strong>
                 </a>
               </box>
             </div>
@@ -34,8 +38,8 @@
         <section class="subcategory" v-if="!hidetags">
           <div class="collist">
             <ul>
-              <li v-for="sub in related.content" :key="sub.id">
-                <a :href="sub.link" class="padding dib">{{sub.name}}</a>
+              <li v-for="sub in related.content" :key="sub.id" class="pb-10 pt-10">
+                <a :href="sub.link">{{sub.name}}</a>
               </li>
             </ul>
           </div>
@@ -90,7 +94,7 @@
           id="posts"
           :display="blog.content"
           v-if="blog.content"
-          :title="blog.title"
+          title="blog"
           titleclass="m-only-toggle m-padding"
         >
           <ul class="list-style-none m-toggle padding">
@@ -127,6 +131,7 @@ import SidebarItem from "~/components/SidebarItem.vue";
 import Box from "~/components/Box.vue";
 import Dialog from "~/components/Dialog.vue";
 import Footer from "~/components/Footer.vue";
+import Logo from "~/components/Logo.vue";
 
 import axios from "axios";
 
@@ -165,6 +170,19 @@ export default {
       children: data.children
     };
   },
+  head() {
+    return {
+      title: this.meta.title,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: "description",
+          name: "description",
+          content: this.meta.desc
+        }
+      ]
+    };
+  },
   computed: {
     availableLocales() {
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
@@ -187,7 +205,8 @@ export default {
     Box,
     Tag,
     Dialog,
-    Footer
+    Footer,
+    Logo
   },
   mounted() {}
 };

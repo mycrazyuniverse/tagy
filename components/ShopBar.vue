@@ -2,7 +2,9 @@
   <div class="shop-bar bigbar">
     <div class="container">
       <div class="shop-logo webshop-logo float-left">
-        <img :src="logo" :alt="title" id="webshop-logo" width="42" height="42">
+        <slot name="logo">
+          <img :src="logo" :alt="title" id="webshop-logo" width="42" height="42">
+        </slot>
       </div>
       <div class="inner">
         <h1>{{ title }}</h1>

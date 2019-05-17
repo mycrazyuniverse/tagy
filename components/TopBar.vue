@@ -84,7 +84,7 @@ export default {
     border-radius: 30px;
     border: none;
     height: 50px;
-    background-color: rgba($color: #fff, $alpha: 0.5);
+    background-color: #fff;
   }
 
   .searchfield:focus {
@@ -176,7 +176,7 @@ export default {
   }
 
   .topbar .search {
-    width: calc(100% - 140px);
+    width: calc(100% - 125px);
   }
 
   .hide-mobile {

@@ -89,7 +89,6 @@ export default {
       classes.push("box-content");
 
       if (this.type != "image") {
-        classes.push("padding");
       }
 
       classes.push("lh");
@@ -172,10 +171,10 @@ export default {
 
     svg {
       height: 70px;
-      fill: #09abe0 !important;
+      fill: #0391d8 !important;
 
       path {
-        fill: #09abe0 !important;
+        fill: #0391d8 !important;
       }
     }
   }

@@ -9,6 +9,16 @@
   width: 100%;
 }
 
+.svgfill {
+  svg {
+    fill: #0391d8;
+
+    path {
+      fill: #0391d8;
+    }
+  }
+}
+
 .w50 {
   width: 50%;
 }
@@ -97,6 +107,14 @@ body {
   .tag-title {
     padding-top: 0px !important;
   }
+}
+
+.pb-10 {
+  padding-bottom: 10px;
+}
+
+.pt-10 {
+  padding-top: 10px;
 }
 
 .mb-10 {
@@ -902,7 +920,7 @@ nav {
 
   .bar {
     background-image: url("../assets/images/cloudv2.svg");
-    background-position: right bottom;
+    background-position: center center;
     background-size: cover;
     background-color: #0391d8;
     margin-bottom: 20px;

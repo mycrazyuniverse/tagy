@@ -66,7 +66,13 @@
         </ul>
       </div>
       <div class="ptb2x dib-w100">
-        <Optin :title="optin.title" :subtitle="optin.subtitle" class="rounded overflow-hidden"></Optin>
+        <Optin
+          :title="optin.title"
+          :subtitle="optin.subtitle"
+          :placeholder="optin.placeholder"
+          :btn="optin.btn"
+          class="rounded overflow-hidden"
+        ></Optin>
       </div>
     </div>
     <Dialog></Dialog>

@@ -11,7 +11,13 @@
           </time>
           <div class="article-title">
             <h1>{{ content.post_title }}</h1>
-            <p v-for="item in content.category" :key="item.id">#{{ item.name }}</p>
+            <ul class="w100 dib">
+              <li
+                class="float-left"
+                v-for="item in content.category"
+                :key="item.id"
+              >#{{ item.name }}</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -20,7 +26,7 @@
       <section class="blog-article" id="content">
         <div class="post_content">
           <p class="text-center featuredimg">
-            <img :src="content.thumbnail">
+            <img :src="content.thumbnail" width="90%" :alt="content.post_title">
           </p>
           <article v-html="content.post_content"></article>
         </div>
@@ -69,6 +75,7 @@
           v-if="related.content.length != 0"
           id="related_shops"
           class="related_shop_logo"
+          titleclass="m-padding"
           :display="related.content"
           :title="related.title"
         >
@@ -197,14 +204,13 @@ export default {
 }
 
 @media only screen and (max-width: 1180px) {
-  article {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
   .date .day {
     font-size: 58px;
     padding-bottom: 10px;
+  }
+
+  #gids .featuredimg {
+    padding-right: 0px;
   }
 
   .bigbar {
@@ -212,11 +218,27 @@ export default {
     padding-right: 15px;
   }
 
+  .post_content {
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: hidden;
+
+    img {
+      width: 90%;
+    }
+  }
+
+  .post_content article {
+    width: 100%;
+  }
+
   .article-title {
     line-height: 1.2 !important;
+    padding-right: 0px !important;
 
     h1 {
       padding-bottom: 10px !important;
+      font-size: 20px !important;
     }
   }
 }
