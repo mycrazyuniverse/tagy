@@ -9,7 +9,7 @@
     <div class="description" v-if="bio">
       <p>{{ bio }}</p>
       <div class="visit-shop" v-if="url">
-        <a :href="apiurl" rel="nofollow" target="_blank">{{ calltoaction }} ></a>
+        <a :href="apiurl" rel="nofollow, noreferrer" target="_blank">{{ calltoaction }} ></a>
       </div>
     </div>
   </div>
