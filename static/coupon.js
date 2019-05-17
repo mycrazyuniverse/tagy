@@ -202,7 +202,7 @@ function initCarousel() {
           }
         }
       }
-    }, 2000);
+    }, 5000);
 
 
     leftButton.addEventListener("click", function () {

@@ -1,9 +1,14 @@
 @import "reset";
 
+.menu-item b {
+  height: 20px;
+  cursor: pointer;
+}
 
 .dib {
   display: inline-block;
 }
+
 
 .w100 {
   width: 100%;
