@@ -419,7 +419,8 @@ export default {
       return data;
     },
     cloakurl() {
-      return "https://dev-tagcity.pantheonsite.io" + this.url;
+      //TODO change api url
+      return "https://test-tagcity.pantheonsite.io" + this.url;
     }
   }
 };

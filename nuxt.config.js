@@ -70,7 +70,8 @@ module.exports = {
     ]
   },
   env: {
-    apiUrl: 'http://dev-tagcity.pantheonsite.io',
+    //TODO api
+    apiUrl: 'http://test-tagcity.pantheonsite.io',
     apiSlug: 'api',
   },
 

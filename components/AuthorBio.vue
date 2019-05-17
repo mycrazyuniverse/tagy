@@ -9,11 +9,7 @@
     <div class="description" v-if="bio">
       <p>{{ bio }}</p>
       <div class="visit-shop" v-if="url">
-        <a
-          :href="'https://dev-tagcity.pantheonsite.io' + url"
-          rel="nofollow"
-          target="_blank"
-        >{{ calltoaction }} ></a>
+        <a :href="apiurl" rel="nofollow" target="_blank">{{ calltoaction }} ></a>
       </div>
     </div>
   </div>
@@ -68,6 +64,11 @@ export default {
       bio = bio.replace(/%%last_updated%%/g, this.last_updated);
 
       return bio;
+    },
+    apiurl() {
+      //TODO change api url
+
+      return "https://test-tagcity.pantheonsite.io" + this.url;
     }
   },
   mounted() {}

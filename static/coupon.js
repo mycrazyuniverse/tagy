@@ -5,14 +5,15 @@ var mobilemenuoverlay = document.querySelector(".mobile-menu-overlay");
 var dialog = document.querySelectorAll(".dialog")[0];
 var langcode = document.documentElement.lang;
 var lang = langcode.replace("-BE", "");
-var basisUrl = "https://dev-tagcity.pantheonsite.io";
+//TODO change api url
+var basisUrl = "https://test-tagcity.pantheonsite.io/";
 var apiUrl = basisUrl;
 var urlParams = new URLSearchParams(window.location.search);
 var tagwpop = '';
 var offset = 0;
 
 if (lang != "nl") {
-  apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
+  apiUrl = basisUrl + lang;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -26,10 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
       dialog = document.querySelectorAll(".dialog")[0];
       langcode = document.documentElement.lang;
       lang = langcode.replace("-BE", "");
-      apiUrl = "https://dev-tagcity.pantheonsite.io";
+
+      //TODO change api url
+      apiUrl = "https://test-tagcity.pantheonsite.io/";
 
       if (lang != "nl") {
-        apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
+        apiUrl = basisUrl + lang;
       }
 
       dialog = document.querySelectorAll(".dialog")[0];
@@ -641,7 +644,7 @@ function searchfield() {
 
                 results += '<ul class="tag-results">';
                 results += '<li class="search-tag">';
-                results += '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-dialog dib w100">';
+                results += '<article data-code="" id="tag110" class="tag tag-search tag-link tag-dialog dib w100">';
                 results += '<div class="tag-item float-left">';
                 results += '<div class="discount-box text-center">';
                 results += '<span class="discount text-lg">-20%</span>';
