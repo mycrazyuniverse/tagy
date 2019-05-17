@@ -87,6 +87,23 @@ export default {
     background-color: #fff;
   }
 
+  .searchfield::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #043a6b;
+  }
+  .searchfield::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #043a6b;
+  }
+  .searchfield:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #043a6b;
+  }
+  :-moz-placeholder {
+    /* Firefox 18- */
+    color: #043a6b;
+  }
+
   .searchfield:focus {
     background-color: #fff;
   }
@@ -163,16 +180,12 @@ export default {
     padding-bottom: 0px !important;
   }
 
-  .howbox {
-    width: 50%;
-  }
-
   .searchresults {
     border-radius: 0px;
   }
 
   .topbar {
-    background-color: #00ace8;
+    background-color: #1c73ba;
   }
 
   .topbar .search {

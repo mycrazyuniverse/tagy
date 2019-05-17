@@ -10,6 +10,7 @@
               class="breadcrumb-icon svgfill"
               v-if="item.logo != false"
               :alt="item.title"
+              :id="item.title"
             ></div>
             <span class="crum">{{ item.title }}</span>
           </a>
@@ -17,7 +18,13 @@
         <div v-else class="last-crum">
           <div class="arrow dib arrow-right"></div>
           <a :href="item.url" class="breadcrumb dib" :title="item.title">
-            <div v-html="item.logo" class="breadcrumb-icon" v-if="item.logo" :alt="item.title"></div>
+            <div
+              v-html="item.logo"
+              class="breadcrumb-icon svgfill"
+              v-if="item.logo"
+              :alt="item.title"
+              :id="item.title"
+            ></div>
             <span class="crum">{{ item.title }}</span>
           </a>
         </div>
@@ -59,7 +66,7 @@ export default {
   padding-top: 5px;
   height: 25px;
   float: left;
-  fill: #0391d8;
+  fill: #1c73ba;
   padding-right: 10px;
 
   img {

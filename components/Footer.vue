@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss">
 .footer {
-  background-color: #0391d8;
+  background-color: #1c73ba;
   padding-top: 30px;
   padding-bottom: 30px;
   color: #13315b;
