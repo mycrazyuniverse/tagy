@@ -420,7 +420,7 @@ export default {
     },
     cloakurl() {
       //TODO change api url
-      return "https://test-tagcity.pantheonsite.io" + this.url;
+      return "https://dev-tagcity.pantheonsite.io" + this.url;
     }
   }
 };

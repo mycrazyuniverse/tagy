@@ -4,7 +4,7 @@
       <form>
         <div class="optin-container" v-if="intro">
           <div class="optin-logo">
-            <img :src="logo" class="optin-logo-img logo-img" alt="logo">
+            <img :src="logo" class="optin-logo-img logo-img">
             <img
               src="https://media.tagcity.be/2019/04/optin-1.svg?auto=compress"
               class="envloppe"

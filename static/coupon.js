@@ -6,7 +6,7 @@ var dialog = document.querySelectorAll(".dialog")[0];
 var langcode = document.documentElement.lang;
 var lang = langcode.replace("-BE", "");
 //TODO change api url
-var basisUrl = "https://test-tagcity.pantheonsite.io/";
+var basisUrl = "https://dev-tagcity.pantheonsite.io/";
 var apiUrl = basisUrl;
 var urlParams = new URLSearchParams(window.location.search);
 var tagwpop = '';
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
       lang = langcode.replace("-BE", "");
 
       //TODO change api url
-      apiUrl = "https://test-tagcity.pantheonsite.io/";
+      apiUrl = "https://dev-tagcity.pantheonsite.io/";
 
       if (lang != "nl") {
         apiUrl = basisUrl + lang;
