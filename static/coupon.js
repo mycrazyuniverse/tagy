@@ -394,13 +394,7 @@ function menuitems() {
         );
 
         dropdown_menu.forEach(function (items) {
-          /*removeClass(items, 'show');
 
-            if(hasClass(items, 'show')){
-              addClass(items, 'show');
-            }else{
-              removeClass(items, 'show');
-            }*/
         });
       },
       false
