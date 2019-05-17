@@ -16,4 +16,4 @@ var download = function (url, dest, cb) {
 
 //TODO change api url
 var apiurl = "http://dev-tagcity.pantheonsite.io";
-download(apiurl + '/wp-content/themes/tagcityapi/norobotsallowed.txt', 'static/robot.txt');
+download(apiurl + '/wp-content/themes/tagcityapi/norobotsallowed.txt', 'static/robots.txt');
