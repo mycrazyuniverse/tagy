@@ -6,7 +6,7 @@ var dialog = document.querySelectorAll(".dialog")[0];
 var langcode = document.documentElement.lang;
 var lang = langcode.replace("-BE", "");
 //TODO change api url
-var basisUrl = "https://api.tagcity.be/";
+var basisUrl = "https://api.tagcity.be";
 var apiUrl = basisUrl;
 var urlParams = new URLSearchParams(window.location.search);
 var tagwpop = '';
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
       lang = langcode.replace("-BE", "");
 
       //TODO change api url
-      apiUrl = "https://api.tagcity.be/";
+      apiUrl = "https://api.tagcity.be";
 
       if (lang != "nl") {
         apiUrl = basisUrl + lang;
