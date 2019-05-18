@@ -130,7 +130,7 @@ module.exports = {
   },
   generate: {
     routes: routes,
-    interval: 2000,
+    interval: 1500,
   },
 
   hooks: {
