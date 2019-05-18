@@ -15,7 +15,7 @@ var download = function (url, dest, cb) {
 };
 
 //TODO change api url
-download('https://api.tagcity.be/api/tagcity/v3/sitemap', 'routes.json');
+download('http://api.tagcity.be/api/tagcity/v3/sitemap', 'routes.json');
 
 var http = require('http');
 var fs = require('fs');
