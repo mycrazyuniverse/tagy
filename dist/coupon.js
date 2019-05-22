@@ -5,13 +5,15 @@ var mobilemenuoverlay = document.querySelector(".mobile-menu-overlay");
 var dialog = document.querySelectorAll(".dialog")[0];
 var langcode = document.documentElement.lang;
 var lang = langcode.replace("-BE", "");
-var basisUrl = "https://dev-tagcity.pantheonsite.io";
+//TODO change api url
+var basisUrl = "https://api.tagcity.be";
 var apiUrl = basisUrl;
 var urlParams = new URLSearchParams(window.location.search);
 var tagwpop = '';
+var offset = 0;
 
 if (lang != "nl") {
-  apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
+  apiUrl = basisUrl + lang;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -25,10 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
       dialog = document.querySelectorAll(".dialog")[0];
       langcode = document.documentElement.lang;
       lang = langcode.replace("-BE", "");
-      apiUrl = "https://dev-tagcity.pantheonsite.io";
+
+      //TODO change api url
+      apiUrl = "https://api.tagcity.be";
 
       if (lang != "nl") {
-        apiUrl = "https://dev-tagcity.pantheonsite.io/" + lang;
+        apiUrl = basisUrl + lang;
       }
 
       dialog = document.querySelectorAll(".dialog")[0];
@@ -91,6 +95,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
       optin();
 
+      initCarousel();
+
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-60427126-1');
+
     }
   }
 });
@@ -125,7 +139,24 @@ function optin() {
         email: email
       });
 
-      subscribe_to_newsletter(data);
+      var request = new XMLHttpRequest();
+      request.open('POST', apiUrl + '/api/tagcity/v3/optin', true);
+      request.setRequestHeader('Content-Type', 'application/json');
+
+      request.send(data);
+
+      request.onreadystatechange = function () {
+
+        if (this.readyState == 4 && this.status == 200) {
+
+          var response = JSON.parse(this.responseText);
+
+          console.log(response);
+
+          target.querySelector(".optinrespone").innerHTML = response.message;
+
+        }
+      };
 
       ev.preventDefault();
 
@@ -135,24 +166,63 @@ function optin() {
 }
 
 function subscribe_to_newsletter(data) {
-  var request = new XMLHttpRequest();
-  request.open('POST', apiUrl + '/api/tagcity/v3/optin', true);
-  request.setRequestHeader('Content-Type', 'application/json');
-  request.send(data);
+
+
 }
 
-function left() {
-  if (offset !== 0) {
-    offset += carouselWidth + cardMarginRight;
-    carousel.style.transform = 'translateX(${offset}px)';
-  }
-}
+function initCarousel() {
 
-function right() {
-  if (offset !== maxX) {
-    offset -= carouselWidth + cardMarginRight;
-    carousel.style.transform = 'translateX(${offset}px)';
+  if (document.querySelector("[data-target='carousel']")) {
+    var carousel = document.querySelector("[data-target='carousel']");
+    var card = carousel.querySelector("[data-target='card']");
+    var leftButton = document.querySelector("[data-action='slideLeft']");
+    var rightButton = document.querySelector("[data-action='slideRight']");
+
+    var carouselWidth = carousel.offsetWidth;
+    var cardWidth = card.offsetWidth;
+    var cardStyle = card.currentStyle || window.getComputedStyle(card);
+    var cardMarginRight = Number(cardStyle.marginRight.match(/\d+/g)[0]);
+
+    var cardCount = carousel.querySelectorAll("[data-target='card']").length;
+    var cardPerSlide = Math.floor(carouselWidth / cardWidth);
+    var isPaused = false;
+
+
+    var maxX = -((cardCount / cardPerSlide) * carouselWidth + cardMarginRight * (cardCount / cardPerSlide) - carouselWidth - cardMarginRight);
+
+    setInterval(function () {
+      if (!isPaused) {
+        if (offset <= maxX) {
+          offset = 0;
+          carousel.style.transform = 'translateX(' + offset + 'px)';
+        } else {
+          if (offset !== maxX) {
+            offset -= carouselWidth + cardMarginRight;
+            carousel.style.transform = 'translateX(' + offset + 'px)';
+          }
+        }
+      }
+    }, 5000);
+
+
+    leftButton.addEventListener("click", function () {
+      if (offset !== maxX) {
+        offset -= carouselWidth + cardMarginRight;
+        carousel.style.transform = 'translateX(' + offset + 'px)';
+      }
+      isPaused = true;
+    });
+
+    rightButton.addEventListener("click", function () {
+      if (offset !== 0) {
+        offset += carouselWidth + cardMarginRight;
+        carousel.style.transform = 'translateX(' + offset + 'px)';
+      }
+      isPaused = true;
+    });
+
   }
+
 }
 
 function closeMenu() {
@@ -324,13 +394,7 @@ function menuitems() {
         );
 
         dropdown_menu.forEach(function (items) {
-          /*removeClass(items, 'show');
 
-            if(hasClass(items, 'show')){
-              addClass(items, 'show');
-            }else{
-              removeClass(items, 'show');
-            }*/
         });
       },
       false
@@ -386,6 +450,8 @@ function menuitems() {
   );
 }
 
+var spos = 0;
+
 function searchfield() {
   var searchresults = document.querySelectorAll(".searchresults")[0];
 
@@ -397,11 +463,58 @@ function searchfield() {
     false
   );
 
+  var txtbox = document.getElementById('searchfield');
+  txtbox.onkeydown = function (e) {
+
+    var sresults = searchresults.querySelectorAll(".searchresult a");
+
+    if (e.key == "Enter") {
+      sresults[spos - 1].click();
+      e.preventDefault();
+    }
+
+    if (e.key == "ArrowUp") {
+
+
+      if (0 >= spos) {
+        spos = sresults.length;
+      } else {
+        spos--;
+      }
+
+      sresults.forEach(function (searchresult) {
+        removeClass(searchresult, 'active-result');
+      });
+
+      addClass(sresults[spos], 'active-result');
+
+    }
+
+    if (e.key == "ArrowDown") {
+
+      if (sresults.length <= spos) {
+        spos = 0;
+      } else {
+        spos++;
+      }
+
+      sresults.forEach(function (searchresult) {
+        removeClass(searchresult, 'active-result');
+      });
+
+      addClass(sresults[spos - 1], 'active-result');
+
+    }
+
+  };
+
   document.querySelectorAll(".searchfield")[0].addEventListener(
     "input",
     function (ev) {
       document.querySelectorAll(".tagcitylogo")[0].src =
         "https://media.tagcity.be/2019/03/search.svg?auto=compress%2Cformat&ixlib=php-1.2.1";
+
+      ev.preventDefault();
 
       var request = new XMLHttpRequest();
 
@@ -415,6 +528,8 @@ function searchfield() {
           // Success!
           var data = JSON.parse(request.responseText);
           var results = "";
+
+          spos = 0;
 
           if (data.search.webshops.title) {
             results +=
@@ -523,7 +638,7 @@ function searchfield() {
 
                 results += '<ul class="tag-results">';
                 results += '<li class="search-tag">';
-                results += '<article data-logo="http://dev-tagcity.pantheonsite.io/wp-content/uploads/2019/02/webshop_logo.png" data-code="" id="tag110" class="tag tag-search tag-link tag-dialog dib w100">';
+                results += '<article data-code="" id="tag110" class="tag tag-search tag-link tag-dialog dib w100">';
                 results += '<div class="tag-item float-left">';
                 results += '<div class="discount-box text-center">';
                 results += '<span class="discount text-lg">-20%</span>';
@@ -632,7 +747,6 @@ function returnProperties(properties) {
 
   html += '<ul class="tag-properties">';
 
-
   if (properties) {
 
     console.log(properties);
@@ -651,7 +765,6 @@ function returnProperties(properties) {
       html += '</li>';
 
     });
-
 
   }
 
@@ -705,6 +818,7 @@ function setupDialog() {
       } else {
         dialog.querySelector(".optin-title").textContent = dialog_data.optin.title;
         dialog.querySelector(".optin-subtitle").textContent = dialog_data.optin.subtitle;
+        dialog.querySelector(".optin-btn").value = dialog_data.optin.btn;
       }
 
       dialog.querySelector(".codal-btn").textContent = dialog_data.btn.content;

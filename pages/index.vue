@@ -4,7 +4,6 @@
       <TopBar :search="common.search"></TopBar>
       <Nav :items="common.nav"></Nav>
     </div>
-
     <div class="container">
       <div class="intro padding text-center text ptb2x">
         <h1>{{intro.title}}</h1>

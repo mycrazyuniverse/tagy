@@ -11,6 +11,8 @@
     "download": "node download.js",
     "norobotsallowed": "node norobotsallowed.js",
     "generate": "nuxt generate",
+    "full": "node download.js && nuxt generate",
+    "shopsnl": "node shopsnl.js && nuxt generate",
     "test": "jest"
   },
   "dependencies": {

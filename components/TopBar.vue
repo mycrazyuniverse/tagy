@@ -49,7 +49,14 @@
 
 <script>
 export default {
-  props: ["search"],
+  props: {
+    search: {
+      type: Object,
+      default: {
+        slug: "actief"
+      }
+    }
+  },
   mounted() {}
 };
 </script>
